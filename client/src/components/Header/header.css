@@ -33,6 +33,10 @@
   padding: 0px 15px;
 }
 
-.searchWrapper {
-  margin-left: auto;
+.userBtn {
+  margin-left: 15px;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

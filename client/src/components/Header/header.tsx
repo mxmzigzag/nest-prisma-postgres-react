@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+
 import Logo from "../../assets/svg/logo";
+import UserIcon from "../../assets/svg/user";
 import SearchInput from "../SearchInput/searchInput";
 
 import "./header.css";
@@ -37,9 +39,10 @@ export default function Header() {
             </NavLink>
           ))}
         </nav>
-        <div className="searchWrapper">
-          <SearchInput />
-        </div>
+        <SearchInput />
+        <NavLink to="/account" className="userBtn">
+          <UserIcon />
+        </NavLink>
       </div>
     </div>
   );

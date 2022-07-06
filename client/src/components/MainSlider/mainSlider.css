@@ -1,0 +1,33 @@
+.sliderWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sliderMessage {
+  font-size: 24px;
+  margin: 25px 0px;
+}
+
+.slide {
+  width: 33.333%;
+  min-height: 430px;
+  display: flex;
+  padding: 10px;
+}
+
+.slideContent {
+  margin-top: auto;
+}
+
+.slideCategory {
+  padding: 2px 4px;
+  border-radius: 5px;
+  background-color: aquamarine;
+  color: #ffffff;
+}
+
+.slideTitle {
+  margin: 15px 0px;
+  font-size: 20px;
+}

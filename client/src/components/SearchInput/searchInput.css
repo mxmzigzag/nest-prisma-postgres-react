@@ -1,5 +1,25 @@
+.searchWrapper {
+  position: relative;
+  margin-left: auto;
+}
+
 .searchInput {
   border: 1px solid rgb(167, 167, 167);
   border-radius: 4px;
-  padding: 5px 15px;
+  padding: 5px 45px 5px 10px;
+  outline: none;
+}
+
+.searchBtn {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

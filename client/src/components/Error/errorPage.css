@@ -12,3 +12,12 @@
 .errorTitle {
   margin: 40px 0px 20px;
 }
+
+.linkButton {
+  background: none;
+  border: none;
+  outline: none;
+  color: aqua;
+  text-decoration: underline;
+  cursor: pointer;
+}

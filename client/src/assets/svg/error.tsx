@@ -2,8 +2,8 @@ import React from "react";
 import { Props } from "./svg.types";
 
 export default function ErrorIcon({
-  width = 2500,
-  height = 1868,
+  width = 200,
+  height = 190,
   className = "",
   ...otherProps
 }: Props) {

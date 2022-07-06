@@ -11,7 +11,7 @@ export default function App() {
     <div>
       <BrowserRouter>
         <Header />
-        <div>
+        <div className="siteBg">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/category/:categoryId" element={<Category />} />
