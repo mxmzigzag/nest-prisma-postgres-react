@@ -1,37 +1,24 @@
 import React from "react";
-import { useFetch } from "./hooks/useFetch";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-type User = {
-  name: string;
-  surname: string;
-  userName: string;
-  email: string;
-};
+import Category from "./components/Category/category";
+import ErrorPage from "./components/Error/errorPage";
+import Header from "./components/Header/header";
+import Home from "./components/Home/home";
 
 export default function App() {
-  const { request } = useFetch();
-
-  const handleGetAllUsers = async () => {
-    const data = await request("users");
-    console.log("data:", data);
-  };
-
-  const handleAddDummyUser = async () => {
-    const body: User = {
-      name: "user 1",
-      surname: "suer",
-      userName: "userino",
-      email: "user@gm.com",
-    };
-    const data = await request("user", "POST", body);
-    console.log("data:", data);
-  };
-
   return (
     <div>
-      <h1>App {new Date().toLocaleDateString()}</h1>
-      <button onClick={handleGetAllUsers}>Get</button>
-      <button onClick={handleAddDummyUser}>Add dummy user</button>
+      <Header />
+      <div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/category/:categoryId" element={<Category />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }
