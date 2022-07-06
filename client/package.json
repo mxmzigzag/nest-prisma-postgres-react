@@ -2,7 +2,8 @@
   "name": "client-app",
   "version": "0.0.1",
   "scripts": {
-    "start": "webpack serve --config webpack.dev.config.ts"
+    "start": "webpack serve --config webpack.dev.config.ts",
+    "build": "webpack --config webpack.prod.config.ts"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -22,6 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "babel-loader": "^8.2.5",
+    "clean-webpack-plugin": "^4.0.0",
     "eslint": "^8.19.0",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
