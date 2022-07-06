@@ -9,16 +9,16 @@ import Home from "./components/Home/home";
 export default function App() {
   return (
     <div>
-      <Header />
-      <div>
-        <BrowserRouter>
+      <BrowserRouter>
+        <Header />
+        <div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/category/:categoryId" element={<Category />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
-        </BrowserRouter>
-      </div>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
