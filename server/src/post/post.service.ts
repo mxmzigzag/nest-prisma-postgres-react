@@ -10,13 +10,44 @@ export class PostService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async createPost(dto: CreatePostDto) {
+    const { title, description, body, authorId, categoryId, tags } = dto;
     return this.prismaService.post.create({
-      data: dto,
+      data: {
+        title,
+        description,
+        body,
+        authorId,
+        categoryId,
+        tags: {
+          create: tags.map((tag) => ({
+            assignedAt: new Date(),
+            tag: {
+              create: tag,
+            },
+          })),
+        },
+      },
     });
   }
 
   async getPosts(): Promise<PostModel[]> {
-    return this.prismaService.post.findMany();
+    return this.prismaService.post.findMany({
+      include: {
+        author: {
+          select: {
+            userName: true,
+          },
+        },
+        category: true,
+        tags: {
+          select: {
+            tag: {
+              select: { name: true },
+            },
+          },
+        },
+      },
+    });
   }
 
   async getOnePost(id: number): Promise<PostModel> {
@@ -24,7 +55,24 @@ export class PostService {
   }
 
   async updatePost(id: number, postDto: UpdatePostDto) {
-    return this.prismaService.post.update({ where: { id }, data: postDto });
+    const { title, description, body, categoryId, tags } = postDto;
+    return this.prismaService.post.update({
+      where: { id },
+      data: {
+        title,
+        description,
+        body,
+        categoryId,
+        tags: {
+          create: tags.map((tag) => ({
+            assignedAt: new Date(),
+            tag: {
+              create: tag,
+            },
+          })),
+        },
+      },
+    });
   }
 
   async deletePost(id: number) {

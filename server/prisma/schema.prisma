@@ -39,24 +39,32 @@ model Post {
   description   String?
   body          String
   isPublished   Boolean       @default(false)
-  author        User         @relation(fields: [authorId], references: [id])
+  author        User          @relation(fields: [authorId], references: [id])
   authorId      Int
-  categories    CategoriesOnPosts[]   
+  category      Category      @relation(fields: [categoryId], references: [id])
+  categoryId    Int
+  tags          TagsOnPosts[]   
   viewsCount    Int           @default(0)
 }
 
 model Category {
   id      Int     @id @unique @default(autoincrement())
   title   String
-  post    CategoriesOnPosts[]
+  post    Post[]
 }
 
-model CategoriesOnPosts {
+model Tag {
+  id      Int     @id @unique @default(autoincrement())
+  name    String
+  post    TagsOnPosts[]
+}
+
+model TagsOnPosts {
   post        Post      @relation(fields: [postId], references: [id])
   postId      Int 
-  category    Category       @relation(fields: [categoryId], references: [id])
-  categoryId  Int 
+  tag         Tag       @relation(fields: [tagId], references: [id])
+  tagId       Int 
   assignedAt  DateTime  @default(now())
 
-  @@id([postId, categoryId])
+  @@id([postId, tagId])
 }

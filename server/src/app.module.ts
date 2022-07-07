@@ -13,6 +13,9 @@ import { CategoryController } from './category/category.controller';
 import { BannedUserController } from './banned-user/banned-user.controller';
 import { CategoryService } from './category/category.service';
 import { BannedUserService } from './banned-user/banned-user.service';
+import { TagController } from './tag/tag.controller';
+import { TagService } from './tag/tag.service';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   controllers: [
@@ -20,6 +23,7 @@ import { BannedUserService } from './banned-user/banned-user.service';
     PostController,
     CategoryController,
     BannedUserController,
+    TagController,
   ],
   providers: [
     PrismaService,
@@ -27,6 +31,7 @@ import { BannedUserService } from './banned-user/banned-user.service';
     PostService,
     CategoryService,
     BannedUserService,
+    TagService,
   ],
   imports: [
     PrismaModule,
@@ -34,6 +39,7 @@ import { BannedUserService } from './banned-user/banned-user.service';
     PostModule,
     CategoryModule,
     BannedUserModule,
+    TagModule,
   ],
 })
 export class AppModule {}
