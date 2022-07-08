@@ -17,14 +17,16 @@ enum Role {
 }
 
 model User {
-  id       Int @id @unique @default(autoincrement())
-  name     String
-  surname  String
-  userName String @unique
-  email    String @unique
-  role     Role   @default(USER)
-  post     Post[]
-  banned   BannedUser?
+  id              Int         @id @unique @default(autoincrement())
+  name            String
+  surname         String
+  userName        String      @unique
+  email           String      @unique
+  password        String?
+  token           String?     @unique
+  role            Role        @default(USER)
+  post            Post[]
+  banned          BannedUser?
 }
 
 model BannedUser {

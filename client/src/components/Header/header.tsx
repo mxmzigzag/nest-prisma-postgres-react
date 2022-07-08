@@ -8,6 +8,7 @@ import SearchInput from "../SearchInput/searchInput";
 import "./header.css";
 
 export default function Header() {
+  const isAuth = false;
   const navItems = [
     { id: 0, title: "Home", link: "/" },
     { id: 1, title: "Category", link: "/category" },
@@ -40,7 +41,7 @@ export default function Header() {
           ))}
         </nav>
         <SearchInput />
-        <NavLink to="/account" className="userBtn">
+        <NavLink to={`/${isAuth ? "/profile" : "login"}`} className="userBtn">
           <UserIcon />
         </NavLink>
       </div>

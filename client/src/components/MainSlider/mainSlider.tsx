@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useFetch } from "../../hooks/useFetch";
 
 import "./mainSlider.css";
@@ -10,11 +10,11 @@ type Slide = {
 };
 
 export default function MainSlider() {
-  const [slides, setSlides] = useState<Slide[]>([
+  const slides: Slide[] = [
     { id: 0, title: "Title", category: "Sport" },
     { id: 1, title: "Title", category: "Space" },
     { id: 2, title: "Title", category: "Science" },
-  ]);
+  ];
   const { request } = useFetch();
 
   const getTopPosts = async () => {
@@ -24,7 +24,7 @@ export default function MainSlider() {
 
   useEffect(() => {
     getTopPosts();
-  }, []);
+  }, [getTopPosts]);
 
   return (
     <div className="sliderWrap">
