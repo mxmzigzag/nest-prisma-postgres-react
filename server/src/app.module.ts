@@ -16,6 +16,7 @@ import { BannedUserService } from './banned-user/banned-user.service';
 import { TagController } from './tag/tag.controller';
 import { TagService } from './tag/tag.service';
 import { TagModule } from './tag/tag.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   controllers: [
@@ -40,6 +41,7 @@ import { TagModule } from './tag/tag.module';
     CategoryModule,
     BannedUserModule,
     TagModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
