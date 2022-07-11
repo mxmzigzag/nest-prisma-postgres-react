@@ -1,4 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ValidationPipe } from 'src/pipes/validation.pipe';
+import { CreateUserDto } from './dto/createUser.dto';
 
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { UserService } from './user.service';
@@ -7,7 +20,14 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private userService: UserService) {}
 
+  @Post('/user')
+  @UsePipes(ValidationPipe)
+  createUser(dto: CreateUserDto) {
+    return this.userService.createUser(dto);
+  }
+
   @Get('/users')
+  @UseGuards(JwtAuthGuard)
   getUsers() {
     return this.userService.getUsers();
   }
