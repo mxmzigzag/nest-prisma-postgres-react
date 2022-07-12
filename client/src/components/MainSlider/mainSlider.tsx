@@ -27,7 +27,7 @@ export default function MainSlider() {
   }, [getTopPosts]);
 
   return (
-    <div className="sliderWrap">
+    <div className="slider-wrap">
       {slides.length >= 3 ? (
         slides.map((slide) => (
           <Slide
@@ -38,7 +38,7 @@ export default function MainSlider() {
           />
         ))
       ) : (
-        <p className="sliderMessage">Add more categories and posts, please!</p>
+        <p className="slider-message">Add more categories and posts, please!</p>
       )}
     </div>
   );
@@ -47,9 +47,9 @@ export default function MainSlider() {
 const Slide = ({ title, category }: Slide) => {
   return (
     <div className="slide">
-      <div className="slideContent">
-        <span className="slideCategory">{category}</span>
-        <p className="slideTitle">{title}</p>
+      <div className="slide-content">
+        <span className="slide-category">{category}</span>
+        <p className="slide-title">{title}</p>
       </div>
     </div>
   );

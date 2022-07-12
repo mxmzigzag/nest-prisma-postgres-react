@@ -21,8 +21,8 @@ export default function Header() {
   };
 
   return (
-    <div className="headerBg">
-      <div className="headerWrapper">
+    <div className="header-bg">
+      <div className="header-wrapper">
         <Logo
           width={50}
           height={37}
@@ -34,14 +34,14 @@ export default function Header() {
             <NavLink
               key={item.id}
               to={item.link}
-              className={({ isActive }) => (isActive ? "activeLink" : "link")}
+              className={({ isActive }) => (isActive ? "active-link" : "link")}
             >
               {item.title}
             </NavLink>
           ))}
         </nav>
         <SearchInput />
-        <NavLink to={`/${isAuth ? "/profile" : "login"}`} className="userBtn">
+        <NavLink to={`/${isAuth ? "/profile" : "login"}`} className="user-btn">
           <UserIcon />
         </NavLink>
       </div>

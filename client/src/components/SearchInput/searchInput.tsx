@@ -15,15 +15,15 @@ export default function SearchInput() {
   };
 
   return (
-    <div className="searchWrapper">
+    <div className="search-wrapper">
       <input
         type="text"
         placeholder="Search for some post..."
-        className="searchInput"
+        className="search-input"
         value={value}
         onChange={handleChange}
       />
-      <button className="searchBtn" onClick={handleSubmit}>
+      <button className="search-btn" onClick={handleSubmit}>
         <SearchIcon width={22} height={22} />
       </button>
     </div>

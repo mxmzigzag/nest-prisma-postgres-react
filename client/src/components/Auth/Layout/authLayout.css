@@ -1,0 +1,17 @@
+.auth-wrapper {
+  min-height: 100vh;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 0px;
+}
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.18);
+}

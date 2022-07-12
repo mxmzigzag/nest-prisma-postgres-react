@@ -30,8 +30,8 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div>
-      <h1>Sign in</h1>
+    <>
+      <h1 className="text-center form-title">Sign in</h1>
       <input
         type="text"
         name="name"
@@ -70,6 +70,6 @@ export default function RegistrationForm() {
       {/* <InputGroup />
       <InputGroup /> */}
       <button onClick={onSubmit}>Log in</button>
-    </div>
+    </>
   );
 }

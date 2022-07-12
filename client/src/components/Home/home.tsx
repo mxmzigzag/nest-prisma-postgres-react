@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <MainSlider />
-      <div className="mainWrapper">
+      <div className="main-wrapper">
         <Blog />
       </div>
     </>

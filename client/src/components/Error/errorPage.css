@@ -1,4 +1,4 @@
-.errorPageWrapper {
+.error-page-wrapper {
   max-width: 1200px;
   padding: 15px 25px;
   margin: 0 auto;
@@ -9,11 +9,11 @@
   min-height: calc(100vh - 67px);
 }
 
-.errorTitle {
+.error-title {
   margin: 40px 0px 20px;
 }
 
-.linkButton {
+.link-button {
   background: none;
   border: none;
   outline: none;

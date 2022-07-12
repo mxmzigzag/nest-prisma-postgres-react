@@ -21,8 +21,8 @@ export default function LoginForm() {
   };
 
   return (
-    <div>
-      <h1>Log in</h1>
+    <>
+      <h1 className="text-center form-title">Log in</h1>
       <input
         type="text"
         name="email"
@@ -40,6 +40,6 @@ export default function LoginForm() {
       {/* <InputGroup />
       <InputGroup /> */}
       <button onClick={onSubmit}>Log in</button>
-    </div>
+    </>
   );
 }

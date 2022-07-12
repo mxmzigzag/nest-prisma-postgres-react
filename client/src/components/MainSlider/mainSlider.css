@@ -1,10 +1,10 @@
-.sliderWrap {
+.slider-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.sliderMessage {
+.slider-message {
   font-size: 24px;
   margin: 25px 0px;
 }
@@ -16,18 +16,18 @@
   padding: 10px;
 }
 
-.slideContent {
+.slide-content {
   margin-top: auto;
 }
 
-.slideCategory {
+.slide-category {
   padding: 2px 4px;
   border-radius: 5px;
   background-color: aquamarine;
   color: #ffffff;
 }
 
-.slideTitle {
+.slide-title {
   margin: 15px 0px;
   font-size: 20px;
 }
