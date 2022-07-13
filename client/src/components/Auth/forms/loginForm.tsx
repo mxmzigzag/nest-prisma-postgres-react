@@ -1,5 +1,9 @@
 import React, { ChangeEvent, useState } from "react";
-// import InputGroup from "../../Inputs/inputGroup/inputGroup";
+
+import { useFetch } from "../../../hooks/useFetch";
+
+import InputGroup from "../../common/Inputs/inputGroup/inputGroup";
+import { errorToast } from "../../common/Toast/toast";
 
 type LoginFormData = {
   email: string;
@@ -7,6 +11,7 @@ type LoginFormData = {
 };
 
 export default function LoginForm() {
+  const { request } = useFetch();
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
@@ -17,28 +22,30 @@ export default function LoginForm() {
   };
 
   const onSubmit = async () => {
-    console.log(formData);
+    try {
+      await request("login", "POST", formData);
+    } catch (err: any) {
+      errorToast(err);
+    }
   };
 
   return (
     <>
       <h1 className="text-center form-title">Log in</h1>
-      <input
-        type="text"
+      <InputGroup
+        label="Email"
         name="email"
         placeholder="E-mail"
         value={formData.email}
         onChange={onChange}
       />
-      <input
-        type="text"
+      <InputGroup
+        label="Password"
         name="password"
         placeholder="Password"
         value={formData.password}
         onChange={onChange}
       />
-      {/* <InputGroup />
-      <InputGroup /> */}
       <button onClick={onSubmit}>Log in</button>
     </>
   );

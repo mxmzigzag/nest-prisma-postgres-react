@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import Logo from "../../assets/svg/logo";
 import UserIcon from "../../assets/svg/user";
-import SearchInput from "../SearchInput/searchInput";
+import SearchInput from "../common/SearchInput/searchInput";
 
 import "./header.css";
 

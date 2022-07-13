@@ -3,3 +3,8 @@
   text-transform: uppercase;
   margin-bottom: 15px;
 }
+
+.form-undertext {
+  margin-top: 10px;
+  font-size: 16px;
+}

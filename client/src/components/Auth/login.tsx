@@ -10,7 +10,7 @@ export default function Login() {
   return (
     <AuthLayout>
       <LoginForm />
-      <p>
+      <p className="form-undertext">
         Don`t have an account yet?{" "}
         <NavLink to="/registation">Create one.</NavLink>
       </p>
