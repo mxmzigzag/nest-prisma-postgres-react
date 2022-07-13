@@ -8,6 +8,7 @@ type Headers = {
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 
 interface Response<T> {
+  token: any;
   status: "ok" | "error";
   code: number;
   message?: string;
@@ -41,7 +42,7 @@ export const useFetch = () => {
       });
       const data: Response<T> = await response.json();
 
-      if (!response.ok) throw data.message || "Error occured while fetch";
+      if (!response.ok) throw data || "Error occured while fetch";
 
       setIsLoading(false);
 

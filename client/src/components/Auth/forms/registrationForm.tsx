@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useFetch } from "../../../hooks/useFetch";
 import InputGroup from "../../common/Inputs/inputGroup/inputGroup";
+import { errorToast, successToast } from "../../common/Toast/toast";
 
 type RegistrationFormData = {
   name: string;
@@ -10,8 +12,18 @@ type RegistrationFormData = {
   password: string;
 };
 
+type Errors = {
+  [key: string]: string;
+};
+
+type TokenResponse = {
+  token: string;
+};
+
 export default function RegistrationForm() {
   const { request } = useFetch();
+  const navigate = useNavigate();
+  const [errors, setErrors] = useState<Errors>({});
   const [formData, setFormData] = useState<RegistrationFormData>({
     name: "",
     surname: "",
@@ -25,25 +37,35 @@ export default function RegistrationForm() {
   };
 
   const onSubmit = async () => {
-    const data = await request("register", "POST", formData);
-    console.log("data", data);
+    try {
+      const data = await request<TokenResponse>(
+        "registration",
+        "POST",
+        formData
+      );
+
+      if (data.token) {
+        successToast("You have been registered!");
+        navigate("/");
+      }
+    } catch (err: any) {
+      if (!err.message) {
+        setErrors(err);
+      } else {
+        errorToast(err);
+      }
+    }
   };
 
   return (
     <>
       <h1 className="text-center form-title">Sign in</h1>
-      <input
-        type="text"
-        name="password"
-        placeholder="Password"
-        value={formData.password}
-        onChange={onChange}
-      />
       <InputGroup
         label="Name"
         name="name"
         placeholder="Name"
         value={formData.name}
+        error={errors.name}
         onChange={onChange}
       />
       <InputGroup
@@ -51,6 +73,7 @@ export default function RegistrationForm() {
         name="surname"
         placeholder="Surname"
         value={formData.surname}
+        error={errors.surname}
         onChange={onChange}
       />
       <InputGroup
@@ -58,6 +81,7 @@ export default function RegistrationForm() {
         name="userName"
         placeholder="Username"
         value={formData.userName}
+        error={errors.userName}
         onChange={onChange}
       />
       <InputGroup
@@ -65,6 +89,7 @@ export default function RegistrationForm() {
         name="email"
         placeholder="Email"
         value={formData.email}
+        error={errors.email}
         onChange={onChange}
       />
       <InputGroup
@@ -72,9 +97,10 @@ export default function RegistrationForm() {
         name="password"
         placeholder="Password"
         value={formData.password}
+        error={errors.password}
         onChange={onChange}
       />
-      <button onClick={onSubmit}>Log in</button>
+      <button onClick={onSubmit}>Sign in</button>
     </>
   );
 }

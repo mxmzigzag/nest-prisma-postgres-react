@@ -3,12 +3,13 @@ import { NavLink } from "react-router-dom";
 
 import Logo from "../../assets/svg/logo";
 import UserIcon from "../../assets/svg/user";
+import useAuth from "../../hooks/useAuth";
 import SearchInput from "../common/SearchInput/searchInput";
 
 import "./header.css";
 
 export default function Header() {
-  const isAuth = false;
+  const isAuth = useAuth();
   const navItems = [
     { id: 0, title: "Home", link: "/" },
     { id: 1, title: "Category", link: "/category" },

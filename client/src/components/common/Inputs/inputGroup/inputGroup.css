@@ -8,3 +8,9 @@
   font-size: 18px;
   margin-bottom: 2px;
 }
+
+.input-error {
+  margin-top: 4px;
+  color: red;
+  font-size: 12px;
+}

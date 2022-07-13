@@ -23,7 +23,8 @@ export default function LoginForm() {
 
   const onSubmit = async () => {
     try {
-      await request("login", "POST", formData);
+      const data = await request("login", "POST", formData);
+      console.log("resp", data);
     } catch (err: any) {
       errorToast(err);
     }

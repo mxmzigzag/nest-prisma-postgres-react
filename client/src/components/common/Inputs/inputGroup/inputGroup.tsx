@@ -9,6 +9,7 @@ type Props = {
   name: string;
   placeholder: string;
   value: string;
+  error?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -17,6 +18,7 @@ export default function InputGroup({
   name,
   placeholder,
   value,
+  error,
   onChange,
 }: Props) {
   return (
@@ -30,6 +32,7 @@ export default function InputGroup({
         value={value}
         onChange={onChange}
       />
+      {error && <span className="input-error">{error}</span>}
     </div>
   );
 }
