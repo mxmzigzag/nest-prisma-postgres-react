@@ -10,6 +10,7 @@ import Home from "./components/pages/Home/home";
 import Profile from "./components/pages/Profile/profile";
 import Login from "./components/pages/Auth/login";
 import Registration from "./components/pages/Auth/registration";
+import Footer from "./components/Footer/footer";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
+        <Footer />
       </BrowserRouter>
       <ToastContainer />
     </div>
