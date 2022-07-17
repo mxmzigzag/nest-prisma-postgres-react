@@ -25,6 +25,11 @@ export class PostController {
     return this.postService.getPosts();
   }
 
+  @Get('/topViewedPosts')
+  getTopViewedPosts() {
+    return this.postService.getTopViewedPosts();
+  }
+
   @Get('/post/:id')
   getOnePost(@Param('id') id: number) {
     return this.postService.getOnePost(Number(id));

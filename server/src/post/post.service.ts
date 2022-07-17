@@ -50,6 +50,13 @@ export class PostService {
     });
   }
 
+  async getTopViewedPosts() {
+    //@ts-ignore
+    return this.prismaService.post.groupBy({
+      by: ['title', 'categoryId'],
+    });
+  }
+
   async getOnePost(id: number): Promise<PostModel> {
     return this.prismaService.post.findUnique({ where: { id } });
   }

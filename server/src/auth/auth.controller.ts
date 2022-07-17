@@ -15,7 +15,8 @@ export class AuthController {
   ) {
     const userData = await this.authService.registration(userDto);
     res.cookie('token', userData.token, {
-      maxAge: 30 * 24 * 60 * 100,
+      expires: new Date(new Date().getTime() + 30 * 1000),
+      sameSite: 'strict',
       httpOnly: true,
     });
     return userData;
@@ -28,7 +29,8 @@ export class AuthController {
   ) {
     const userData = await this.authService.login(userDto);
     res.cookie('token', userData.token, {
-      maxAge: 30 * 24 * 60 * 100,
+      expires: new Date(new Date().getTime() + 30 * 1000),
+      sameSite: 'strict',
       httpOnly: true,
     });
     return userData;

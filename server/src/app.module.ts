@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
+
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
@@ -36,6 +39,9 @@ import { AuthModule } from './auth/auth.module';
   ],
   imports: [
     PrismaModule,
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'static'),
+    }),
     UserModule,
     PostModule,
     CategoryModule,
