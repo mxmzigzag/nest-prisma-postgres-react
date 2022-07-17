@@ -14,20 +14,46 @@
   min-height: 430px;
   display: flex;
   padding: 10px;
+  position: relative;
+
+  background-size: cover;
+  background-position: right;
 }
 
 .slide-content {
   margin-top: auto;
+  z-index: 2;
 }
 
 .slide-category {
-  padding: 2px 4px;
+  padding: 2px 6px;
   border-radius: 5px;
-  background-color: aquamarine;
   color: #ffffff;
 }
 
 .slide-title {
   margin: 15px 0px;
   font-size: 20px;
+  color: #fff;
+}
+
+.slide-descr {
+  font-size: 16px;
+  color: #fff;
+}
+
+.slide-darkness {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+.slide:hover .slide-darkness {
+  opacity: 0;
+  transition: opacity 0.15s ease;
 }

@@ -1,30 +1,35 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { topViewedPosts } from "../../dummyData";
 import { useFetch } from "../../hooks/useFetch";
 
 import "./mainSlider.css";
 
+type Category = {
+  id: number;
+  title: string;
+  color: string;
+};
+
 type Slide = {
   id: number;
   title: string;
-  category: string;
+  description: string;
+  image: string;
+  category: Category;
 };
 
 export default function MainSlider() {
-  const slides: Slide[] = [
-    { id: 0, title: "Title", category: "Sport" },
-    { id: 1, title: "Title", category: "Space" },
-    { id: 2, title: "Title", category: "Science" },
-  ];
+  const [slides, setSlides] = useState<Slide[]>(topViewedPosts);
   const { request } = useFetch();
 
   const getTopPosts = async () => {
-    const data = await request("topPosts");
+    const data = await request("topViewedPosts");
     console.log(data);
   };
 
-  useEffect(() => {
-    getTopPosts();
-  }, [getTopPosts]);
+  // useEffect(() => {
+  //   getTopPosts();
+  // }, [getTopPosts]);
 
   return (
     <div className="slider-wrap">
@@ -34,6 +39,8 @@ export default function MainSlider() {
             key={slide.id}
             id={slide.id}
             title={slide.title}
+            image={slide.image}
+            description={slide.description}
             category={slide.category}
           />
         ))
@@ -44,13 +51,20 @@ export default function MainSlider() {
   );
 }
 
-const Slide = ({ title, category }: Slide) => {
+const Slide = ({ title, image, description, category }: Slide) => {
   return (
-    <div className="slide">
+    <div className="slide" style={{ backgroundImage: `url(${image})` }}>
       <div className="slide-content">
-        <span className="slide-category">{category}</span>
+        <span
+          className="slide-category"
+          style={{ backgroundColor: category.color }}
+        >
+          {category.title}
+        </span>
         <p className="slide-title">{title}</p>
+        <p className="slide-descr">{description}</p>
       </div>
+      <div className="slide-darkness"></div>
     </div>
   );
 };

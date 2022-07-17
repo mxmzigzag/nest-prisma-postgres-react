@@ -1,4 +1,4 @@
-import path from "path";
+import * as path from "path";
 import {
   Configuration as WebpackConfiguration,
   HotModuleReplacementPlugin,
@@ -37,6 +37,15 @@ const config: Configuration = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|jpg|jpeg|webp|gif)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {},
+          },
+        ],
       },
     ],
   },
