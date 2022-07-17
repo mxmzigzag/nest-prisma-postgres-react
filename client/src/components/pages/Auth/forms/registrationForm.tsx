@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFetch } from "../../../hooks/useFetch";
-import InputGroup from "../../common/Inputs/inputGroup/inputGroup";
-import { errorToast, successToast } from "../../common/Toast/toast";
+import { useFetch } from "../../../../hooks/useFetch";
+import InputGroup from "../../../common/Inputs/inputGroup/inputGroup";
+import { errorToast, successToast } from "../../../common/Toast/toast";
 
 type RegistrationFormData = {
   name: string;

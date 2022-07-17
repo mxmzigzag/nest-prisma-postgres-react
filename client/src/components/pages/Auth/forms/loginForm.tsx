@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState } from "react";
 
-import { useFetch } from "../../../hooks/useFetch";
+import { useFetch } from "../../../../hooks/useFetch";
 
-import InputGroup from "../../common/Inputs/inputGroup/inputGroup";
-import { errorToast } from "../../common/Toast/toast";
+import InputGroup from "../../../common/Inputs/inputGroup/inputGroup";
+import { errorToast } from "../../../common/Toast/toast";
 
 type LoginFormData = {
   email: string;
