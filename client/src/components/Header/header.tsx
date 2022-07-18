@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import Logo from "../../assets/svg/logo";
 import UserIcon from "../../assets/svg/user";
 import useAuth from "../../hooks/useAuth";
-import SearchInput from "../common/SearchInput/searchInput";
 
 import "./header.css";
 
@@ -41,9 +40,17 @@ export default function Header() {
             </NavLink>
           ))}
         </nav>
-        <SearchInput />
         <NavLink to={`/${isAuth ? "/profile" : "login"}`} className="user-btn">
-          <UserIcon />
+          <div className="header-user-wrapper">
+            <div className="header-user-info">
+              <span className="header-user-name">user name</span>
+              <div className="header-user-divider"></div>
+              <span className="header-user-role">Creator</span>
+            </div>
+            <div className="header-user-img">
+              <UserIcon />
+            </div>
+          </div>
         </NavLink>
       </div>
     </div>

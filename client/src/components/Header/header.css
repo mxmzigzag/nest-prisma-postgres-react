@@ -34,9 +34,49 @@
 }
 
 .user-btn {
-  margin-left: 15px;
+  margin-left: auto;
   color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.header-user-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid burlywood;
+  border-radius: 50px;
+  background-color: burlywood;
+}
+
+.header-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 0px 5px 10px;
+}
+
+.header-user-name {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.header-user-divider {
+  width: 100%;
+  height: 1px;
+  background-color: #000;
+  margin: 5px 0px;
+}
+
+.header-user-role {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.header-user-img {
+  border-radius: 50%;
+  border: 1px solid black;
+  line-height: 0;
+  padding: 10px;
+  margin-left: 5px;
 }
