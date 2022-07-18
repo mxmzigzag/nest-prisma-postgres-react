@@ -57,7 +57,9 @@ export default function Posts({ posts }: Props) {
           />
         ))}
       </div>
-      <button onClick={handleMore}>More</button>
+      <button className="load-more-btn" onClick={handleMore}>
+        More
+      </button>
     </div>
   );
 }
