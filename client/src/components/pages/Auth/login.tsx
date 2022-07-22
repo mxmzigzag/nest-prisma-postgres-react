@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import AuthLayout from "./Layout/authLayout";
 import LoginForm from "./forms/loginForm";
 
-import "./auth.css";
+import "./auth.scss";
 
 export default function Login() {
   return (

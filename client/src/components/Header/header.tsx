@@ -5,7 +5,7 @@ import Logo from "../../assets/svg/logo";
 import UserIcon from "../../assets/svg/user";
 import useAuth from "../../hooks/useAuth";
 
-import "./header.css";
+import "./header.scss";
 
 export default function Header() {
   const isAuth = useAuth();

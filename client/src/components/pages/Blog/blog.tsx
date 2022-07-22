@@ -4,7 +4,7 @@ import BlogActionBar from "./actionBar/blogActionBar";
 import Posts from "../../Posts/posts";
 import { posts } from "../../../dummyData";
 
-import "./blog.css";
+import "./blog.scss";
 
 export default function Blog() {
   const [postList, setPostList] = useState(posts);

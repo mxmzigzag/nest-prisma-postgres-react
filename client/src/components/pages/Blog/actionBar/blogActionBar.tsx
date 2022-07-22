@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import SearchIcon from "../../../../assets/svg/search";
 
-import "./blogActionBar.css";
+import "./blogActionBar.scss";
 
 export default function BlogActionBar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);

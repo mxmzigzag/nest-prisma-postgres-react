@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./authLayout.css";
+import "./authLayout.scss";
 
 type Props = {
   children: JSX.Element | JSX.Element[];

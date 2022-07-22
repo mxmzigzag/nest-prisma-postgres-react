@@ -2,7 +2,7 @@ import React, { ChangeEvent } from "react";
 
 import Input from "../text/textInput";
 
-import "./inputGroup.css";
+import "./inputGroup.scss";
 
 type Props = {
   label: string;

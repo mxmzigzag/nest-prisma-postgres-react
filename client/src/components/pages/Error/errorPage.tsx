@@ -2,7 +2,7 @@ import React from "react";
 import ErrorIcon from "../../../assets/svg/error";
 import { useNavigate } from "react-router-dom";
 
-import "./errorPage.css";
+import "./errorPage.scss";
 
 export default function ErrorPage() {
   const navigate = useNavigate();

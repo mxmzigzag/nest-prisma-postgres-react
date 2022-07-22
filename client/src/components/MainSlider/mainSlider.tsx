@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { topViewedPosts } from "../../dummyData";
 import { useFetch } from "../../hooks/useFetch";
 
-import "./mainSlider.css";
+import "./mainSlider.scss";
 
 type Category = {
   id: number;

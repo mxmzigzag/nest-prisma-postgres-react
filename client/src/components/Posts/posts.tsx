@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import ViewsIcon from "../../assets/svg/views";
 
-import "./posts.css";
+import "./posts.scss";
 
 type Tag = {
   name: string;

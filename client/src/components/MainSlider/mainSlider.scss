@@ -1,0 +1,59 @@
+.slider-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-message {
+  font-size: 24px;
+  margin: 25px 0px;
+}
+
+.slide {
+  width: 33.333%;
+  min-height: 430px;
+  display: flex;
+  padding: 10px;
+  position: relative;
+
+  background-size: cover;
+  background-position: right;
+
+  &:hover .slide-darkness {
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  &-content {
+    margin-top: auto;
+    z-index: 2;
+  }
+
+  &-category {
+    padding: 2px 6px;
+    border-radius: 5px;
+    color: #ffffff;
+  }
+
+  &-title {
+    margin: 15px 0px;
+    font-size: 20px;
+    color: #fff;
+  }
+
+  &-descr {
+    font-size: 16px;
+    color: #fff;
+  }
+
+  &-darkness {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.5;
+    transition: opacity 0.15s ease;
+  }
+}

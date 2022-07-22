@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import SearchIcon from "../../../assets/svg/search";
 
-import "./searchInput.css";
+import "./searchInput.scss";
 
 export default function SearchInput() {
   const [value, setValue] = useState("");

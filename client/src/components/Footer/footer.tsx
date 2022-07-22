@@ -1,7 +1,7 @@
 import React from "react";
 import Logo from "../../assets/svg/logo";
 
-import "./footer.css";
+import "./footer.scss";
 
 export default function Footer() {
   const handleScrollToTop = () => {

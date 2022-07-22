@@ -10,9 +10,8 @@ footer {
   cursor: pointer;
   margin-right: 15px;
   transition: all 0.15s ease;
-}
-
-.footer-logo:hover {
-  transform: translateY(3px);
-  transition: all 0.15s ease;
+  &:hover {
+    transform: translateY(3px);
+    transition: all 0.15s ease;
+  }
 }

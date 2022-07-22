@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 
-import "./textInput.css";
+import "./textInput.scss";
 
 type Props = {
   name: string;
