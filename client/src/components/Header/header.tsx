@@ -23,18 +23,20 @@ export default function Header() {
   return (
     <div className="header-bg">
       <div className="header-wrapper">
-        <Logo
-          width={50}
-          height={37}
-          className="logo"
-          onClick={handleScrollToTop}
-        />
+        <NavLink to={"/"}>
+          <Logo
+            width={70}
+            height={57}
+            className="logo"
+            onClick={handleScrollToTop}
+          />
+        </NavLink>
         <nav>
           {navItems.map((item) => (
             <NavLink
               key={item.id}
               to={item.link}
-              className={({ isActive }) => (isActive ? "active-link" : "link")}
+              className={({ isActive }) => `link ${isActive && "active-link"}`}
             >
               {item.title}
             </NavLink>
