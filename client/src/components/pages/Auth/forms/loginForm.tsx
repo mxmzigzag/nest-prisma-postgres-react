@@ -47,7 +47,9 @@ export default function LoginForm() {
         value={formData.password}
         onChange={onChange}
       />
-      <button onClick={onSubmit}>Log in</button>
+      <button className="btn" onClick={onSubmit}>
+        Log in
+      </button>
     </>
   );
 }

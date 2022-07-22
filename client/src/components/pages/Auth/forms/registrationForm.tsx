@@ -100,7 +100,9 @@ export default function RegistrationForm() {
         error={errors.password}
         onChange={onChange}
       />
-      <button onClick={onSubmit}>Sign in</button>
+      <button className="btn" onClick={onSubmit}>
+        Sign in
+      </button>
     </>
   );
 }

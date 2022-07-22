@@ -8,8 +8,10 @@ type Props = {
 
 export default function AuthLayout({ children }: Props) {
   return (
-    <div className="auth-wrapper">
-      <div className="auth-container">{children}</div>
+    <div className="auth-bg">
+      <div className="auth-wrapper">
+        <div className="auth-container">{children}</div>
+      </div>
     </div>
   );
 }

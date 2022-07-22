@@ -2,11 +2,12 @@
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .label {
-  font-size: 18px;
-  margin-bottom: 2px;
+  font-size: 16px;
+  margin-bottom: 4px;
 }
 
 .input-error {
