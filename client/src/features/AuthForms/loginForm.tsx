@@ -1,17 +1,19 @@
 import React, { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+import useAuth from "../../hooks/useAuth";
 import { useFetch } from "../../hooks/useFetch";
-
 import InputGroup from "../../components/forms/inputGroup";
 import { errorToast } from "../../components/ui/toast";
 
-type LoginFormData = {
+export type LoginFormData = {
   email: string;
   password: string;
 };
 
 export default function LoginForm() {
-  const { request } = useFetch();
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
@@ -23,10 +25,10 @@ export default function LoginForm() {
 
   const onSubmit = async () => {
     try {
-      const data = await request("login", "POST", formData);
-      console.log("resp", data);
+      const token = await login(formData);
+      if (token) navigate("/profile");
     } catch (err: any) {
-      errorToast(err);
+      errorToast(err.message);
     }
   };
 

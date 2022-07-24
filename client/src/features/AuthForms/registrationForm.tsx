@@ -1,10 +1,12 @@
 import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFetch } from "../../hooks/useFetch";
+
+import useAuth from "../../hooks/useAuth";
+import { Errors } from "../../data/common.types";
 import InputGroup from "../../components/forms/inputGroup";
 import { errorToast, successToast } from "../../components/ui/toast";
 
-type RegistrationFormData = {
+export type RegistrationFormData = {
   name: string;
   surname: string;
   userName: string;
@@ -12,16 +14,8 @@ type RegistrationFormData = {
   password: string;
 };
 
-type Errors = {
-  [key: string]: string;
-};
-
-type TokenResponse = {
-  token: string;
-};
-
 export default function RegistrationForm() {
-  const { request } = useFetch();
+  const { registration } = useAuth();
   const navigate = useNavigate();
   const [errors, setErrors] = useState<Errors>({});
   const [formData, setFormData] = useState<RegistrationFormData>({
@@ -38,13 +32,8 @@ export default function RegistrationForm() {
 
   const onSubmit = async () => {
     try {
-      const data = await request<TokenResponse>(
-        "registration",
-        "POST",
-        formData
-      );
-
-      if (data.token) {
+      const token = await registration(formData);
+      if (token) {
         successToast("You have been registered!");
         navigate("/");
       }

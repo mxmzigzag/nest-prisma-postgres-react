@@ -7,13 +7,13 @@ type Headers = {
 
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 
-interface Response<T> {
-  token: any;
-  status: "ok" | "error";
-  code: number;
-  message?: string;
-  data: T;
-}
+// interface Response<T> {
+//   token: any;
+//   status: "ok" | "error";
+//   code: number;
+//   message?: string;
+//   data: T;
+// }
 
 export const useFetch = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,7 +25,7 @@ export const useFetch = () => {
     method: Method = "GET",
     fetchBody: any = null,
     headers: Headers = {}
-  ): Promise<Response<T>> {
+  ): Promise<T> {
     setIsLoading(true);
     try {
       let body = null;
@@ -39,8 +39,10 @@ export const useFetch = () => {
         method,
         body,
         headers,
+        credentials: "include",
       });
-      const data: Response<T> = await response.json();
+
+      const data: T = await response.json();
 
       if (!response.ok) throw data || "Error occured while fetch";
 

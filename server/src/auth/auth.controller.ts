@@ -1,5 +1,6 @@
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
+
 import { CreateUserDto } from 'src/user/dto/createUser.dto';
 import { LoginUserDto } from 'src/user/dto/loginUser.dto';
 import { AuthService } from './auth.service';
@@ -15,33 +16,30 @@ export class AuthController {
   ) {
     const userData = await this.authService.registration(userDto);
     res.cookie('token', userData.token, {
-      expires: new Date(new Date().getTime() + 30 * 1000),
+      expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 7),
       sameSite: 'strict',
       httpOnly: true,
     });
-    return userData;
+    res.set({ 'Access-Control-Allow-Credentials': true });
+    return res.send(userData);
   }
 
   @Post('/login')
-  async login(
-    @Body() userDto: LoginUserDto,
-    @Res({ passthrough: true }) res: Response,
-  ) {
+  async login(@Body() userDto: LoginUserDto, @Res() res: Response) {
     const userData = await this.authService.login(userDto);
     res.cookie('token', userData.token, {
-      expires: new Date(new Date().getTime() + 30 * 1000),
+      expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 7),
       sameSite: 'strict',
       httpOnly: true,
     });
-    return userData;
+    res.set({ 'Access-Control-Allow-Credentials': true });
+    return res.send(userData);
   }
 
-  // @Post('/logout')
-  // async logout(@Req() req: Request, @Res() res: Response) {
-  //   const { refreshToken } = req.cookies;
-  //   //@ts-ignore
-  //   const { email } = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
-  //   res.clearCookie('refreshToken');
-  //   return this.userService.logout(email);
-  // }
+  @Post('/logout')
+  async logout(@Res() res: Response) {
+    res.clearCookie('token');
+    res.set({ 'Access-Control-Allow-Credentials': true });
+    return res.send({ message: 'Logged out' });
+  }
 }
