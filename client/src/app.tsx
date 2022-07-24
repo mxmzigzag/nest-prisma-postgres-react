@@ -3,14 +3,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Category from "./components/pages/Category/category";
-import ErrorPage from "./components/pages/Error/errorPage";
-import Header from "./components/Header/header";
-import Home from "./components/pages/Home/home";
-import Profile from "./components/pages/Profile/profile";
-import Login from "./components/pages/Auth/login";
-import Registration from "./components/pages/Auth/registration";
-import Footer from "./components/Footer/footer";
+import Category from "./pages/category";
+import ErrorPage from "./pages/errorPage";
+import Header from "./components/ui/header";
+import Home from "./pages/home";
+import Profile from "./pages/profile";
+import Login from "./pages/login";
+import Registration from "./pages/registration";
+import Footer from "./components/ui/footer";
 
 export default function App() {
   return (
