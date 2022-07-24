@@ -24,7 +24,8 @@ export default function BlogActionBar() {
         <>
           <div className="action-bar-item">Popular</div>
           <div className="action-bar-item">New</div>
-          <div className="action-bar-item">Old</div>
+          <div className="action-bar-item">Category</div>
+          <div className="action-bar-item">Tag</div>
         </>
       )}
       <div
