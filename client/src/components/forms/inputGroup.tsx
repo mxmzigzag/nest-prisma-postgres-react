@@ -9,6 +9,7 @@ type Props = {
   value: string;
   error?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  fullWidth?: boolean;
 };
 
 export default function InputGroup({
@@ -18,9 +19,10 @@ export default function InputGroup({
   value,
   error,
   onChange,
+  fullWidth = true,
 }: Props) {
   return (
-    <div className="input-group">
+    <div className={`input-group ${!fullWidth && "half"}`}>
       <label htmlFor="email" className="label">
         {label}
       </label>

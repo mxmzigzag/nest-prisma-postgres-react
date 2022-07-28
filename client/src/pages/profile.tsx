@@ -1,27 +1,23 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
+import ProfileLayout from "../layouts/profile.layout";
+import ProfileForm from "../features/ProfileForm/profileForm";
 import useAuth from "../hooks/useAuth";
-import { errorToast } from "../components/ui/toast";
+
+export type Profile = {
+  id: number;
+  name: string;
+  surname: string;
+  userName: string;
+  email: string;
+};
 
 export default function Profile() {
-  const navigate = useNavigate();
-  const { logout } = useAuth();
-
-  const handleLogout = async () => {
-    try {
-      logout();
-      navigate("/");
-    } catch (err: any) {
-      console.log(err);
-      errorToast(err.message);
-    }
-  };
+  const { user } = useAuth();
 
   return (
-    <div>
-      <span>Profile</span>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
+    <ProfileLayout title="Profile">
+      {user ? <ProfileForm userData={user} /> : <p>loading...</p>}
+    </ProfileLayout>
   );
 }

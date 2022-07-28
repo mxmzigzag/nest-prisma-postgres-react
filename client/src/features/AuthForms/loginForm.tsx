@@ -2,7 +2,6 @@ import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useAuth from "../../hooks/useAuth";
-import { useFetch } from "../../hooks/useFetch";
 import InputGroup from "../../components/forms/inputGroup";
 import { errorToast } from "../../components/ui/toast";
 

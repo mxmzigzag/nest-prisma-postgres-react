@@ -14,10 +14,10 @@ import Footer from "./components/ui/footer";
 
 export default function App() {
   return (
-    <div>
+    <div className="app-wrapper">
       <BrowserRouter>
         <Header />
-        <div className="siteBg">
+        <div className="app-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />

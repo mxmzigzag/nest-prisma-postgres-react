@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import AuthLayout from "../layouts/authLayout";
+import AuthLayout from "../layouts/auth.layout";
 import LoginForm from "../features/AuthForms/loginForm";
 
 export default function Login() {

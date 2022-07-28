@@ -5,9 +5,11 @@ import { LoginFormData } from "../features/AuthForms/loginForm";
 import { RegistrationFormData } from "../features/AuthForms/registrationForm";
 import { useFetch } from "../hooks/useFetch";
 import { TokenResponse } from "../data/common.types";
+import { Profile } from "../pages/profile";
 
 export interface IAuthContext {
   isAuth: boolean;
+  user: Profile | null;
   registration: (data: RegistrationFormData) => Promise<string>;
   login: (data: LoginFormData) => Promise<string>;
   logout: () => void;
@@ -15,6 +17,11 @@ export interface IAuthContext {
 
 type Props = {
   children: JSX.Element;
+};
+
+type LoginResponse = {
+  user: Profile;
+  token: string;
 };
 
 export const AuthContext = createContext<IAuthContext | undefined>(undefined);
@@ -25,6 +32,7 @@ export function AuthProvider({ children }: Props) {
 
   const token = Cookies.get("token");
   const [isAuth, setIsAuth] = useState(token ? true : false);
+  const [user, setUser] = useState<Profile | null>(null);
 
   const registration = async (data: RegistrationFormData): Promise<string> => {
     try {
@@ -42,8 +50,9 @@ export function AuthProvider({ children }: Props) {
 
   const login = async (data: LoginFormData): Promise<string> => {
     try {
-      const response = await request<TokenResponse>("login", "POST", data);
+      const response = await request<LoginResponse>("login", "POST", data);
       setIsAuth(true);
+      setUser(response.user);
       return response.token;
     } catch (err: any) {
       throw err;
@@ -60,7 +69,7 @@ export function AuthProvider({ children }: Props) {
   };
 
   const contextValue = useMemo(
-    () => ({ isAuth, registration, login, logout }),
+    () => ({ isAuth, user, registration, login, logout }),
     [isAuth]
   );
 
