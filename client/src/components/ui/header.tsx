@@ -1,14 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import { useAuth } from "../../hooks/useAuth";
+import UserPill from "./userPill";
 
 import Logo from "../../assets/svg/logo";
-import UserIcon from "../../assets/svg/user";
 
 export default function Header() {
-  const { isAuth } = useAuth();
-
   const navItems = [
     { id: 0, title: "Home", link: "/" },
     { id: 1, title: "Category", link: "/category" },
@@ -42,18 +39,7 @@ export default function Header() {
             </NavLink>
           ))}
         </nav>
-        <NavLink to={`/${isAuth ? "profile" : "login"}`} className="user-btn">
-          <div className="header-user-wrapper">
-            <div className="header-user-info">
-              <span className="header-user-name">user name</span>
-              <div className="header-user-divider"></div>
-              <span className="header-user-role">Creator</span>
-            </div>
-            <div className="header-user-img">
-              <UserIcon />
-            </div>
-          </div>
-        </NavLink>
+        <UserPill />
       </div>
     </div>
   );

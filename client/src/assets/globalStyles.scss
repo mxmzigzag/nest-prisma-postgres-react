@@ -187,6 +187,7 @@ a {
     flex-direction: column;
     align-items: center;
     padding: 5px 0px 5px 10px;
+    margin-right: 5px;
   }
 
   &-name {
@@ -211,7 +212,6 @@ a {
     border: 1px solid black;
     line-height: 0;
     padding: 10px;
-    margin-left: 5px;
   }
 }
 
