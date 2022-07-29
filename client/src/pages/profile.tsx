@@ -1,23 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
+import { getUser } from "../store/slice/user.slice";
 
 import ProfileLayout from "../layouts/profile.layout";
 import ProfileForm from "../features/ProfileForm/profileForm";
-import useAuth from "../hooks/useAuth";
-
-export type Profile = {
-  id: number;
-  name: string;
-  surname: string;
-  userName: string;
-  email: string;
-};
+import LoaderIcon from "../assets/svg/loader";
 
 export default function Profile() {
-  const { user } = useAuth();
+  const user = useSelector(getUser);
 
   return (
     <ProfileLayout title="Profile">
-      {user ? <ProfileForm userData={user} /> : <p>loading...</p>}
+      {user ? <ProfileForm userData={user} /> : <LoaderIcon />}
     </ProfileLayout>
   );
 }

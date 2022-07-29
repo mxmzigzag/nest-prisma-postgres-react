@@ -1,22 +1,25 @@
 import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import useAuth from "../../hooks/useAuth";
+import { useLoginMutation } from "../../store/api/auth.api";
+
+import { setUser } from "../../store/slice/user.slice";
+import { LoginData } from "../../types/user.types";
+
 import InputGroup from "../../components/forms/inputGroup";
 import { errorToast } from "../../components/ui/toast";
 
-export type LoginFormData = {
-  email: string;
-  password: string;
-};
-
 export default function LoginForm() {
-  const { login } = useAuth();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<LoginFormData>({
+  const dispatch = useDispatch();
+
+  const [formData, setFormData] = useState<LoginData>({
     email: "",
     password: "",
   });
+
+  const [login] = useLoginMutation();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -24,8 +27,11 @@ export default function LoginForm() {
 
   const onSubmit = async () => {
     try {
-      const token = await login(formData);
-      if (token) navigate("/profile");
+      const { user } = await login(formData).unwrap();
+      if (user) {
+        dispatch(setUser({ user }));
+        navigate("/profile");
+      }
     } catch (err: any) {
       errorToast(err.message);
     }

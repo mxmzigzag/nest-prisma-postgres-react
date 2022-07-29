@@ -3,13 +3,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Category from "./pages/category";
-import ErrorPage from "./pages/errorPage";
 import Header from "./components/ui/header";
 import Home from "./pages/home";
-import Profile from "./pages/profile";
 import Login from "./pages/login";
 import Registration from "./pages/registration";
+import ErrorPage from "./pages/errorPage";
+import Profile from "./pages/profile";
+import Category from "./pages/category";
 import Footer from "./components/ui/footer";
 
 export default function App() {

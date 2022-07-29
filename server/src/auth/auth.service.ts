@@ -33,8 +33,9 @@ export class AuthService {
       ...dto,
       password: hashedPassword,
     });
+    const { token } = await this.generateToken(user);
 
-    return this.generateToken(user);
+    return { user, token };
   }
 
   async login(dto: LoginUserDto) {

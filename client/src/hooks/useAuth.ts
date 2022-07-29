@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import { AuthContext, IAuthContext } from "../context/auth.context";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
 
-export default function useAuth(): IAuthContext {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be within AuthProvider");
-  }
-  return context;
-}
+import { getIsAuth } from "../store/slice/user.slice";
+
+export const useAuth = () => {
+  const isAuth = useSelector(getIsAuth);
+
+  return useMemo(() => ({ isAuth }), [isAuth]);
+};

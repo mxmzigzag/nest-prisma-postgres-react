@@ -1,24 +1,22 @@
 import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import useAuth from "../../hooks/useAuth";
-import { Errors } from "../../data/common.types";
+import { useRegistrationMutation } from "../../store/api/auth.api";
+
+import { setUser } from "../../store/slice/user.slice";
+import { RegistrationData } from "../../types/user.types";
+
 import InputGroup from "../../components/forms/inputGroup";
+import { Errors } from "../../data/common.types";
 import { errorToast, successToast } from "../../components/ui/toast";
 
-export type RegistrationFormData = {
-  name: string;
-  surname: string;
-  userName: string;
-  email: string;
-  password: string;
-};
-
 export default function RegistrationForm() {
-  const { registration } = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [errors, setErrors] = useState<Errors>({});
-  const [formData, setFormData] = useState<RegistrationFormData>({
+  const [formData, setFormData] = useState<RegistrationData>({
     name: "",
     surname: "",
     userName: "",
@@ -26,13 +24,16 @@ export default function RegistrationForm() {
     password: "",
   });
 
+  const [registration] = useRegistrationMutation();
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const onSubmit = async () => {
     try {
-      const token = await registration(formData);
+      const { user, token } = await registration(formData).unwrap();
+      if (user) dispatch(setUser({ user }));
       if (token) {
         successToast("You have been registered!");
         navigate("/");

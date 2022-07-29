@@ -1,7 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import useAuth from "../hooks/useAuth";
+import { logoutUser } from "../store/slice/user.slice";
+import { useLogoutMutation } from "../store/api/auth.api";
 
 import { errorToast } from "../components/ui/toast";
 
@@ -12,32 +14,34 @@ type Props = {
 
 export default function ProfileLayout({ title, children }: Props) {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const dispatch = useDispatch();
+
+  const [logout] = useLogoutMutation();
+
+  const navItems = [
+    { id: 0, name: "Profile", link: "/profile" },
+    { id: 1, name: "My Posts", link: "/profile/posts" },
+    { id: 2, name: "All users", link: "/users" },
+    { id: 3, name: "Requests", link: "/requests" },
+  ];
 
   const handleLogout = async () => {
     try {
-      logout();
+      await logout();
+      dispatch(logoutUser({}));
       navigate("/");
     } catch (err: any) {
-      console.log(err);
       errorToast(err.message);
     }
   };
   return (
     <div className="profile-wrapper">
       <ul className="profile-navbar">
-        <li>
-          <NavLink to="/profile">Profile</NavLink>
-        </li>
-        <li>
-          <NavLink to="/profile/posts">My Posts</NavLink>
-        </li>
-        <li>
-          <NavLink to="/users">All users</NavLink>
-        </li>
-        <li>
-          <NavLink to="/requests">Requests</NavLink>
-        </li>
+        {navItems.map((item) => (
+          <li key={item.id}>
+            <NavLink to={item.link}>{item.name}</NavLink>
+          </li>
+        ))}
         <li className="mt-auto">
           <button onClick={handleLogout}>Logout</button>
         </li>

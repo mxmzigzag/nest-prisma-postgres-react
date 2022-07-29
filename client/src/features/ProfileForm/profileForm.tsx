@@ -1,20 +1,12 @@
 import React, { ChangeEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import InputGroup from "../../components/forms/inputGroup";
 import { errorToast, successToast } from "../../components/ui/toast";
 import { useFetch } from "../../hooks/useFetch";
-import { Profile } from "../../pages/profile";
-
-export type ProfileFormData = {
-  name?: string;
-  surname?: string;
-  userName?: string;
-  email?: string;
-};
+import { ProfileFormData, User } from "../../types/user.types";
 
 type Props = {
-  userData: Profile;
+  userData: User;
 };
 
 export default function ProfileForm({ userData }: Props) {
