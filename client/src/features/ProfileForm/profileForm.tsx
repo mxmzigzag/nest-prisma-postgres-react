@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 
 import { ProfileFormData, User } from "../../types/user.types";
 
+import { useAuth } from "../../hooks/useAuth";
 import { useUpdateProfileMutation } from "../../store/api/user.api";
 
 import InputGroup from "../../components/forms/inputGroup";
@@ -13,6 +14,8 @@ type Props = {
 };
 
 export default function ProfileForm({ userData }: Props) {
+  const { setUser } = useAuth();
+
   const [formData, setFormData] = useState<ProfileFormData>(userData);
 
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
@@ -23,8 +26,11 @@ export default function ProfileForm({ userData }: Props) {
 
   const onSubmit = async () => {
     try {
-      const res = await updateProfile(formData).unwrap();
-      console.log("updated", res);
+      const user = await updateProfile(formData).unwrap();
+      console.log("upd", user);
+
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
       successToast("User data updated");
     } catch (err: any) {
       errorToast(err.message);
@@ -52,7 +58,7 @@ export default function ProfileForm({ userData }: Props) {
         />
         <InputGroup
           label="Username"
-          name="username"
+          name="userName"
           placeholder="Username"
           value={formData.userName || ""}
           onChange={onChange}

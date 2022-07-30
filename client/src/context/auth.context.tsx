@@ -7,6 +7,7 @@ import { UserTokenResponse } from "../types/auth.types";
 export interface IAuthContext {
   isAuth: boolean;
   user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   registration: (
     registerUser: Mutation<RegistrationData, UserTokenResponse>,
     data: RegistrationData
@@ -26,10 +27,8 @@ export const AuthContext = createContext<IAuthContext | undefined>(undefined);
 AuthContext.displayName = "AuthContext";
 
 export function AuthProvider({ children }: Props) {
-  const userLocasStorage = localStorage.getItem("user");
-  const { user: userLS } = userLocasStorage
-    ? JSON.parse(userLocasStorage)
-    : { user: null };
+  const userLocalStorage = localStorage.getItem("user");
+  const userLS = userLocalStorage ? JSON.parse(userLocalStorage) : null;
 
   const [isAuth, setIsAuth] = useState<boolean>(Boolean(userLS));
   const [user, setUser] = useState<User | null>(userLS);
@@ -43,7 +42,8 @@ export function AuthProvider({ children }: Props) {
       if (user) {
         setUser(user);
         setIsAuth(true);
-        localStorage.setItem("user", JSON.stringify({ user, token }));
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", JSON.stringify(token));
       }
       return { user, token };
     } catch (err: any) {
@@ -60,7 +60,8 @@ export function AuthProvider({ children }: Props) {
       if (user) {
         setUser(user);
         setIsAuth(true);
-        localStorage.setItem("user", JSON.stringify({ user, token }));
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", JSON.stringify(token));
       }
       return { user, token };
     } catch (err: any) {
@@ -75,6 +76,7 @@ export function AuthProvider({ children }: Props) {
       const data = await logoutUser().unwrap();
       setIsAuth(false);
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
       return data;
     } catch (err: any) {
       throw err;
@@ -82,7 +84,7 @@ export function AuthProvider({ children }: Props) {
   };
 
   const contextValue = useMemo(
-    () => ({ isAuth, user, registration, login, logout }),
+    () => ({ isAuth, user, setUser, registration, login, logout }),
     [isAuth, user]
   );
 

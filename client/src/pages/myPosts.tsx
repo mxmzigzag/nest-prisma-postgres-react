@@ -18,7 +18,9 @@ export default function MyPosts() {
 }
 
 const MyPostsGrid = ({ userId }: { userId: number }) => {
-  const { data: posts = [], isLoading } = useGetPostsByAuthorIdQuery(userId);
+  const { data: posts = [], isLoading } = useGetPostsByAuthorIdQuery(userId, {
+    refetchOnMountOrArgChange: true,
+  });
 
   // @ts-ignore
   return isLoading ? <LoaderIcon /> : <Posts posts={posts} gridColNum={3} />;
