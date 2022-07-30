@@ -1,25 +1,25 @@
 import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
-import { useLoginMutation } from "../../store/api/auth.api";
-
-import { setUser } from "../../store/slice/user.slice";
 import { LoginData } from "../../types/user.types";
+
+import { useAuth } from "../../hooks/useAuth";
+import { useLoginMutation } from "../../store/api/auth.api";
 
 import InputGroup from "../../components/forms/inputGroup";
 import { errorToast } from "../../components/ui/toast";
+import Button from "../../components/ui/button";
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState<LoginData>({
     email: "",
     password: "",
   });
 
-  const [login] = useLoginMutation();
+  const [loginUser, { isLoading }] = useLoginMutation();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -27,13 +27,10 @@ export default function LoginForm() {
 
   const onSubmit = async () => {
     try {
-      const { user } = await login(formData).unwrap();
-      if (user) {
-        dispatch(setUser({ user }));
-        navigate("/profile");
-      }
+      const data = await login(loginUser, formData);
+      if (data) navigate("/profile");
     } catch (err: any) {
-      errorToast(err.message);
+      errorToast(err.data.message);
     }
   };
 
@@ -54,9 +51,9 @@ export default function LoginForm() {
         value={formData.password}
         onChange={onChange}
       />
-      <button className="btn" onClick={onSubmit}>
+      <Button isLoading={isLoading} onClick={onSubmit}>
         Log in
-      </button>
+      </Button>
     </>
   );
 }

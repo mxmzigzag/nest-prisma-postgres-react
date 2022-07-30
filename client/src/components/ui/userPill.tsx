@@ -11,7 +11,7 @@ export default function UserPill() {
   return (
     <NavLink to={`/${isAuth ? "profile" : "login"}`} className="user-btn">
       <div className="header-user-wrapper">
-        {isAuth ? (
+        {isAuth && user ? (
           <div className="header-user-info">
             <span className="header-user-name">{user.userName}</span>
             <div className="header-user-divider"></div>

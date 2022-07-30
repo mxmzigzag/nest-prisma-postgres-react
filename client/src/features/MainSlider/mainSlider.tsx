@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { topViewedPosts } from "../../data/dummyData";
-import { useFetch } from "../../hooks/useFetch";
 
 type Category = {
   id: number;
@@ -17,22 +16,13 @@ type Slide = {
 };
 
 export default function MainSlider() {
-  const [slides, setSlides] = useState<Slide[]>(topViewedPosts);
-  const { request } = useFetch();
-
-  const getTopPosts = async () => {
-    const data = await request("topViewedPosts");
-    console.log(data);
-  };
-
-  // useEffect(() => {
-  //   getTopPosts();
-  // }, [getTopPosts]);
+  // const { data: slides } = useGetTopViewedPostsQuery();
+  // console.log("slides", slides);
 
   return (
     <div className="slider-wrap">
-      {slides.length >= 3 ? (
-        slides.map((slide) => (
+      {topViewedPosts.length >= 3 ? (
+        topViewedPosts.map((slide) => (
           <Slide
             key={slide.id}
             id={slide.id}

@@ -1,11 +1,11 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import { logoutUser } from "../store/slice/user.slice";
+import { useAuth } from "../hooks/useAuth";
 import { useLogoutMutation } from "../store/api/auth.api";
 
 import { errorToast } from "../components/ui/toast";
+import Button from "../components/ui/button";
 
 type Props = {
   title: string;
@@ -14,9 +14,9 @@ type Props = {
 
 export default function ProfileLayout({ title, children }: Props) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { logout } = useAuth();
 
-  const [logout] = useLogoutMutation();
+  const [logoutUser] = useLogoutMutation();
 
   const navItems = [
     { id: 0, name: "Profile", link: "/profile" },
@@ -27,9 +27,8 @@ export default function ProfileLayout({ title, children }: Props) {
 
   const handleLogout = async () => {
     try {
-      await logout();
-      dispatch(logoutUser({}));
-      navigate("/");
+      const data = await logout(logoutUser);
+      if (data) navigate("/");
     } catch (err: any) {
       errorToast(err.message);
     }
@@ -43,7 +42,7 @@ export default function ProfileLayout({ title, children }: Props) {
           </li>
         ))}
         <li className="mt-auto">
-          <button onClick={handleLogout}>Logout</button>
+          <Button onClick={handleLogout}>Logout</Button>
         </li>
       </ul>
       <div className="profile-content">

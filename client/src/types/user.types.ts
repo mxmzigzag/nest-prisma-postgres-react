@@ -23,6 +23,7 @@ export type RegistrationData = {
 };
 
 export type ProfileFormData = {
+  id?: number;
   name?: string;
   surname?: string;
   userName?: string;

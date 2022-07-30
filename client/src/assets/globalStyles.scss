@@ -108,6 +108,20 @@ a {
     background-color: white;
     transition: all 0.3s ease;
   }
+  &-content {
+    display: inline-block;
+    position: relative;
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  right: -30px;
+  transform: translateY(-50%);
+  circle {
+    fill: rgb(143, 116, 80);
+  }
 }
 
 .link-button {
@@ -564,7 +578,7 @@ footer {
     display: flex;
     flex-wrap: wrap;
     &-btn {
-      width: auto;
+      max-width: 150px;
       margin-left: auto;
     }
   }

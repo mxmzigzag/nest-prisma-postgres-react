@@ -1,17 +1,21 @@
 import React, { ChangeEvent, useState } from "react";
 
+import { ProfileFormData, User } from "../../types/user.types";
+
+import { useUpdateProfileMutation } from "../../store/api/user.api";
+
 import InputGroup from "../../components/forms/inputGroup";
 import { errorToast, successToast } from "../../components/ui/toast";
-import { useFetch } from "../../hooks/useFetch";
-import { ProfileFormData, User } from "../../types/user.types";
+import Button from "../../components/ui/button";
 
 type Props = {
   userData: User;
 };
 
 export default function ProfileForm({ userData }: Props) {
-  const { request } = useFetch();
   const [formData, setFormData] = useState<ProfileFormData>(userData);
+
+  const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -19,7 +23,7 @@ export default function ProfileForm({ userData }: Props) {
 
   const onSubmit = async () => {
     try {
-      const res = await request(`user/${userData.id}`, "PUT", formData);
+      const res = await updateProfile(formData).unwrap();
       console.log("updated", res);
       successToast("User data updated");
     } catch (err: any) {
@@ -63,9 +67,13 @@ export default function ProfileForm({ userData }: Props) {
           fullWidth={false}
         />
       </div>
-      <button className="btn profile-form-btn" onClick={onSubmit}>
+      <Button
+        className="profile-form-btn"
+        isLoading={isLoading}
+        onClick={onSubmit}
+      >
         Save
-      </button>
+      </Button>
     </>
   );
 }

@@ -3,4 +3,5 @@ export type Props = {
   height?: number;
   className?: string;
   onClick?: () => void;
+  spinnerColor?: string;
 };

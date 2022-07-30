@@ -1,19 +1,19 @@
 import React, { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
+import { RegistrationData } from "../../types/user.types";
+import { Errors } from "../../types/common.types";
+
+import { useAuth } from "../../hooks/useAuth";
 import { useRegistrationMutation } from "../../store/api/auth.api";
 
-import { setUser } from "../../store/slice/user.slice";
-import { RegistrationData } from "../../types/user.types";
-
 import InputGroup from "../../components/forms/inputGroup";
-import { Errors } from "../../data/common.types";
 import { errorToast, successToast } from "../../components/ui/toast";
+import Button from "../../components/ui/button";
 
 export default function RegistrationForm() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { registration } = useAuth();
 
   const [errors, setErrors] = useState<Errors>({});
   const [formData, setFormData] = useState<RegistrationData>({
@@ -24,7 +24,7 @@ export default function RegistrationForm() {
     password: "",
   });
 
-  const [registration] = useRegistrationMutation();
+  const [registerUser, { isLoading }] = useRegistrationMutation();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -32,9 +32,8 @@ export default function RegistrationForm() {
 
   const onSubmit = async () => {
     try {
-      const { user, token } = await registration(formData).unwrap();
-      if (user) dispatch(setUser({ user }));
-      if (token) {
+      const data = await registration(registerUser, formData);
+      if (data) {
         successToast("You have been registered!");
         navigate("/");
       }
@@ -90,9 +89,9 @@ export default function RegistrationForm() {
         error={errors.password}
         onChange={onChange}
       />
-      <button className="btn" onClick={onSubmit}>
+      <Button isLoading={isLoading} onClick={onSubmit}>
         Sign in
-      </button>
+      </Button>
     </>
   );
 }
