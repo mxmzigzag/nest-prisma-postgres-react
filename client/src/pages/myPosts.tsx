@@ -1,9 +1,11 @@
 import React from "react";
-import LoaderIcon from "../assets/svg/loader";
-import Posts from "../features/Posts/posts";
+
 import { useAuth } from "../hooks/useAuth";
-import ProfileLayout from "../layouts/profile.layout";
 import { useGetPostsByAuthorIdQuery } from "../store/api/post.api";
+
+import ProfileLayout from "../layouts/profile.layout";
+import Posts from "../features/Posts/posts";
+import LoaderIcon from "../assets/svg/loader";
 
 export default function MyPosts() {
   const { user } = useAuth();
