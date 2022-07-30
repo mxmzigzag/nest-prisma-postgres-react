@@ -4,6 +4,7 @@ export type Post = {
   description: string;
   body: string;
   isPublished: boolean;
+  image: string;
   authorId: number;
   categoryId: number;
   viewsCount: number;

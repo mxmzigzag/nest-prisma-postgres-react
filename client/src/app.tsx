@@ -3,16 +3,22 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { useAuth } from "./hooks/useAuth";
+
+import { ProtectedRoute } from "./features/ProtectedRoute/ProtectedRoute";
 import Header from "./components/ui/header";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Registration from "./pages/registration";
 import ErrorPage from "./pages/errorPage";
 import Profile from "./pages/profile";
+import MyPosts from "./pages/myPosts";
 import Category from "./pages/category";
 import Footer from "./components/ui/footer";
 
 export default function App() {
+  const { user } = useAuth();
+
   return (
     <div className="app-wrapper">
       <BrowserRouter>
@@ -20,7 +26,22 @@ export default function App() {
         <div className="app-content">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute isAllowed={Boolean(user)}>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile/posts"
+              element={
+                <ProtectedRoute isAllowed={Boolean(user)}>
+                  <MyPosts />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/registation" element={<Registration />} />
             <Route path="/category/:categoryId" element={<Category />} />

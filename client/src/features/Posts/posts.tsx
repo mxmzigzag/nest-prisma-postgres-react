@@ -30,16 +30,20 @@ type Post = {
 
 type Props = {
   posts: Post[];
+  gridColNum?: number;
 };
 
-export default function Posts({ posts }: Props) {
+export default function Posts({ posts, gridColNum = 4 }: Props) {
   const handleMore = () => {
     console.log("load more");
   };
 
   return (
     <div className="posts-container">
-      <div className="posts-wrapper">
+      <div
+        className="posts-wrapper"
+        style={{ gridTemplateColumns: `repeat(${gridColNum}, 1fr)` }}
+      >
         {posts.map((post) => (
           <Post
             key={post.id}
@@ -79,20 +83,22 @@ const Post = ({
     <NavLink to={`/posts/${id}`}>
       <div className="post" style={{ backgroundImage: `url(${image})` }}>
         <div className="post-tags">
-          {tags.map((tag) => (
+          {tags?.map((tag) => (
             <div className="post-tag" key={tag.name}>
               {tag.name}
             </div>
           ))}
         </div>
         <div className="post-content">
-          <span
-            className="post-category"
-            style={{ backgroundColor: category.color }}
-            onClick={() => console.log(categoryId)}
-          >
-            {category.title}
-          </span>
+          {category ? (
+            <span
+              className="post-category"
+              style={{ backgroundColor: category.color }}
+              onClick={() => console.log(categoryId)}
+            >
+              {category.title}
+            </span>
+          ) : null}
           <p className="post-title">{title}</p>
           <p className="post-descr">{description}</p>
         </div>

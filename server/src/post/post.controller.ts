@@ -30,6 +30,11 @@ export class PostController {
     return this.postService.getTopViewedPosts();
   }
 
+  @Get('/posts/author/:authorId')
+  getPostsByAuthorId(@Param('authorId') authorId: number) {
+    return this.postService.getPostsByAuthorId(Number(authorId));
+  }
+
   @Get('/post/:id')
   getOnePost(@Param('id') id: number) {
     return this.postService.getOnePost(Number(id));

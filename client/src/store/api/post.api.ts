@@ -16,7 +16,17 @@ export const postApi = globalApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getPostsByAuthorId: build.query<Post[], number>({
+      query: (userId) => ({
+        url: `posts/author/${userId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllPostsQuery, useGetTopViewedPostsQuery } = postApi;
+export const {
+  useGetAllPostsQuery,
+  useGetTopViewedPostsQuery,
+  useGetPostsByAuthorIdQuery,
+} = postApi;

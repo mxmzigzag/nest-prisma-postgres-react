@@ -57,6 +57,17 @@ export class PostService {
     });
   }
 
+  async getPostsByAuthorId(authorId: number): Promise<PostModel[]> {
+    return this.prismaService.post.findMany({
+      where: {
+        authorId,
+      },
+      include: {
+        author: { select: { id: true, userName: true } },
+      },
+    });
+  }
+
   async getOnePost(id: number): Promise<PostModel> {
     return this.prismaService.post.findUnique({ where: { id } });
   }
