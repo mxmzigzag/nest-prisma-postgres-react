@@ -26,11 +26,6 @@ export class RequestController {
     return this.requestService.getAllRequests();
   }
 
-  @Get('/request/:reqId')
-  getOneRequest(@Param('reqId') reqId: string) {
-    return this.requestService.getOneRequest(reqId);
-  }
-
   @Get('/requestIsSent')
   getRequestIsSentByUser(@Query() { userId, type }: CreateRequestDto) {
     return this.requestService.getRequestIsSentByUser(Number(userId), type);

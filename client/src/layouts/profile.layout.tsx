@@ -38,7 +38,12 @@ export default function ProfileLayout({ title, children }: Props) {
       allowedRoles: ["ADMIN"],
     },
     { id: 3, name: "All Users", link: "/admin/users", allowedRoles: ["ADMIN"] },
-    { id: 4, name: "Requests", link: "/requests", allowedRoles: ["ADMIN"] },
+    {
+      id: 4,
+      name: "Requests",
+      link: "/admin/requests",
+      allowedRoles: ["ADMIN"],
+    },
   ];
 
   const handleLogout = async () => {

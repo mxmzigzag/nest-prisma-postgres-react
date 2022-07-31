@@ -623,3 +623,82 @@ footer {
     border-radius: 70px;
   }
 }
+
+// Requests
+
+.requests {
+  &-list {
+    list-style: none;
+  }
+
+  &-item {
+    display: flex;
+    border-radius: 20px;
+    height: 100px;
+    background-color: rgb(230, 230, 230);
+    overflow: hidden;
+  }
+
+  &-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    span {
+      color: white;
+      font-size: 18px;
+      letter-spacing: 1px;
+      transform: rotate(-90deg);
+    }
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 10px 15px;
+  }
+
+  &-created {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+  }
+
+  &-answered {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+  }
+
+  &-head {
+    color: gray;
+    margin-bottom: 15px;
+  }
+
+  &-text {
+    font-size: 18px;
+  }
+
+  &-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 7px 10px 5px;
+    border-left: 1px solid black;
+    &-accept {
+      cursor: pointer;
+      margin-bottom: 10px;
+      &:hover {
+        fill: green;
+      }
+    }
+
+    &-reject {
+      cursor: pointer;
+      &:hover {
+        fill: red;
+      }
+    }
+  }
+}

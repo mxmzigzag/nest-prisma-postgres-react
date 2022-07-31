@@ -15,6 +15,16 @@ export const requestApi = globalApi.injectEndpoints({
         };
       },
     }),
+    getAllRequests: build.query<Request[], void>({
+      query: () => {
+        const token = localStorage.getItem("token");
+        return {
+          url: `requests`,
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        };
+      },
+    }),
     getRequestIsSentByUser: build.query<boolean, CreateRequest>({
       query: ({ userId, type }) => {
         const token = localStorage.getItem("token");
@@ -28,5 +38,8 @@ export const requestApi = globalApi.injectEndpoints({
   }),
 });
 
-export const { useCreateRequestMutation, useGetRequestIsSentByUserQuery } =
-  requestApi;
+export const {
+  useCreateRequestMutation,
+  useGetAllRequestsQuery,
+  useGetRequestIsSentByUserQuery,
+} = requestApi;

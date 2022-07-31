@@ -21,13 +21,16 @@ export class RequestService {
   }
 
   async getAllRequests() {
-    return this.prismaService.request.findMany();
-  }
-
-  async getOneRequest(reqId: string) {
-    return this.prismaService.request.findUnique({
-      where: {
-        id: reqId,
+    return this.prismaService.request.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            surname: true,
+            username: true,
+          },
+        },
       },
     });
   }
