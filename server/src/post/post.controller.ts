@@ -6,7 +6,9 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreatePostDto } from './dto/createPost.dto';
 import { UpdatePostDto } from './dto/updatePost.dto';
 import { PostService } from './post.service';
@@ -31,6 +33,7 @@ export class PostController {
   }
 
   @Get('/posts/author/:authorId')
+  @UseGuards(JwtAuthGuard)
   getPostsByAuthorId(@Param('authorId') authorId: number) {
     return this.postService.getPostsByAuthorId(Number(authorId));
   }
