@@ -20,6 +20,9 @@ import { TagController } from './tag/tag.controller';
 import { TagService } from './tag/tag.service';
 import { TagModule } from './tag/tag.module';
 import { AuthModule } from './auth/auth.module';
+import { RequestModule } from './request/request.module';
+import { RequestController } from './request/request.controller';
+import { RequestService } from './request/request.service';
 
 @Module({
   controllers: [
@@ -28,6 +31,7 @@ import { AuthModule } from './auth/auth.module';
     CategoryController,
     BannedUserController,
     TagController,
+    RequestController,
   ],
   providers: [
     PrismaService,
@@ -36,6 +40,7 @@ import { AuthModule } from './auth/auth.module';
     CategoryService,
     BannedUserService,
     TagService,
+    RequestService,
   ],
   imports: [
     PrismaModule,
@@ -48,6 +53,7 @@ import { AuthModule } from './auth/auth.module';
     BannedUserModule,
     TagModule,
     AuthModule,
+    RequestModule,
   ],
 })
 export class AppModule {}

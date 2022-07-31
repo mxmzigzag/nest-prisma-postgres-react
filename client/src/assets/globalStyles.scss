@@ -602,12 +602,13 @@ footer {
   &-content {
     font-size: 18px;
     margin-bottom: 15px;
+    text-align: center;
   }
   &-highlight {
     color: brown;
   }
   &-btn {
-    max-width: 170px;
+    max-width: 200px;
     border-radius: 70px;
   }
 }
