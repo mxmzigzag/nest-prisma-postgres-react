@@ -17,22 +17,26 @@ enum Role {
 }
 
 model User {
-  id       Int         @id @unique @default(autoincrement())
-  name     String
-  surname  String
-  username String      @unique
-  email    String      @unique
-  password String
-  role     Role        @default(USER)
-  post     Post[]
-  banned   BannedUser?
-  Request  Request[]
+  id        Int         @id @unique @default(autoincrement())
+  name      String
+  surname   String
+  username  String      @unique
+  email     String      @unique
+  password  String
+  role      Role        @default(USER)
+  post      Post[]
+  banned    BannedUser?
+  Request   Request[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }
 
 model BannedUser {
-  id     Int  @id @unique @default(autoincrement())
-  user   User @relation(fields: [userId], references: [id])
-  userId Int  @unique
+  id        Int      @id @unique @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Post {
@@ -47,6 +51,8 @@ model Post {
   categoryId  Int
   tags        TagsOnPosts[]
   viewsCount  Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 }
 
 model Category {
@@ -76,9 +82,18 @@ enum RequestTypes {
   UPDATE_TO_ADMIN
 }
 
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
 model Request {
-  id     String       @id @unique @default(uuid())
-  type   RequestTypes
-  user   User         @relation(fields: [userId], references: [id])
-  userId Int
+  id        String        @id @unique @default(uuid())
+  type      RequestTypes
+  status    RequestStatus
+  user      User          @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
 }
