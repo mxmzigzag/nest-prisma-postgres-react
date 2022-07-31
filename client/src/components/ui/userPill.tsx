@@ -13,7 +13,7 @@ export default function UserPill() {
       <div className="header-user-wrapper">
         {isAuth && user ? (
           <div className="header-user-info">
-            <span className="header-user-name">{user.userName}</span>
+            <span className="header-user-name">{user.username}</span>
             <div className="header-user-divider"></div>
             <span className="header-user-role">{user.role}</span>
           </div>

@@ -15,7 +15,7 @@ export const posts = [
     isPublished: true,
     authorId: 1,
     author: {
-      userName: "The_Blogger",
+      username: "The_Blogger",
     },
     categoryId: 1,
     category: {
@@ -42,7 +42,7 @@ export const posts = [
     isPublished: true,
     authorId: 5,
     author: {
-      userName: "ZigZag",
+      username: "ZigZag",
     },
     categoryId: 1,
     category: {
@@ -72,7 +72,7 @@ export const posts = [
     isPublished: true,
     authorId: 4,
     author: {
-      userName: "Stdot",
+      username: "Stdot",
     },
     categoryId: 2,
     category: {
@@ -102,7 +102,7 @@ export const posts = [
     isPublished: true,
     authorId: 2,
     author: {
-      userName: "userino",
+      username: "userino",
     },
     categoryId: 3,
     category: {
@@ -126,7 +126,7 @@ export const posts = [
     isPublished: true,
     authorId: 1,
     author: {
-      userName: "Dummyster",
+      username: "Dummyster",
     },
     categoryId: 4,
     category: {
@@ -153,7 +153,7 @@ export const posts = [
     isPublished: true,
     authorId: 5,
     author: {
-      userName: "ZigZag",
+      username: "ZigZag",
     },
     categoryId: 5,
     category: {

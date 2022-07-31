@@ -58,9 +58,9 @@ export default function ProfileForm({ userData }: Props) {
         />
         <InputGroup
           label="Username"
-          name="userName"
+          name="username"
           placeholder="Username"
-          value={formData.userName || ""}
+          value={formData.username || ""}
           onChange={onChange}
           fullWidth={false}
         />

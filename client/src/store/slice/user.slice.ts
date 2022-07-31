@@ -11,7 +11,7 @@ const initialState: UserState = {
     id: 0,
     name: "",
     surname: "",
-    userName: "",
+    username: "",
     role: "USER",
     email: "example@gmail.com",
     password: "",

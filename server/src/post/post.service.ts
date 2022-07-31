@@ -35,7 +35,7 @@ export class PostService {
       include: {
         author: {
           select: {
-            userName: true,
+            username: true,
           },
         },
         category: true,
@@ -63,7 +63,7 @@ export class PostService {
         authorId,
       },
       include: {
-        author: { select: { id: true, userName: true } },
+        author: { select: { id: true, username: true } },
       },
     });
   }

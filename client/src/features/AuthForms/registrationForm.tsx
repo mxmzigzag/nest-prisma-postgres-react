@@ -19,7 +19,7 @@ export default function RegistrationForm() {
   const [formData, setFormData] = useState<RegistrationData>({
     name: "",
     surname: "",
-    userName: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -67,10 +67,10 @@ export default function RegistrationForm() {
       />
       <InputGroup
         label="Username"
-        name="userName"
+        name="username"
         placeholder="Username"
-        value={formData.userName}
-        error={errors.userName}
+        value={formData.username}
+        error={errors.username}
         onChange={onChange}
       />
       <InputGroup

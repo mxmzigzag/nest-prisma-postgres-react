@@ -2,7 +2,7 @@ export type User = {
   id: number;
   name: string;
   surname: string;
-  userName: string;
+  username: string;
   role: "USER" | "CREATOR" | "ADMIN";
   email: string;
   password: string;
@@ -17,7 +17,7 @@ export type LoginData = {
 export type RegistrationData = {
   name: string;
   surname: string;
-  userName: string;
+  username: string;
   email: string;
   password: string;
 };
@@ -26,6 +26,6 @@ export type ProfileFormData = {
   id?: number;
   name?: string;
   surname?: string;
-  userName?: string;
+  username?: string;
   email?: string;
 };

@@ -9,7 +9,7 @@ export type Post = {
   categoryId: number;
   viewsCount: number;
   author: {
-    userName: string;
+    username: string;
   };
   category: {
     id: number;

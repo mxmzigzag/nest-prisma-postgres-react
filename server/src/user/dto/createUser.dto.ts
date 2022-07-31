@@ -11,7 +11,7 @@ export class CreateUserDto {
 
   @IsString({ message: 'Name needs to be a string' })
   @IsNotEmpty()
-  readonly userName: string;
+  readonly username: string;
 
   @IsString({ message: 'Name needs to be a string' })
   @IsEmail({}, { message: 'Incorrect email' })

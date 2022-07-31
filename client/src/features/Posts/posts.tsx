@@ -16,7 +16,7 @@ type Post = {
   isPublished?: boolean;
   authorId: number;
   author: {
-    userName: string;
+    username: string;
   };
   categoryId: number;
   category: {
@@ -104,7 +104,7 @@ const Post = ({
         </div>
         <div className="post-bottom">
           <div className="post-author" onClick={() => console.log(authorId)}>
-            {author.userName}
+            {author.username}
           </div>
           <div className="post-views">
             <ViewsIcon className="post-views-icon" />
