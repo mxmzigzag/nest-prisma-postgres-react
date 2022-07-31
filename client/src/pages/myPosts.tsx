@@ -18,7 +18,7 @@ export default function MyPosts() {
 
   return (
     <ProfileLayout title="My posts">
-      {user?.id ? (
+      {user ? (
         user.role === "USER" ? (
           <BecomeCreatorNotification userId={user.id} />
         ) : (

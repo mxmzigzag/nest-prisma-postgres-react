@@ -40,29 +40,35 @@ export default function Posts({ posts, gridColNum = 4 }: Props) {
 
   return (
     <div className="posts-container">
-      <div
-        className="posts-wrapper"
-        style={{ gridTemplateColumns: `repeat(${gridColNum}, 1fr)` }}
-      >
-        {posts.map((post) => (
-          <Post
-            key={post.id}
-            id={post.id}
-            title={post.title}
-            image={post.image}
-            description={post.description}
-            authorId={post.authorId}
-            author={post.author}
-            categoryId={post.categoryId}
-            category={post.category}
-            viewsCount={post.viewsCount}
-            tags={post.tags}
-          />
-        ))}
-      </div>
-      <button className="load-more-btn" onClick={handleMore}>
-        More
-      </button>
+      {posts.length ? (
+        <>
+          <div
+            className="posts-wrapper"
+            style={{ gridTemplateColumns: `repeat(${gridColNum}, 1fr)` }}
+          >
+            {posts.map((post) => (
+              <Post
+                key={post.id}
+                id={post.id}
+                title={post.title}
+                image={post.image}
+                description={post.description}
+                authorId={post.authorId}
+                author={post.author}
+                categoryId={post.categoryId}
+                category={post.category}
+                viewsCount={post.viewsCount}
+                tags={post.tags}
+              />
+            ))}
+          </div>
+          <button className="load-more-btn" onClick={handleMore}>
+            More
+          </button>
+        </>
+      ) : (
+        <p>There are no posts in the blog yet</p>
+      )}
     </div>
   );
 }

@@ -27,6 +27,8 @@ a {
 }
 
 .app-content {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   background-color: rgb(247, 247, 247);
 }
@@ -150,6 +152,7 @@ a {
 
 .header-wrapper {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 15px 25px;
   display: flex;
@@ -371,8 +374,8 @@ footer {
     border: 1px solid black;
     border-radius: 100px;
     background-color: lightgray;
-    width: 100%;
     max-width: 700px;
+    width: 100%;
     margin: 0 auto 20px;
   }
 
@@ -406,6 +409,7 @@ footer {
 
 .error-page-wrapper {
   max-width: 1200px;
+  width: 100%;
   padding: 15px 25px;
   margin: 0 auto;
   display: flex;
@@ -421,6 +425,7 @@ footer {
 
 .main-wrapper {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 15px 25px;
 }
@@ -541,7 +546,9 @@ footer {
 .profile {
   &-wrapper {
     display: flex;
+    flex: 1;
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 0px 25px;
   }
@@ -580,6 +587,7 @@ footer {
     flex-wrap: wrap;
     &-btn {
       max-width: 150px;
+      width: 100%;
       margin-left: auto;
     }
   }
@@ -593,6 +601,7 @@ footer {
     flex-direction: column;
     align-items: center;
     max-width: 500px;
+    width: 100%;
     margin: 0 auto;
   }
   &-title {
@@ -601,6 +610,7 @@ footer {
   }
   &-content {
     font-size: 18px;
+    line-height: 1.5;
     margin-bottom: 15px;
     text-align: center;
   }
@@ -609,6 +619,7 @@ footer {
   }
   &-btn {
     max-width: 200px;
+    width: 100%;
     border-radius: 70px;
   }
 }

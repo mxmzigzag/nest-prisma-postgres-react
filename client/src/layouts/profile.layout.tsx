@@ -14,15 +14,31 @@ type Props = {
 
 export default function ProfileLayout({ title, children }: Props) {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const [logoutUser] = useLogoutMutation();
 
   const navItems = [
-    { id: 0, name: "Profile", link: "/profile" },
-    { id: 1, name: "My Posts", link: "/profile/posts" },
-    { id: 2, name: "All users", link: "/users" },
-    { id: 3, name: "Requests", link: "/requests" },
+    {
+      id: 0,
+      name: "Profile",
+      link: "/profile",
+      allowedRoles: ["USER", "CREATOR", "ADMIN"],
+    },
+    {
+      id: 1,
+      name: "My Posts",
+      link: "/profile/posts",
+      allowedRoles: ["USER", "CREATOR"],
+    },
+    {
+      id: 2,
+      name: "All Posts",
+      link: "/admin/posts",
+      allowedRoles: ["ADMIN"],
+    },
+    { id: 3, name: "All Users", link: "/admin/users", allowedRoles: ["ADMIN"] },
+    { id: 4, name: "Requests", link: "/requests", allowedRoles: ["ADMIN"] },
   ];
 
   const handleLogout = async () => {
@@ -33,14 +49,18 @@ export default function ProfileLayout({ title, children }: Props) {
       errorToast(err.message);
     }
   };
+
+  if (!user) return null;
   return (
     <div className="profile-wrapper">
       <ul className="profile-navbar">
-        {navItems.map((item) => (
-          <li key={item.id}>
-            <NavLink to={item.link}>{item.name}</NavLink>
-          </li>
-        ))}
+        {navItems
+          .filter((item) => item.allowedRoles.includes(user.role))
+          .map((item) => (
+            <li key={item.id}>
+              <NavLink to={item.link}>{item.name}</NavLink>
+            </li>
+          ))}
         <li className="mt-auto">
           <Button onClick={handleLogout}>Logout</Button>
         </li>
