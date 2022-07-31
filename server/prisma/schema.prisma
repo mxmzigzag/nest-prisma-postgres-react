@@ -17,56 +17,69 @@ enum Role {
 }
 
 model User {
-  id              Int         @id @unique @default(autoincrement())
-  name            String
-  surname         String
-  userName        String      @unique
-  email           String      @unique
-  password        String?
-  token           String?     @unique
-  role            Role        @default(USER)
-  post            Post[]
-  banned          BannedUser?
+  id       Int         @id @unique @default(autoincrement())
+  name     String
+  surname  String
+  username String      @unique
+  email    String      @unique
+  password String?
+  token    String?     @unique
+  role     Role        @default(USER)
+  post     Post[]
+  banned   BannedUser?
+  Request  Request[]
 }
 
 model BannedUser {
-  id      Int   @id @unique @default(autoincrement())
-  user    User  @relation(fields: [userId],references: [id])
-  userId  Int   @unique
+  id     Int  @id @unique @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @unique
 }
 
 model Post {
-  id            Int           @id @unique @default(autoincrement())
-  title         String        @unique
-  description   String?
-  body          String
-  isPublished   Boolean       @default(false)
-  author        User          @relation(fields: [authorId], references: [id])
-  authorId      Int
-  category      Category      @relation(fields: [categoryId], references: [id])
-  categoryId    Int
-  tags          TagsOnPosts[]   
-  viewsCount    Int           @default(0)
+  id          Int           @id @unique @default(autoincrement())
+  title       String        @unique
+  description String?
+  body        String
+  isPublished Boolean       @default(false)
+  author      User          @relation(fields: [authorId], references: [id])
+  authorId    Int
+  category    Category      @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  tags        TagsOnPosts[]
+  viewsCount  Int           @default(0)
 }
 
 model Category {
-  id      Int     @id @unique @default(autoincrement())
-  title   String
-  post    Post[]
+  id    Int    @id @unique @default(autoincrement())
+  title String
+  post  Post[]
 }
 
 model Tag {
-  id      Int     @id @unique @default(autoincrement())
-  name    String
-  post    TagsOnPosts[]
+  id   Int           @id @unique @default(autoincrement())
+  name String
+  post TagsOnPosts[]
 }
 
 model TagsOnPosts {
-  post        Post      @relation(fields: [postId], references: [id])
-  postId      Int 
-  tag         Tag       @relation(fields: [tagId], references: [id])
-  tagId       Int 
-  assignedAt  DateTime  @default(now())
+  post       Post     @relation(fields: [postId], references: [id])
+  postId     Int
+  tag        Tag      @relation(fields: [tagId], references: [id])
+  tagId      Int
+  assignedAt DateTime @default(now())
 
   @@id([postId, tagId])
+}
+
+enum RequestTypes {
+  UPDATE_TO_CREATOR
+  UPDATE_TO_ADMIN
+}
+
+model Request {
+  id     String       @id @unique @default(uuid())
+  type   RequestTypes
+  user   User         @relation(fields: [userId], references: [id])
+  userId Int
 }
