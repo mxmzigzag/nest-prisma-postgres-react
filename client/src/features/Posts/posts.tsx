@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+import { useAuth } from "../../hooks/useAuth";
+
 import ViewsIcon from "../../assets/svg/views";
 
 type Tag = {
@@ -34,6 +36,12 @@ type Props = {
 };
 
 export default function Posts({ posts, gridColNum = 4 }: Props) {
+  const { user } = useAuth();
+
+  const handleAddPost = () => {
+    console.log("add post");
+  };
+
   const handleMore = () => {
     console.log("load more");
   };
@@ -67,7 +75,13 @@ export default function Posts({ posts, gridColNum = 4 }: Props) {
           </button>
         </>
       ) : (
-        <p>There are no posts in the blog yet</p>
+        <>
+          <p>
+            There are no posts in {user?.role === "CREATOR" ? "your" : "the"}{" "}
+            blog yet
+          </p>
+          <button onClick={handleAddPost}>Start it now!</button>
+        </>
       )}
     </div>
   );

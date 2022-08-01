@@ -17,10 +17,14 @@ export const postApi = globalApi.injectEndpoints({
       }),
     }),
     getPostsByAuthorId: build.query<Post[], number>({
-      query: (userId) => ({
-        url: `posts/author/${userId}`,
-        method: "GET",
-      }),
+      query: (userId) => {
+        const token = localStorage.getItem("token");
+        return {
+          url: `posts/author/${userId}`,
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        };
+      },
     }),
   }),
 });
