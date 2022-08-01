@@ -61,7 +61,7 @@ export function AuthProvider({ children }: Props) {
         setUser(user);
         setIsAuth(true);
         localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("token", JSON.stringify(token));
+        localStorage.setItem("token", token);
       }
       return { user, token };
     } catch (err: any) {

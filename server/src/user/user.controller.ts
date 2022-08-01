@@ -43,6 +43,7 @@ export class UserController {
   }
 
   @Put('/user/:id')
+  @UseGuards(JwtAuthGuard)
   updateUser(@Param('id') id: number, @Body() userDto: Partial<UpdateUserDto>) {
     return this.userService.updateUser(Number(id), userDto);
   }
@@ -53,6 +54,7 @@ export class UserController {
   }
 
   @Get('/user/:id/posts')
+  @UseGuards(JwtAuthGuard)
   getUserPosts(@Param('id') authorId: number) {
     return this.userService.getUserPosts(Number(authorId));
   }

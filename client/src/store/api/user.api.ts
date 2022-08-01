@@ -18,11 +18,15 @@ export const userApi = globalApi
         providesTags: ["User"],
       }),
       updateProfile: build.mutation<User, ProfileFormData>({
-        query: (userData: ProfileFormData) => ({
-          url: `user/${userData.id}`,
-          method: "PUT",
-          body: userData,
-        }),
+        query: (userData: ProfileFormData) => {
+          const token = localStorage.getItem("token");
+          return {
+            url: `user/${userData.id}`,
+            method: "PUT",
+            body: userData,
+            headers: { Authorization: `Bearer ${token}` },
+          };
+        },
         invalidatesTags: ["User"],
       }),
     }),

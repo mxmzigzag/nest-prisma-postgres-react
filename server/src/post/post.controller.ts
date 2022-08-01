@@ -18,6 +18,7 @@ export class PostController {
   constructor(private postService: PostService) {}
 
   @Post('/post')
+  @UseGuards(JwtAuthGuard)
   createPost(@Body() postDto: CreatePostDto) {
     return this.postService.createPost(postDto);
   }
@@ -49,6 +50,7 @@ export class PostController {
   }
 
   @Delete('/post/:id')
+  @UseGuards(JwtAuthGuard)
   deletePost(@Param('id') id: number) {
     return this.postService.deletePost(Number(id));
   }
