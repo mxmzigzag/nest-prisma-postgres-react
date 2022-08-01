@@ -26,11 +26,12 @@ export default function RegistrationForm() {
 
   const [registerUser, { isLoading }] = useRegistrationMutation();
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       const data = await registration(registerUser, formData);
       if (data) {
@@ -47,7 +48,7 @@ export default function RegistrationForm() {
   };
 
   return (
-    <>
+    <form className="auth-form" onSubmit={onSubmit}>
       <h1 className="text-center form-title">Sign in</h1>
       <InputGroup
         label="Name"
@@ -89,9 +90,9 @@ export default function RegistrationForm() {
         error={errors.password}
         onChange={onChange}
       />
-      <Button type="submit" isLoading={isLoading} onClick={onSubmit}>
+      <Button type="submit" isLoading={isLoading}>
         Sign in
       </Button>
-    </>
+    </form>
   );
 }

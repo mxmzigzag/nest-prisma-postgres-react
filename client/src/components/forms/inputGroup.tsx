@@ -1,20 +1,23 @@
 import React, { ChangeEvent } from "react";
+import TextareaInput from "./textareaInput";
 
 import Input from "./textInput";
 
 type Props = {
   label: string;
   name: string;
+  type?: "text" | "textarea";
   placeholder: string;
   value: string;
   error?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   fullWidth?: boolean;
 };
 
 export default function InputGroup({
   label,
   name,
+  type = "text",
   placeholder,
   value,
   error,
@@ -26,12 +29,21 @@ export default function InputGroup({
       <label htmlFor="email" className="label">
         {label}
       </label>
-      <Input
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
+      {type === "text" ? (
+        <Input
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+        />
+      ) : (
+        <TextareaInput
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+        />
+      )}
       {error && <span className="input-error">{error}</span>}
     </div>
   );

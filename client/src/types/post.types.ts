@@ -23,3 +23,13 @@ export type Tag = {
     name: string;
   };
 };
+
+export type CreatePost = {
+  title: string;
+  description: string;
+  body: string;
+  image: string;
+  authorId: number;
+  categoryId: number;
+  tags: Tag[];
+};

@@ -4,7 +4,7 @@ import Spinner from "../../assets/svg/spinner";
 
 type Props = {
   type?: "button" | "submit" | "reset" | undefined;
-  onClick: () => void;
+  onClick?: () => void;
   isLoading?: boolean;
   disabled?: boolean;
   className?: string;

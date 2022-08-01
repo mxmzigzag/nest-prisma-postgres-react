@@ -21,11 +21,12 @@ export default function LoginForm() {
 
   const [loginUser, { isLoading }] = useLoginMutation();
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       const data = await login(loginUser, formData);
       if (data) navigate("/profile");
@@ -35,7 +36,7 @@ export default function LoginForm() {
   };
 
   return (
-    <>
+    <form className="auth-form" onSubmit={onSubmit}>
       <h1 className="text-center form-title">Log in</h1>
       <InputGroup
         label="Email"
@@ -51,9 +52,9 @@ export default function LoginForm() {
         value={formData.password}
         onChange={onChange}
       />
-      <Button type="submit" isLoading={isLoading} onClick={onSubmit}>
+      <Button type="submit" isLoading={isLoading}>
         Log in
       </Button>
-    </>
+    </form>
   );
 }

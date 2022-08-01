@@ -20,11 +20,12 @@ export default function ProfileForm({ userData }: Props) {
 
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const onSubmit = async () => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       const user = await updateProfile(formData).unwrap();
       console.log("upd", user);
@@ -39,7 +40,7 @@ export default function ProfileForm({ userData }: Props) {
 
   return (
     <>
-      <div className="profile-form">
+      <form className="profile-form" onSubmit={onSubmit}>
         <InputGroup
           label="Name"
           name="name"
@@ -72,13 +73,8 @@ export default function ProfileForm({ userData }: Props) {
           onChange={onChange}
           fullWidth={false}
         />
-      </div>
-      <Button
-        type="submit"
-        className="profile-form-btn"
-        isLoading={isLoading}
-        onClick={onSubmit}
-      >
+      </form>
+      <Button type="submit" className="profile-form-btn" isLoading={isLoading}>
         Save
       </Button>
     </>

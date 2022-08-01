@@ -189,6 +189,8 @@ a {
 
   &-form {
     padding: 20px;
+    max-height: 68vh;
+    overflow-y: auto;
   }
 }
 
@@ -398,6 +400,10 @@ footer {
     border-radius: 10px;
     background-color: white;
     box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.18);
+  }
+
+  &-form {
+    width: 100%;
   }
 }
 
