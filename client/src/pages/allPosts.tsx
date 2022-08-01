@@ -19,7 +19,6 @@ export default function AllPosts() {
 
 const PostsGrid = () => {
   const { data: posts = [], isLoading } = useGetAllPostsQuery();
-  console.log("posts", posts);
 
   // @ts-ignore
   return isLoading ? <LoaderIcon /> : <Posts posts={posts} gridColNum={3} />;

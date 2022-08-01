@@ -6,7 +6,7 @@ export type User = {
   role: "USER" | "CREATOR" | "ADMIN";
   email: string;
   password: string;
-  token?: string;
+  banned?: string;
 };
 
 export type LoginData = {
