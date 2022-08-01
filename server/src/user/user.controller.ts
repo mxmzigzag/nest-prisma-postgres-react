@@ -43,7 +43,7 @@ export class UserController {
   }
 
   @Put('/user/:id')
-  updateUser(@Param('id') id: number, @Body() userDto: UpdateUserDto) {
+  updateUser(@Param('id') id: number, @Body() userDto: Partial<UpdateUserDto>) {
     return this.userService.updateUser(Number(id), userDto);
   }
 
