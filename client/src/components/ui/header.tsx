@@ -20,7 +20,7 @@ export default function Header() {
   return (
     <div className="header-bg">
       <div className="header-wrapper">
-        <NavLink to={"/"}>
+        <NavLink to={"/"} tabIndex={-1}>
           <Logo
             width={70}
             height={57}
