@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { useAuth } from "../../hooks/useAuth";
+
+import Modal from "../../components/ui/modal";
+import PostForm from "../PostForm/postForm";
 
 import ViewsIcon from "../../assets/svg/views";
 
@@ -37,9 +40,11 @@ type Props = {
 
 export default function Posts({ posts, gridColNum = 4 }: Props) {
   const { user } = useAuth();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleAddPost = () => {
     console.log("add post");
+    setIsOpen(true);
   };
 
   const handleMore = () => {
@@ -76,11 +81,16 @@ export default function Posts({ posts, gridColNum = 4 }: Props) {
         </>
       ) : (
         <>
-          <p>
+          <p className="posts-empty-text">
             There are no posts in {user?.role === "CREATOR" ? "your" : "the"}{" "}
             blog yet
           </p>
-          <button onClick={handleAddPost}>Start it now!</button>
+          <button className="link-button" onClick={handleAddPost}>
+            Start it now!
+          </button>
+          <Modal title="Create Post" isOpen={isOpen} setIsOpen={setIsOpen}>
+            <PostForm />
+          </Modal>
         </>
       )}
     </div>
