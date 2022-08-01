@@ -51,7 +51,7 @@ export default function LoginForm() {
         value={formData.password}
         onChange={onChange}
       />
-      <Button isLoading={isLoading} onClick={onSubmit}>
+      <Button type="submit" isLoading={isLoading} onClick={onSubmit}>
         Log in
       </Button>
     </>

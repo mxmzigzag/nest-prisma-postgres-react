@@ -74,6 +74,7 @@ export default function ProfileForm({ userData }: Props) {
         />
       </div>
       <Button
+        type="submit"
         className="profile-form-btn"
         isLoading={isLoading}
         onClick={onSubmit}
