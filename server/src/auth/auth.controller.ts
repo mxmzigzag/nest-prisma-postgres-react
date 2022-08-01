@@ -1,4 +1,11 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Res,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Response } from 'express';
 
 import { CreateUserDto } from 'src/user/dto/createUser.dto';
@@ -10,6 +17,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('/registration')
+  @UsePipes(ValidationPipe)
   async registration(
     @Body() userDto: CreateUserDto,
     @Res({ passthrough: true }) res: Response,
@@ -25,6 +33,7 @@ export class AuthController {
   }
 
   @Post('/login')
+  @UsePipes(ValidationPipe)
   async login(@Body() userDto: LoginUserDto, @Res() res: Response) {
     const userData = await this.authService.login(userDto);
     res.cookie('token', userData.token, {
