@@ -15,6 +15,7 @@ export default function TextareaInput({
 }: Props) {
   return (
     <textarea
+      id={name}
       name={name}
       rows={5}
       placeholder={placeholder}

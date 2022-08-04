@@ -28,7 +28,7 @@ export type CreatePost = {
   title: string;
   description: string;
   body: string;
-  image: string;
+  image: File;
   authorId: number;
   categoryId: number;
   tags: Tag[];

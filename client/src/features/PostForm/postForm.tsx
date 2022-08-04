@@ -5,6 +5,7 @@ import { CreatePost } from "../../types/post.types";
 import InputGroup from "../../components/forms/inputGroup";
 import { errorToast } from "../../components/ui/toast";
 import Button from "../../components/ui/button";
+import Upload from "../../components/forms/upload";
 
 export default function PostForm() {
   const [formData, setFormData] = useState<Partial<CreatePost>>({});
@@ -45,7 +46,11 @@ export default function PostForm() {
         value={formData.body || ""}
         onChange={onChange}
       />
-      <p>image</p>
+      <Upload
+        label="Image"
+        name="image"
+        setValue={(value) => setFormData((prev) => ({ ...prev, image: value }))}
+      />
       <p>select author id</p>
       <p>select category id</p>
       <p>tags</p>

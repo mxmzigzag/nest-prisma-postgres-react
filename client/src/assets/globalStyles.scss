@@ -12,6 +12,10 @@ a {
   text-align: center;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .ml-auto {
   margin-left: auto;
 }
@@ -77,6 +81,38 @@ a {
   margin-top: 4px;
   color: red;
   font-size: 12px;
+}
+
+.upload {
+  &-margin {
+    margin-bottom: 4px;
+  }
+
+  &-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0px;
+  }
+
+  &-text {
+    font-size: 18px;
+  }
+
+  &-icon {
+    display: flex;
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 3px;
+    cursor: pointer;
+  }
+
+  &-uploaded {
+    border-color: rgb(73, 169, 48);
+    > svg {
+      fill: rgb(73, 169, 48);
+    }
+  }
 }
 
 .search-wrapper {

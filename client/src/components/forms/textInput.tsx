@@ -16,6 +16,7 @@ export default function TextInput({
   return (
     <input
       type="text"
+      id={name}
       name={name}
       placeholder={placeholder}
       value={value}

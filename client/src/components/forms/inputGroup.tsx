@@ -26,7 +26,7 @@ export default function InputGroup({
 }: Props) {
   return (
     <div className={`input-group ${!fullWidth && "half"}`}>
-      <label htmlFor="email" className="label">
+      <label htmlFor={name} className="label">
         {label}
       </label>
       {type === "text" ? (
