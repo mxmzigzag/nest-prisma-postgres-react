@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Post as PostModel } from '@prisma/client';
+import { FilesService } from 'src/files/files.service';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePostDto } from './dto/createPost.dto';
@@ -7,19 +8,24 @@ import { UpdatePostDto } from './dto/updatePost.dto';
 
 @Injectable()
 export class PostService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly filesService: FilesService,
+  ) {}
 
-  async createPost(dto: CreatePostDto) {
+  async createPost(dto: CreatePostDto, image: any) {
     const { title, description, body, authorId, categoryId, tags } = dto;
+    const fileName = await this.filesService.createFile(image);
     return this.prismaService.post.create({
       data: {
         title,
         description,
         body,
-        authorId,
-        categoryId,
+        image: fileName,
+        authorId: Number(authorId),
+        categoryId: Number(categoryId),
         tags: {
-          create: tags.map((tag) => ({
+          create: tags?.map((tag) => ({
             assignedAt: new Date(),
             tag: {
               create: tag,

@@ -44,6 +44,7 @@ model Post {
   title       String        @unique
   description String?
   body        String
+  image       String
   isPublished Boolean       @default(false)
   author      User          @relation(fields: [authorId], references: [id])
   authorId    Int

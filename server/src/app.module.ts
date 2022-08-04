@@ -23,6 +23,7 @@ import { AuthModule } from './auth/auth.module';
 import { RequestModule } from './request/request.module';
 import { RequestController } from './request/request.controller';
 import { RequestService } from './request/request.service';
+import { FilesModule } from './files/files.module';
 
 @Module({
   controllers: [
@@ -54,6 +55,7 @@ import { RequestService } from './request/request.service';
     TagModule,
     AuthModule,
     RequestModule,
+    FilesModule,
   ],
 })
 export class AppModule {}

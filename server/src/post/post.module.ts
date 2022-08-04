@@ -3,6 +3,7 @@ import { PostService } from './post.service';
 import { PostController } from './post.controller';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
+import { FilesModule } from 'src/files/files.module';
 
 @Module({
   providers: [PrismaService, PostService],
@@ -14,6 +15,7 @@ import { JwtModule } from '@nestjs/jwt';
         expiresIn: '24h',
       },
     }),
+    FilesModule,
   ],
 })
 export class PostModule {}
