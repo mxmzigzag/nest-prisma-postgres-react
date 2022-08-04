@@ -141,6 +141,46 @@ a {
   justify-content: center;
 }
 
+.select {
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: fit-content;
+  }
+  &-selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 3px 6px;
+    cursor: pointer;
+  }
+  &-list {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 4px;
+    &-item {
+      cursor: pointer;
+      padding: 4px 6px;
+      &:hover {
+        background-color: #ccc;
+      }
+    }
+  }
+  &-icon {
+    &-open {
+      transform: rotate(180deg);
+    }
+  }
+}
+
 .btn {
   background-color: burlywood;
   padding: 10px 15px;

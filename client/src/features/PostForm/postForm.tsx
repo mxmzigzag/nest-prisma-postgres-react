@@ -2,13 +2,22 @@ import React, { ChangeEvent, useState } from "react";
 
 import { CreatePost } from "../../types/post.types";
 
+import { useAuth } from "../../hooks/useAuth";
+import { useGetAllCategoriesQuery } from "../../store/api/category.api";
+
 import InputGroup from "../../components/forms/inputGroup";
 import { errorToast } from "../../components/ui/toast";
 import Button from "../../components/ui/button";
 import Upload from "../../components/forms/upload";
+import Select from "../../components/forms/select";
 
 export default function PostForm() {
-  const [formData, setFormData] = useState<Partial<CreatePost>>({});
+  const { user } = useAuth();
+  const [formData, setFormData] = useState<Partial<CreatePost>>({
+    authorId: user?.id,
+  });
+
+  const { data: categories = [] } = useGetAllCategoriesQuery();
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -51,8 +60,16 @@ export default function PostForm() {
         name="image"
         setValue={(value) => setFormData((prev) => ({ ...prev, image: value }))}
       />
-      <p>select author id</p>
-      <p>select category id</p>
+      <div className="input-group">
+        <label className="label">Category</label>
+        <Select
+          defaultText="Select a category"
+          items={categories}
+          setItem={(item) =>
+            setFormData((prev) => ({ ...prev, categoryId: item }))
+          }
+        />
+      </div>
       <p>tags</p>
       <Button type="submit">Create</Button>
     </form>
