@@ -1,20 +1,19 @@
 import React, { ChangeEvent, useState } from "react";
 import { v4 as createUID } from "uuid";
 
-import { useCreateTagMutation } from "../../store/api/tag.api";
-
-import { Tag } from "../../types/tag.types";
+import { Tag, NewTag } from "../../types/tag.types";
 
 type Props = {
   name?: string;
-  formTags?: Tag[];
+  formTags?: NewTag[];
   existingTags: Tag[];
-  setTag: (tag: Tag) => void;
+  setTag: (tag: NewTag) => void;
 };
 
 type TagsSuggestionProps = {
   tagsSuggestions: Tag[];
   setTag: (tag: Tag) => void;
+  tagInput: string;
   setTagInput: React.Dispatch<React.SetStateAction<string>>;
 };
 
@@ -26,8 +25,6 @@ export default function Tags({
 }: Props) {
   const [tagInput, setTagInput] = useState("");
 
-  const [createTag] = useCreateTagMutation();
-
   const tagsSuggestions = existingTags.filter(
     (tag) =>
       !formTags.includes(tag) &&
@@ -35,13 +32,6 @@ export default function Tags({
   );
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    //@ts-ignore
-    if (e.code === "Enter") {
-      const uid = createUID();
-      const newTag = { id: uid, name: e.target.value };
-      await createTag(newTag);
-      setTag(newTag);
-    }
     setTagInput(e.target.value);
   };
 
@@ -59,10 +49,11 @@ export default function Tags({
         onChange={handleChange}
         className="tags-input"
       />
-      {tagsSuggestions.length && tagInput.length ? (
+      {tagInput.length ? (
         <TagsSuggestions
           tagsSuggestions={tagsSuggestions}
           setTag={setTag}
+          tagInput={tagInput}
           setTagInput={setTagInput}
         />
       ) : null}
@@ -73,24 +64,36 @@ export default function Tags({
 const TagsSuggestions = ({
   tagsSuggestions,
   setTag,
+  tagInput,
   setTagInput,
 }: TagsSuggestionProps) => {
-  const handleSelectTag = (tag: Tag) => {
+  const handleSelectTag = (tag: NewTag) => {
     setTag(tag);
     setTagInput("");
   };
 
   return (
     <div className="tags-suggestions">
-      {tagsSuggestions.map((tag) => (
+      {tagsSuggestions.length ? (
+        tagsSuggestions.map((tag) => (
+          <div
+            key={tag.id}
+            className="tags-suggestions-item"
+            onClick={() => handleSelectTag(tag)}
+          >
+            {tag.name}
+          </div>
+        ))
+      ) : (
         <div
-          key={tag.id}
           className="tags-suggestions-item"
-          onClick={() => handleSelectTag(tag)}
+          onClick={() =>
+            handleSelectTag({ id: createUID(), name: tagInput, isNew: true })
+          }
         >
-          {tag.name}
+          {tagInput}
         </div>
-      ))}
+      )}
     </div>
   );
 };

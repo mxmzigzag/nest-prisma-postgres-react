@@ -4,10 +4,13 @@ import { CreatePost } from "../../types/post.types";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useGetAllCategoriesQuery } from "../../store/api/category.api";
-import { useGetAllTagsQuery } from "../../store/api/tag.api";
+import {
+  useCreateTagMutation,
+  useGetAllTagsQuery,
+} from "../../store/api/tag.api";
 
 import InputGroup from "../../components/forms/inputGroup";
-import { errorToast } from "../../components/ui/toast";
+import { errorToast, successToast } from "../../components/ui/toast";
 import Button from "../../components/ui/button";
 import Upload from "../../components/forms/upload";
 import Select from "../../components/forms/select";
@@ -20,7 +23,9 @@ export default function PostForm() {
   });
 
   const { data: categories = [] } = useGetAllCategoriesQuery();
+
   const { data: tags = [] } = useGetAllTagsQuery();
+  const [createTag] = useCreateTagMutation();
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -29,6 +34,16 @@ export default function PostForm() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      console.log("submit", formData);
+      // await createPost(formData)
+      // const newTags = formData.tags?.filter((tag) => tag.isNew) || [];
+      // if (newTags.length) {
+      //   newTags.forEach(async (tag) => {
+      //     const newTag = { id: tag.id, name: tag.name };
+      //     await createTag(newTag);
+      //   });
+      // }
+      successToast("Post is created! Wait for moderator validation.");
     } catch (err: any) {
       errorToast(err.data.message);
     }

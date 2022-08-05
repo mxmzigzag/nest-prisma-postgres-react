@@ -1,5 +1,5 @@
 import { Category } from "./category.types";
-import { Tag } from "./tag.types";
+import { NewTag, Tag } from "./tag.types";
 
 export type Post = {
   id: string;
@@ -25,5 +25,5 @@ export type CreatePost = {
   image: File;
   authorId: string;
   categoryId: string;
-  tags: Tag[];
+  tags: NewTag[];
 };
