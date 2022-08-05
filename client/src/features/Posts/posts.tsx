@@ -62,9 +62,11 @@ export default function Posts({ posts, gridColNum = 4 }: Props) {
             There are no posts in {user?.role === "CREATOR" ? "your" : "the"}{" "}
             blog yet
           </p>
-          <button className="link-button" onClick={handleAddPost}>
-            Start it now!
-          </button>
+          {user?.role === "CREATOR" ? (
+            <button className="link-button" onClick={handleAddPost}>
+              Start it now!
+            </button>
+          ) : null}
           <Modal title="Create Post" isOpen={isOpen} setIsOpen={setIsOpen}>
             <PostForm />
           </Modal>
