@@ -18,6 +18,7 @@ import Footer from "./components/ui/footer";
 import AllPosts from "./pages/allPosts";
 import AllUsers from "./pages/allUsers";
 import Requests from "./pages/Requests";
+import AddPostBtn from "./components/ui/addPostBtn";
 
 export default function App() {
   const { user } = useAuth();
@@ -82,6 +83,7 @@ export default function App() {
           </Routes>
         </div>
         <Footer />
+        {user?.role === "CREATOR" ? <AddPostBtn /> : null}
       </BrowserRouter>
       <ToastContainer />
     </div>
