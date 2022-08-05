@@ -17,7 +17,7 @@ enum Role {
 }
 
 model User {
-  id        Int         @id @unique @default(autoincrement())
+  id        String      @id @unique @default(uuid())
   name      String
   surname   String
   username  String      @unique
@@ -32,24 +32,24 @@ model User {
 }
 
 model BannedUser {
-  id        Int      @id @unique @default(autoincrement())
+  id        String   @id @unique @default(uuid())
   user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
+  userId    String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Post {
-  id          Int           @id @unique @default(autoincrement())
+  id          String        @id @unique @default(uuid())
   title       String        @unique
   description String?
   body        String
   image       String
   isPublished Boolean       @default(false)
   author      User          @relation(fields: [authorId], references: [id])
-  authorId    Int
+  authorId    String
   category    Category      @relation(fields: [categoryId], references: [id])
-  categoryId  Int
+  categoryId  String
   tags        TagsOnPosts[]
   viewsCount  Int           @default(0)
   createdAt   DateTime      @default(now())
@@ -57,22 +57,22 @@ model Post {
 }
 
 model Category {
-  id    Int    @id @unique @default(autoincrement())
+  id    String @id @unique @default(uuid())
   title String
   post  Post[]
 }
 
 model Tag {
-  id   Int           @id @unique @default(autoincrement())
+  id   String        @id @unique @default(uuid())
   name String
   post TagsOnPosts[]
 }
 
 model TagsOnPosts {
   post       Post     @relation(fields: [postId], references: [id])
-  postId     Int
+  postId     String
   tag        Tag      @relation(fields: [tagId], references: [id])
-  tagId      Int
+  tagId      String
   assignedAt DateTime @default(now())
 
   @@id([postId, tagId])
@@ -94,7 +94,7 @@ model Request {
   type      RequestTypes
   status    RequestStatus @default(PENDING)
   user      User          @relation(fields: [userId], references: [id])
-  userId    Int
+  userId    String
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 }
