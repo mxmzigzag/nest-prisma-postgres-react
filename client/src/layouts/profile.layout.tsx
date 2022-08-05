@@ -40,6 +40,12 @@ export default function ProfileLayout({ title, children }: Props) {
     { id: 3, name: "All Users", link: "/admin/users", allowedRoles: ["ADMIN"] },
     {
       id: 4,
+      name: "Categories",
+      link: "/admin/categories",
+      allowedRoles: ["ADMIN"],
+    },
+    {
+      id: 5,
       name: "Requests",
       link: "/admin/requests",
       allowedRoles: ["ADMIN"],

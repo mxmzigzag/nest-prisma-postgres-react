@@ -11,6 +11,7 @@ type Props = {
   value: string;
   error?: string;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  className?: string;
   fullWidth?: boolean;
 };
 
@@ -22,10 +23,11 @@ export default function InputGroup({
   value,
   error,
   onChange,
+  className,
   fullWidth = true,
 }: Props) {
   return (
-    <div className={`input-group ${!fullWidth && "half"}`}>
+    <div className={`input-group ${!fullWidth ? "half" : ""} ${className}`}>
       <label htmlFor={name} className="label">
         {label}
       </label>

@@ -19,6 +19,7 @@ import AllPosts from "./pages/allPosts";
 import AllUsers from "./pages/allUsers";
 import Requests from "./pages/Requests";
 import AddPostBtn from "./components/ui/addPostBtn";
+import Categories from "./pages/categories";
 
 export default function App() {
   const { user } = useAuth();
@@ -73,6 +74,16 @@ export default function App() {
                   isAllowed={Boolean(user) && user?.role === "ADMIN"}
                 >
                   <Requests />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/categories"
+              element={
+                <ProtectedRoute
+                  isAllowed={Boolean(user) && user?.role === "ADMIN"}
+                >
+                  <Categories />
                 </ProtectedRoute>
               }
             />

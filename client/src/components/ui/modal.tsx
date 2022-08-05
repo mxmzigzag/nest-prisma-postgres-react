@@ -6,14 +6,21 @@ type Props = {
   title: string;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  customWrapperClass?: string;
   children: JSX.Element;
 };
 
-export default function Modal({ title, isOpen, setIsOpen, children }: Props) {
+export default function Modal({
+  title,
+  isOpen,
+  setIsOpen,
+  customWrapperClass,
+  children,
+}: Props) {
   if (!isOpen) return null;
   return ReactDOM.createPortal(
     <div className="modal">
-      <div className="modal-wrapper">
+      <div className={`${customWrapperClass || "modal-wrapper"}`}>
         <div className="modal-header">
           {title}
           <RejectIcon
