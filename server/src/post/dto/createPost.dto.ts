@@ -11,11 +11,11 @@ export class CreatePostDto {
   @IsString({ message: 'Title needs to be string' })
   readonly body: string;
 
-  @IsNumber()
-  readonly authorId: number;
+  @IsString()
+  readonly authorId: string;
 
-  @IsNumber()
-  readonly categoryId: number;
+  @IsString()
+  readonly categoryId: string;
 
   readonly tags: { name: string }[];
 }

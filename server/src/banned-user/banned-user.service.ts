@@ -16,7 +16,7 @@ export class BannedUserService {
     return this.prismaService.bannedUser.findMany();
   }
 
-  async unbanUser(id: number) {
+  async unbanUser(id: string) {
     return this.prismaService.bannedUser.delete({
       where: { id },
     });

@@ -33,7 +33,7 @@ export class RequestController {
   @Get('/requestIsSent')
   @UseGuards(JwtAuthGuard)
   getRequestIsSentByUser(@Query() { userId, type }: CreateRequestDto) {
-    return this.requestService.getRequestIsSentByUser(Number(userId), type);
+    return this.requestService.getRequestIsSentByUser(userId, type);
   }
 
   @Delete('/request/:reqId')

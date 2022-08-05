@@ -1,5 +1,5 @@
 export type User = {
-  id: number;
+  id: string;
   name: string;
   surname: string;
   username: string;
@@ -23,7 +23,7 @@ export type RegistrationData = {
 };
 
 export type ProfileFormData = {
-  id?: number;
+  id?: string;
   name?: string;
   surname?: string;
   username?: string;

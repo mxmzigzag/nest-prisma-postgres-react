@@ -2,13 +2,13 @@ import React from "react";
 import { topViewedPosts } from "../../data/dummyData";
 
 type Category = {
-  id: number;
+  id: string;
   title: string;
   color: string;
 };
 
 type Slide = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   image: string;

@@ -22,8 +22,8 @@ export class PostService {
         description,
         body,
         image: fileName,
-        authorId: Number(authorId),
-        categoryId: Number(categoryId),
+        authorId: authorId,
+        categoryId: categoryId,
         tags: {
           create: tags?.map((tag) => ({
             assignedAt: new Date(),
@@ -63,7 +63,7 @@ export class PostService {
     });
   }
 
-  async getPostsByAuthorId(authorId: number): Promise<PostModel[]> {
+  async getPostsByAuthorId(authorId: string): Promise<PostModel[]> {
     return this.prismaService.post.findMany({
       where: {
         authorId,
@@ -74,11 +74,11 @@ export class PostService {
     });
   }
 
-  async getOnePost(id: number): Promise<PostModel> {
+  async getOnePost(id: string): Promise<PostModel> {
     return this.prismaService.post.findUnique({ where: { id } });
   }
 
-  async updatePost(id: number, postDto: UpdatePostDto) {
+  async updatePost(id: string, postDto: UpdatePostDto) {
     const { title, description, body, categoryId, tags } = postDto;
     return this.prismaService.post.update({
       where: { id },
@@ -99,7 +99,7 @@ export class PostService {
     });
   }
 
-  async deletePost(id: number) {
+  async deletePost(id: string) {
     return this.prismaService.post.delete({ where: { id } });
   }
 }

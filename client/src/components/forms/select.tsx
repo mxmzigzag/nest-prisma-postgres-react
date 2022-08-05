@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 import ChevronDownIcon from "../../assets/svg/chevronDown";
 
-type Item = { id: number; title: string };
+type Item = { id: string; title: string };
 
 type Props = {
   defaultText: string;
   items: Item[];
-  setItem: (item: number) => void;
+  setItem: (item: string) => void;
 };
 
 export default function Select({ defaultText, items, setItem }: Props) {

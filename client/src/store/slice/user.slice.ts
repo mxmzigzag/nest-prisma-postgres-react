@@ -8,7 +8,7 @@ interface UserState {
 
 const initialState: UserState = {
   user: {
-    id: 0,
+    id: "0",
     name: "",
     surname: "",
     username: "",

@@ -25,17 +25,17 @@ export class CategoryController {
   }
 
   @Get('/category/:id')
-  getOneCategory(@Param('id') id: number) {
-    return this.categoryService.getOneCategory(Number(id));
+  getOneCategory(@Param('id') id: string) {
+    return this.categoryService.getOneCategory(id);
   }
 
   @Put('/category/:id')
-  updateCategory(@Param('id') id: number, @Body() postDto: CategoryDto) {
-    return this.categoryService.updateCategory(Number(id), postDto);
+  updateCategory(@Param('id') id: string, @Body() postDto: CategoryDto) {
+    return this.categoryService.updateCategory(id, postDto);
   }
 
   @Delete('/category/:id')
-  deleteCategory(@Param('id') id: number) {
-    return this.categoryService.deleteCategory(Number(id));
+  deleteCategory(@Param('id') id: string) {
+    return this.categoryService.deleteCategory(id);
   }
 }

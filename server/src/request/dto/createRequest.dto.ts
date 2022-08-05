@@ -1,6 +1,6 @@
 import { RequestTypes } from '@prisma/client';
 
 export class CreateRequestDto {
-  readonly userId: number;
+  readonly userId: string;
   readonly type: RequestTypes;
 }

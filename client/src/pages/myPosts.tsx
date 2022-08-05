@@ -31,7 +31,7 @@ export default function MyPosts() {
   );
 }
 
-const MyPostsGrid = ({ userId }: { userId: number }) => {
+const MyPostsGrid = ({ userId }: { userId: string }) => {
   const { data: posts = [], isLoading } = useGetPostsByAuthorIdQuery(userId, {
     refetchOnMountOrArgChange: true,
   });
@@ -40,7 +40,7 @@ const MyPostsGrid = ({ userId }: { userId: number }) => {
   return isLoading ? <LoaderIcon /> : <Posts posts={posts} gridColNum={3} />;
 };
 
-const BecomeCreatorNotification = ({ userId }: { userId: number }) => {
+const BecomeCreatorNotification = ({ userId }: { userId: string }) => {
   const [isRequestSent, setIsRequestSent] = useState<boolean>(false);
   const { data: isReqSent = false, isLoading: isSentLoading } =
     useGetRequestIsSentByUserQuery({

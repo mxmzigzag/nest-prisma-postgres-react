@@ -20,7 +20,7 @@ export class UserService {
     return this.prismaService.user.findMany();
   }
 
-  async getUserById(id: number): Promise<UserModel> {
+  async getUserById(id: string): Promise<UserModel> {
     return this.prismaService.user.findUnique({
       where: {
         id,
@@ -36,15 +36,15 @@ export class UserService {
     });
   }
 
-  async updateUser(id: number, dto: Partial<UpdateUserDto>) {
+  async updateUser(id: string, dto: Partial<UpdateUserDto>) {
     return this.prismaService.user.update({ where: { id }, data: dto });
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(id: string) {
     return this.prismaService.user.delete({ where: { id } });
   }
 
-  async getUserPosts(authorId: number) {
+  async getUserPosts(authorId: string) {
     return this.prismaService.post.findMany({ where: { authorId } });
   }
 }

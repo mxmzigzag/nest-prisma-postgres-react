@@ -18,11 +18,11 @@ export class TagService {
     return this.prismaService.tag.findMany();
   }
 
-  async updateTag(id: number, tagDto: TagDto) {
+  async updateTag(id: string, tagDto: TagDto) {
     return this.prismaService.tag.update({ where: { id }, data: tagDto });
   }
 
-  async deleteTag(id: number) {
+  async deleteTag(id: string) {
     return this.prismaService.tag.delete({ where: { id } });
   }
 }

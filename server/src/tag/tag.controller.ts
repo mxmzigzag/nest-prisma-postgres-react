@@ -25,12 +25,12 @@ export class TagController {
   }
 
   @Put('/tag/:id')
-  updateTag(@Param('id') id: number, @Body() tagDto: TagDto) {
-    return this.tagService.updateTag(Number(id), tagDto);
+  updateTag(@Param('id') id: string, @Body() tagDto: TagDto) {
+    return this.tagService.updateTag(id, tagDto);
   }
 
   @Delete('/tag/:id')
-  deleteTag(@Param('id') id: number) {
-    return this.tagService.deleteTag(Number(id));
+  deleteTag(@Param('id') id: string) {
+    return this.tagService.deleteTag(id);
   }
 }

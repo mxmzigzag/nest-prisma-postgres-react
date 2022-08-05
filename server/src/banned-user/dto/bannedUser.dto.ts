@@ -1,3 +1,3 @@
 export class BannedUserDto {
-  userId: number;
+  userId: string;
 }

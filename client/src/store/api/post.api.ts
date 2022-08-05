@@ -16,7 +16,7 @@ export const postApi = globalApi.injectEndpoints({
         method: "GET",
       }),
     }),
-    getPostsByAuthorId: build.query<Post[], number>({
+    getPostsByAuthorId: build.query<Post[], string>({
       query: (userId) => {
         const token = localStorage.getItem("token");
         return {

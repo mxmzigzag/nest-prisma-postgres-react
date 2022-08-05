@@ -1,27 +1,21 @@
+import { Category } from "./category.types";
+import { Tag } from "./tag.types";
+
 export type Post = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   body: string;
   isPublished: boolean;
   image: string;
-  authorId: number;
-  categoryId: number;
+  authorId: string;
+  categoryId: string;
   viewsCount: number;
   author: {
     username: string;
   };
-  category: {
-    id: number;
-    title: string;
-  };
+  category: Category;
   tags: Tag[];
-};
-
-export type Tag = {
-  tag: {
-    name: string;
-  };
 };
 
 export type CreatePost = {
@@ -29,7 +23,7 @@ export type CreatePost = {
   description: string;
   body: string;
   image: File;
-  authorId: number;
-  categoryId: number;
+  authorId: string;
+  categoryId: string;
   tags: Tag[];
 };

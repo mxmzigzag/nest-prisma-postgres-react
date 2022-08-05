@@ -33,8 +33,8 @@ export class UserController {
   }
 
   @Get('/user/:id')
-  getUserById(@Param('id') id: number) {
-    return this.userService.getUserById(+id);
+  getUserById(@Param('id') id: string) {
+    return this.userService.getUserById(id);
   }
 
   @Get('/user')
@@ -45,18 +45,18 @@ export class UserController {
   @Put('/user/:id')
   @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe)
-  updateUser(@Param('id') id: number, @Body() userDto: Partial<UpdateUserDto>) {
-    return this.userService.updateUser(Number(id), userDto);
+  updateUser(@Param('id') id: string, @Body() userDto: Partial<UpdateUserDto>) {
+    return this.userService.updateUser(id, userDto);
   }
 
   @Delete('/user/:id')
-  deleteUser(@Param('id') id: number) {
-    return this.userService.deleteUser(Number(id));
+  deleteUser(@Param('id') id: string) {
+    return this.userService.deleteUser(id);
   }
 
   @Get('/user/:id/posts')
   @UseGuards(JwtAuthGuard)
-  getUserPosts(@Param('id') authorId: number) {
-    return this.userService.getUserPosts(Number(authorId));
+  getUserPosts(@Param('id') authorId: string) {
+    return this.userService.getUserPosts(authorId);
   }
 }

@@ -39,23 +39,23 @@ export class PostController {
 
   @Get('/posts/author/:authorId')
   @UseGuards(JwtAuthGuard)
-  getPostsByAuthorId(@Param('authorId') authorId: number) {
-    return this.postService.getPostsByAuthorId(Number(authorId));
+  getPostsByAuthorId(@Param('authorId') authorId: string) {
+    return this.postService.getPostsByAuthorId(authorId);
   }
 
   @Get('/post/:id')
-  getOnePost(@Param('id') id: number) {
-    return this.postService.getOnePost(Number(id));
+  getOnePost(@Param('id') id: string) {
+    return this.postService.getOnePost(id);
   }
 
   @Put('/post/:id')
-  updatePost(@Param('id') id: number, @Body() postDto: UpdatePostDto) {
-    return this.postService.updatePost(Number(id), postDto);
+  updatePost(@Param('id') id: string, @Body() postDto: UpdatePostDto) {
+    return this.postService.updatePost(id, postDto);
   }
 
   @Delete('/post/:id')
   @UseGuards(JwtAuthGuard)
-  deletePost(@Param('id') id: number) {
-    return this.postService.deletePost(Number(id));
+  deletePost(@Param('id') id: string) {
+    return this.postService.deletePost(id);
   }
 }

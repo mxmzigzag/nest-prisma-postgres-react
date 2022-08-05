@@ -39,7 +39,7 @@ export class RequestService {
     });
   }
 
-  async getRequestIsSentByUser(userId: number, type: RequestTypes) {
+  async getRequestIsSentByUser(userId: string, type: RequestTypes) {
     const req = await this.prismaService.request.findFirst({
       where: {
         type,

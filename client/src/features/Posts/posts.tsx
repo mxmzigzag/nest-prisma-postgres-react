@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import { Post } from "../../types/post.types";
+
 import { useAuth } from "../../hooks/useAuth";
 
 import Modal from "../../components/ui/modal";
@@ -8,33 +10,8 @@ import PostForm from "../PostForm/postForm";
 
 import ViewsIcon from "../../assets/svg/views";
 
-type Tag = {
-  name: string;
-};
-
-type Post = {
-  id: number;
-  title: string;
-  image: string;
-  description: string;
-  body?: string;
-  isPublished?: boolean;
-  authorId: number;
-  author: {
-    username: string;
-  };
-  categoryId: number;
-  category: {
-    id: number;
-    title: string;
-    color: string;
-  };
-  viewsCount: number;
-  tags: Tag[];
-};
-
 type Props = {
-  posts: Post[];
+  posts: Partial<Post>[];
   gridColNum?: number;
 };
 
@@ -60,7 +37,7 @@ export default function Posts({ posts, gridColNum = 4 }: Props) {
             style={{ gridTemplateColumns: `repeat(${gridColNum}, 1fr)` }}
           >
             {posts.map((post) => (
-              <Post
+              <PostCard
                 key={post.id}
                 id={post.id}
                 title={post.title}
@@ -97,7 +74,7 @@ export default function Posts({ posts, gridColNum = 4 }: Props) {
   );
 }
 
-const Post = ({
+const PostCard = ({
   id,
   title,
   image,
@@ -108,7 +85,7 @@ const Post = ({
   category,
   viewsCount,
   tags,
-}: Post) => {
+}: Partial<Post>) => {
   return (
     <NavLink to={`/posts/${id}`}>
       <div className="post" style={{ backgroundImage: `url(${image})` }}>
@@ -133,9 +110,11 @@ const Post = ({
           <p className="post-descr">{description}</p>
         </div>
         <div className="post-bottom">
-          <div className="post-author" onClick={() => console.log(authorId)}>
-            {author.username}
-          </div>
+          {author ? (
+            <div className="post-author" onClick={() => console.log(authorId)}>
+              {author.username}
+            </div>
+          ) : null}
           <div className="post-views">
             <ViewsIcon className="post-views-icon" />
             {viewsCount}

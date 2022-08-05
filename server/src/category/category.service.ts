@@ -18,18 +18,18 @@ export class CategoryService {
     return this.prismaService.category.findMany();
   }
 
-  async getOneCategory(id: number): Promise<CategoryModel> {
+  async getOneCategory(id: string): Promise<CategoryModel> {
     return this.prismaService.category.findUnique({ where: { id } });
   }
 
-  async updateCategory(id: number, postDto: CategoryDto) {
+  async updateCategory(id: string, postDto: CategoryDto) {
     return this.prismaService.category.update({
       where: { id },
       data: postDto,
     });
   }
 
-  async deleteCategory(id: number) {
+  async deleteCategory(id: string) {
     return this.prismaService.category.delete({
       where: { id },
     });
