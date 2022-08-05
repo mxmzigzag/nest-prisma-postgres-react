@@ -21,8 +21,27 @@ export const categoryApi = globalApi
         }),
         invalidatesTags: ["Category"],
       }),
+      updateCategory: build.mutation<Category, Category>({
+        query: (category) => ({
+          url: `category/${category.id}`,
+          method: "PUT",
+          body: category,
+        }),
+        invalidatesTags: ["Category"],
+      }),
+      deleteCategory: build.mutation<Category, string>({
+        query: (catId) => ({
+          url: `category/${catId}`,
+          method: "DELETE",
+        }),
+        invalidatesTags: ["Category"],
+      }),
     }),
   });
 
-export const { useGetAllCategoriesQuery, useCreateCategoryMutation } =
-  categoryApi;
+export const {
+  useGetAllCategoriesQuery,
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
+} = categoryApi;

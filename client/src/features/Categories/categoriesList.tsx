@@ -1,16 +1,24 @@
 import React, { useState } from "react";
+import { v4 as createUID } from "uuid";
 
-import { useGetAllCategoriesQuery } from "../../store/api/category.api";
+import { Category } from "../../types/category.types";
+
+import {
+  useCreateCategoryMutation,
+  useDeleteCategoryMutation,
+  useGetAllCategoriesQuery,
+} from "../../store/api/category.api";
 
 import Checkbox from "../../components/forms/checkbox";
 import Button from "../../components/ui/button";
 import Modal from "../../components/ui/modal";
 import CategoryForm from "./categoryForm";
 import ColorPill from "../../components/ui/colorPill";
+import { errorToast, successToast } from "../../components/ui/toast";
+
 import PenIcon from "../../assets/svg/pen";
 import CopyIcon from "../../assets/svg/copy";
 import DeleteIcon from "../../assets/svg/delete";
-import { Category } from "../../types/category.types";
 
 type RowActionsProps = {
   category: Category;
@@ -82,12 +90,26 @@ export default function CategoriesList() {
 const RowActions = ({ category }: RowActionsProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleDuplicate = () => {
-    console.log("dup");
+  const [createCategory] = useCreateCategoryMutation();
+  const [deleteCategory] = useDeleteCategoryMutation();
+
+  const handleDuplicate = async () => {
+    try {
+      const newCategory = { ...category, id: createUID() };
+      await createCategory(newCategory);
+      successToast(`Category ${category.title} duplicated`);
+    } catch (error: any) {
+      errorToast(error.message);
+    }
   };
 
-  const handleDelete = () => {
-    console.log("del");
+  const handleDelete = async () => {
+    try {
+      await deleteCategory(category.id);
+      successToast("Category removed");
+    } catch (error: any) {
+      errorToast(error.message);
+    }
   };
 
   return (

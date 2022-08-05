@@ -3,7 +3,10 @@ import { v4 as createUID } from "uuid";
 
 import { Category } from "../../types/category.types";
 
-import { useCreateCategoryMutation } from "../../store/api/category.api";
+import {
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+} from "../../store/api/category.api";
 
 import InputGroup from "../../components/forms/inputGroup";
 import Button from "../../components/ui/button";
@@ -25,6 +28,7 @@ export default function CategoryForm({
   const [formData, setFormData] = useState<Category>(category);
 
   const [createCategory] = useCreateCategoryMutation();
+  const [updateCategory] = useUpdateCategoryMutation();
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((state) => ({ ...state, [e.target.name]: e.target.value }));
@@ -33,9 +37,14 @@ export default function CategoryForm({
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await createCategory(formData);
+      if (category.title) {
+        await updateCategory(formData);
+        successToast(`Category ${formData.title} is updated!`);
+      } else {
+        await createCategory(formData);
+        successToast(`Category ${formData.title} is created!`);
+      }
       setIsOpen(false);
-      successToast(`Category ${formData.title} is created!`);
     } catch (error: any) {
       errorToast(error.message);
     }
@@ -62,7 +71,7 @@ export default function CategoryForm({
         />
       </div>
       <Button type="submit" className="category-form-btn">
-        Save
+        {category.title ? "Update" : "Save"}
       </Button>
     </form>
   );
