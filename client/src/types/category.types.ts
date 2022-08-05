@@ -3,8 +3,3 @@ export type Category = {
   title: string;
   color: string;
 };
-
-export type CreateCategory = {
-  title: string;
-  color: string;
-};

@@ -1,6 +1,6 @@
 import { globalApi } from "./global.api";
 
-import { Category, CreateCategory } from "../../types/category.types";
+import { Category } from "../../types/category.types";
 
 export const categoryApi = globalApi
   .enhanceEndpoints({ addTagTypes: ["Category"] })
@@ -13,7 +13,7 @@ export const categoryApi = globalApi
         }),
         providesTags: ["Category"],
       }),
-      createCategory: build.mutation<Category, CreateCategory>({
+      createCategory: build.mutation<Category, Category>({
         query: (category) => ({
           url: "category",
           method: "POST",

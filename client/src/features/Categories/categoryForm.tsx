@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
+import { v4 as createUID } from "uuid";
 
-import { CreateCategory } from "../../types/category.types";
+import { Category } from "../../types/category.types";
 
 import { useCreateCategoryMutation } from "../../store/api/category.api";
 
@@ -8,11 +9,20 @@ import InputGroup from "../../components/forms/inputGroup";
 import Button from "../../components/ui/button";
 import { errorToast, successToast } from "../../components/ui/toast";
 
-export default function CategoryForm() {
-  const [formData, setFormData] = useState<CreateCategory>({
+type Props = {
+  category?: Category;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function CategoryForm({
+  category = {
+    id: createUID(),
     title: "",
     color: "#000",
-  });
+  },
+  setIsOpen,
+}: Props) {
+  const [formData, setFormData] = useState<Category>(category);
 
   const [createCategory] = useCreateCategoryMutation();
 
@@ -24,6 +34,7 @@ export default function CategoryForm() {
     e.preventDefault();
     try {
       await createCategory(formData);
+      setIsOpen(false);
       successToast(`Category ${formData.title} is created!`);
     } catch (error: any) {
       errorToast(error.message);
