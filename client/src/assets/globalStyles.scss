@@ -1014,6 +1014,10 @@ footer {
     grid-template-columns: 0.1fr 1fr 1fr;
     background-color: #fff;
     position: relative;
+    border-bottom: 1px solid #ccc;
+    &:last-child {
+      border-bottom: none;
+    }
     &:hover {
       .categories-row-actions {
         display: flex;
@@ -1023,12 +1027,16 @@ footer {
         transform: translateY(-50%);
         border: 1px solid #ccc;
         border-radius: 8px;
+        overflow: hidden;
         > svg {
           padding: 2px 4px;
           border-right: 1px solid #ccc;
           cursor: pointer;
           &:last-child {
             border-right: none;
+          }
+          &:hover {
+            background-color: rgb(235, 235, 235);
           }
         }
       }
@@ -1044,9 +1052,9 @@ footer {
       font-size: 20px;
       padding: 5px 10px;
       border-right: 1px solid #ccc;
-      &:last-child {
-        border-right: none;
-      }
+    }
+    &-color {
+      padding: 5px 10px;
     }
     &-actions {
       display: none;

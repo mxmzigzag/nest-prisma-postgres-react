@@ -60,7 +60,7 @@ export default function CategoriesList() {
                 />
               </div>
               <div className="categories-row-cell">{category.title}</div>
-              <div className="categories-row-cell">
+              <div className="categories-row-color">
                 <ColorPill color={category.color} />
               </div>
               <RowActions category={category} />
