@@ -14,26 +14,38 @@ export const categoryApi = globalApi
         providesTags: ["Category"],
       }),
       createCategory: build.mutation<Category, Category>({
-        query: (category) => ({
-          url: "category",
-          method: "POST",
-          body: category,
-        }),
+        query: (category) => {
+          const token = localStorage.getItem("token");
+          return {
+            url: "category",
+            method: "POST",
+            body: category,
+            headers: { Authorization: `Bearer ${token}` },
+          };
+        },
         invalidatesTags: ["Category"],
       }),
       updateCategory: build.mutation<Category, Category>({
-        query: (category) => ({
-          url: `category/${category.id}`,
-          method: "PUT",
-          body: category,
-        }),
+        query: (category) => {
+          const token = localStorage.getItem("token");
+          return {
+            url: `category/${category.id}`,
+            method: "PUT",
+            body: category,
+            headers: { Authorization: `Bearer ${token}` },
+          };
+        },
         invalidatesTags: ["Category"],
       }),
       deleteCategory: build.mutation<Category, string>({
-        query: (catId) => ({
-          url: `category/${catId}`,
-          method: "DELETE",
-        }),
+        query: (catId) => {
+          const token = localStorage.getItem("token");
+          return {
+            url: `category/${catId}`,
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` },
+          };
+        },
         invalidatesTags: ["Category"],
       }),
     }),
