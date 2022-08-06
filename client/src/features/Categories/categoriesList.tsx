@@ -6,7 +6,6 @@ import { Category } from "../../types/category.types";
 import {
   useCreateCategoryMutation,
   useDeleteCategoryMutation,
-  useGetAllCategoriesQuery,
 } from "../../store/api/category.api";
 
 import Checkbox from "../../components/forms/checkbox";
@@ -18,17 +17,19 @@ import { errorToast, successToast } from "../../components/ui/toast";
 import PenIcon from "../../assets/svg/pen";
 import CopyIcon from "../../assets/svg/copy";
 import DeleteIcon from "../../assets/svg/delete";
-import LoaderIcon from "../../assets/svg/loader";
 import Confirmation from "../../components/ui/confirmation";
+
+type Props = {
+  categories: Category[];
+};
 
 type RowActionsProps = {
   category: Category;
 };
 
-export default function CategoriesList() {
+export default function CategoriesList({ categories }: Props) {
   const [confirmationIsOpen, setConfirmationIsOpen] = useState<boolean>(false);
   const [checkList, setCheckList] = useState<string[]>([]);
-  const { data: categories = [], isLoading } = useGetAllCategoriesQuery();
 
   const [deleteCategory, { isLoading: isLoadingDelete }] =
     useDeleteCategoryMutation();
@@ -55,59 +56,49 @@ export default function CategoriesList() {
     });
   };
 
-  return isLoading ? (
-    <LoaderIcon />
-  ) : (
-    <div className="categories-wrapper">
-      {categories.length ? (
-        <div className="categories-table">
-          <div className="categories-header">
-            <div className="categories-header-check">
-              <Checkbox
-                checked={checkList.length === categories.length}
-                onChange={handleCheckAll}
-              />
-            </div>
-            <div className="categories-header-cell">Name</div>
-            <div className="categories-header-cell">Color</div>
-            {checkList.length === categories.length ? (
-              <div className="categories-header-actions">
-                <DeleteIcon
-                  width={24}
-                  height={24}
-                  onClick={() => setConfirmationIsOpen(true)}
-                />
-                <Confirmation
-                  isOpen={confirmationIsOpen}
-                  setIsOpen={setConfirmationIsOpen}
-                  description={`This will delete all categories`}
-                  okCallback={handleDeleteAll}
-                  okIsLoading={isLoadingDelete}
-                />
-              </div>
-            ) : null}
+  return (
+    <div className="categories-table">
+      <div className="categories-header">
+        <div className="categories-header-check">
+          <Checkbox
+            checked={checkList.length === categories.length}
+            onChange={handleCheckAll}
+          />
+        </div>
+        <div className="categories-header-cell">Name</div>
+        <div className="categories-header-cell">Color</div>
+        {checkList.length === categories.length ? (
+          <div className="categories-header-actions">
+            <DeleteIcon
+              width={24}
+              height={24}
+              onClick={() => setConfirmationIsOpen(true)}
+            />
+            <Confirmation
+              isOpen={confirmationIsOpen}
+              setIsOpen={setConfirmationIsOpen}
+              description={`This will delete all categories`}
+              okCallback={handleDeleteAll}
+              okIsLoading={isLoadingDelete}
+            />
           </div>
-          {categories.map((category) => (
-            <div key={category.id} className="categories-row">
-              <div className="categories-row-check">
-                <Checkbox
-                  checked={checkList.includes(category.id)}
-                  onChange={() => handleCheckRow(category.id)}
-                />
-              </div>
-              <div className="categories-row-cell">{category.title}</div>
-              <div className="categories-row-color">
-                <ColorPill color={category.color} />
-              </div>
-              <RowActions category={category} />
-            </div>
-          ))}
+        ) : null}
+      </div>
+      {categories.map((category) => (
+        <div key={category.id} className="categories-row">
+          <div className="categories-row-check">
+            <Checkbox
+              checked={checkList.includes(category.id)}
+              onChange={() => handleCheckRow(category.id)}
+            />
+          </div>
+          <div className="categories-row-cell">{category.title}</div>
+          <div className="categories-row-color">
+            <ColorPill color={category.color} />
+          </div>
+          <RowActions category={category} />
         </div>
-      ) : (
-        <div className="categories-empty-wrapper">
-          <p className="categories-empty-text">There is no categories!</p>
-        </div>
-      )}
+      ))}
     </div>
   );
 }
