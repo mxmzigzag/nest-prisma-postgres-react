@@ -30,11 +30,19 @@ export default function CategoriesList() {
   const { data: categories = [] } = useGetAllCategoriesQuery();
 
   const handleCheckAll = () => {
-    setCheckList(categories.map((cat) => cat.id));
+    if (checkList.length === categories.length) {
+      setCheckList([]);
+    } else {
+      setCheckList(categories.map((cat) => cat.id));
+    }
   };
 
   const handleCheckRow = (rowId: string) => {
-    setCheckList((state) => [...state, rowId]);
+    if (checkList.includes(rowId)) {
+      setCheckList((state) => [...state.filter((id) => id !== rowId)]);
+    } else {
+      setCheckList((state) => [...state, rowId]);
+    }
   };
 
   return (
