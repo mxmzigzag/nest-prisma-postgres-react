@@ -27,8 +27,10 @@ export default function CategoryForm({
 }: Props) {
   const [formData, setFormData] = useState<Category>(category);
 
-  const [createCategory] = useCreateCategoryMutation();
-  const [updateCategory] = useUpdateCategoryMutation();
+  const [createCategory, { isLoading: isLoadingCreation }] =
+    useCreateCategoryMutation();
+  const [updateCategory, { isLoading: isLoadingUpdation }] =
+    useUpdateCategoryMutation();
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((state) => ({ ...state, [e.target.name]: e.target.value }));
@@ -70,7 +72,11 @@ export default function CategoryForm({
           className="category-form-input"
         />
       </div>
-      <Button type="submit" className="category-form-btn">
+      <Button
+        type="submit"
+        className="category-form-btn"
+        isLoading={isLoadingCreation || isLoadingUpdation}
+      >
         {category.title ? "Update" : "Save"}
       </Button>
     </form>

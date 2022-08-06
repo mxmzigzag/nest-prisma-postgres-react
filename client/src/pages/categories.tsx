@@ -1,35 +1,28 @@
-import React from "react";
-import { v4 as createUID } from "uuid";
-
-import { useCreateCategoryMutation } from "../store/api/category.api";
+import React, { useState } from "react";
 
 import ProfileLayout from "../layouts/profile.layout";
 import CategoriesList from "../features/Categories/categoriesList";
-import { errorToast, successToast } from "../components/ui/toast";
+import Modal from "../components/ui/modal";
+import CategoryForm from "../features/Categories/categoryForm";
 
 export default function Categories() {
-  const [createCategory] = useCreateCategoryMutation();
-
-  const handleAddCategory = async () => {
-    try {
-      await createCategory({
-        id: createUID(),
-        title: "New category",
-        color: "#000",
-      });
-      successToast("Category is created");
-    } catch (error: any) {
-      errorToast(error.message);
-    }
-  };
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <ProfileLayout
       title="Categories"
       btnTitle="Add Category"
-      btnOnClick={handleAddCategory}
+      btnOnClick={() => setIsOpen(true)}
     >
       <CategoriesList />
+      <Modal
+        title="Create Category"
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        customWrapperClass="category-form-wrapper"
+      >
+        <CategoryForm setIsOpen={setIsOpen} />
+      </Modal>
     </ProfileLayout>
   );
 }
