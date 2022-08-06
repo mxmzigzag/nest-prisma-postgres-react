@@ -6,12 +6,15 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 
+import { CategoryDto } from './dto/category.dto';
+import { CategoryQueryDto } from './dto/categoryQuery.dto';
+
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CategoryService } from './category.service';
-import { CategoryDto } from './dto/category.dto';
 
 @Controller('api')
 export class CategoryController {
@@ -24,8 +27,11 @@ export class CategoryController {
   }
 
   @Get('/categories')
-  getAllCategories() {
-    return this.categoryService.getAllCategories();
+  getAllCategories(@Query() { offset, limit }: CategoryQueryDto) {
+    return this.categoryService.getAllCategories({
+      offset: Number(offset),
+      limit: Number(limit),
+    });
   }
 
   @Get('/category/:id')

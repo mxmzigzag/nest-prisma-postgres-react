@@ -1,14 +1,18 @@
 import { globalApi } from "./global.api";
 
-import { Category } from "../../types/category.types";
+import {
+  Category,
+  CategoryPagination,
+  CategoryQuery,
+} from "../../types/category.types";
 
 export const categoryApi = globalApi
   .enhanceEndpoints({ addTagTypes: ["Category"] })
   .injectEndpoints({
     endpoints: (build) => ({
-      getAllCategories: build.query<Category[], void>({
-        query: () => ({
-          url: "categories",
+      getAllCategories: build.query<CategoryPagination, CategoryQuery>({
+        query: ({ limit, offset }) => ({
+          url: `categories?offset=${offset}&limit=${limit}`,
           method: "GET",
         }),
         providesTags: ["Category"],

@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Category as CategoryModel } from '@prisma/client';
 
-import { PrismaService } from 'src/prisma/prisma.service';
 import { CategoryDto } from './dto/category.dto';
+import { CategoryQueryDto } from './dto/categoryQuery.dto';
+import { CategoryPaginationDto } from './dto/categoryPagination.dto';
+
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class CategoryService {
@@ -14,8 +17,17 @@ export class CategoryService {
     });
   }
 
-  async getAllCategories(): Promise<CategoryModel[]> {
-    return this.prismaService.category.findMany();
+  async getAllCategories({
+    offset,
+    limit,
+  }: CategoryQueryDto): Promise<CategoryPaginationDto> {
+    const totalCount = await this.prismaService.category.count();
+    const totalPages = limit ? Math.ceil(totalCount / limit) : 1;
+    const page = await this.prismaService.category.findMany({
+      skip: offset || 0,
+      take: limit || totalCount,
+    });
+    return { totalCount, totalPages, page };
   }
 
   async getOneCategory(id: string): Promise<CategoryModel> {

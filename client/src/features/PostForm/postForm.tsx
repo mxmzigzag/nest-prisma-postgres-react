@@ -9,8 +9,8 @@ import {
   useGetAllTagsQuery,
 } from "../../store/api/tag.api";
 
-import InputGroup from "../../components/forms/inputGroup";
 import { errorToast, successToast } from "../../components/ui/toast";
+import InputGroup from "../../components/forms/inputGroup";
 import Button from "../../components/ui/button";
 import Upload from "../../components/forms/upload";
 import Select from "../../components/forms/select";
@@ -22,7 +22,7 @@ export default function PostForm() {
     authorId: user?.id,
   });
 
-  const { data: categories = [] } = useGetAllCategoriesQuery();
+  const { data: categoriesData } = useGetAllCategoriesQuery({});
 
   const { data: tags = [] } = useGetAllTagsQuery();
   const [createTag] = useCreateTagMutation();
@@ -78,16 +78,18 @@ export default function PostForm() {
         name="image"
         setValue={(value) => setFormData((prev) => ({ ...prev, image: value }))}
       />
-      <div className="input-group">
-        <label className="label">Category</label>
-        <Select
-          defaultText="Select a category"
-          items={categories}
-          setItem={(item) =>
-            setFormData((prev) => ({ ...prev, categoryId: item }))
-          }
-        />
-      </div>
+      {categoriesData ? (
+        <div className="input-group">
+          <label className="label">Category</label>
+          <Select
+            defaultText="Select a category"
+            items={categoriesData.page}
+            setItem={(item) =>
+              setFormData((prev) => ({ ...prev, categoryId: item }))
+            }
+          />
+        </div>
+      ) : null}
       <div className="input-group">
         <label htmlFor="tags" className="label">
           Tags
