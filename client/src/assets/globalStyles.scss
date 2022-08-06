@@ -785,11 +785,16 @@ footer {
     flex-direction: column;
     width: 100%;
     padding: 25px;
+    &-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
   }
 
   &-title {
     font-size: 32px;
-    margin-bottom: 25px;
   }
 
   &-form {
@@ -800,6 +805,9 @@ footer {
       width: 100%;
       margin-left: auto;
     }
+  }
+  &-btn {
+    max-width: 200px;
   }
 }
 

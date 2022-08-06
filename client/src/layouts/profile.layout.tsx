@@ -9,10 +9,17 @@ import Button from "../components/ui/button";
 
 type Props = {
   title: string;
+  btnTitle?: string;
+  btnOnClick?: () => void;
   children: JSX.Element | JSX.Element[];
 };
 
-export default function ProfileLayout({ title, children }: Props) {
+export default function ProfileLayout({
+  title,
+  btnTitle,
+  btnOnClick,
+  children,
+}: Props) {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
 
@@ -77,7 +84,14 @@ export default function ProfileLayout({ title, children }: Props) {
         </li>
       </ul>
       <div className="profile-content">
-        <h2 className="profile-title">{title}</h2>
+        <div className="profile-content-row">
+          <h2 className="profile-title">{title}</h2>
+          {btnTitle ? (
+            <Button onClick={btnOnClick} className="profile-btn">
+              {btnTitle}
+            </Button>
+          ) : null}
+        </div>
         {children}
       </div>
     </div>
