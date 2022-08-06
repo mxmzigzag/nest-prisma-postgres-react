@@ -4,10 +4,9 @@ import { useGetAllCategoriesQuery } from "../store/api/category.api";
 
 import ProfileLayout from "../layouts/profile.layout";
 import CategoriesList from "../features/Categories/categoriesList";
-import Modal from "../components/ui/modal";
 import CategoryForm from "../features/Categories/categoryForm";
-
-import LoaderIcon from "../assets/svg/loader";
+import Modal from "../components/ui/modal";
+import Loader from "../components/ui/loader";
 
 export default function Categories() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -20,7 +19,7 @@ export default function Categories() {
       btnOnClick={() => setIsOpen(true)}
     >
       {isLoading ? (
-        <LoaderIcon />
+        <Loader />
       ) : (
         <div className="categories-wrapper">
           {categories.length ? (

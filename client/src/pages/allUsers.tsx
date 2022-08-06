@@ -6,7 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useGetAllUsersQuery } from "../store/api/user.api";
 
 import ProfileLayout from "../layouts/profile.layout";
-import LoaderIcon from "../assets/svg/loader";
+import Loader from "../components/ui/loader";
 
 import UserIcon from "../assets/svg/user";
 import LockIcon from "../assets/svg/lock";
@@ -17,7 +17,7 @@ export default function AllUsers() {
 
   return (
     <ProfileLayout title="All users">
-      {user ? <UsersGrid /> : <LoaderIcon />}
+      {user ? <UsersGrid /> : <Loader />}
     </ProfileLayout>
   );
 }
@@ -26,7 +26,7 @@ const UsersGrid = () => {
   const { data: users = [], isLoading } = useGetAllUsersQuery();
 
   return isLoading ? (
-    <LoaderIcon />
+    <Loader />
   ) : users.length ? (
     <div className="users-wrapper">
       {users.map((user) => (

@@ -7,11 +7,11 @@ import {
   useGetRequestIsSentByUserQuery,
 } from "../store/api/request.api";
 
+import { successToast } from "../components/ui/toast";
 import ProfileLayout from "../layouts/profile.layout";
 import Posts from "../features/Posts/posts";
-import LoaderIcon from "../assets/svg/loader";
 import Button from "../components/ui/button";
-import { successToast } from "../components/ui/toast";
+import Loader from "../components/ui/loader";
 
 export default function MyPosts() {
   const { user } = useAuth();
@@ -25,7 +25,7 @@ export default function MyPosts() {
           <MyPostsGrid userId={user.id} />
         )
       ) : (
-        <LoaderIcon />
+        <Loader />
       )}
     </ProfileLayout>
   );
@@ -37,7 +37,7 @@ const MyPostsGrid = ({ userId }: { userId: string }) => {
   });
 
   // @ts-ignore
-  return isLoading ? <LoaderIcon /> : <Posts posts={posts} gridColNum={3} />;
+  return isLoading ? <Loader /> : <Posts posts={posts} gridColNum={3} />;
 };
 
 const BecomeCreatorNotification = ({ userId }: { userId: string }) => {
@@ -73,7 +73,7 @@ const BecomeCreatorNotification = ({ userId }: { userId: string }) => {
   return (
     <div className="bcn-wrapper">
       {isSentLoading ? (
-        <LoaderIcon />
+        <Loader />
       ) : (
         <>
           <h3 className="bcn-title">No posts here yet!</h3>

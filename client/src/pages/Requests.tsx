@@ -9,12 +9,12 @@ import {
   useRejectRequestMutation,
 } from "../store/api/request.api";
 
-import LoaderIcon from "../assets/svg/loader";
+import { successToast } from "../components/ui/toast";
 import ProfileLayout from "../layouts/profile.layout";
+import Loader from "../components/ui/loader";
 
 import AcceptIcon from "../assets/svg/accept";
 import RejectIcon from "../assets/svg/reject";
-import { successToast } from "../components/ui/toast";
 
 type RequestItem = {
   request: Request;
@@ -36,7 +36,7 @@ export default function Requests() {
   return (
     <ProfileLayout title="Reguests">
       {isLoading ? (
-        <LoaderIcon />
+        <Loader />
       ) : (
         <ul className="requests-list">
           {requests.map((req) => (

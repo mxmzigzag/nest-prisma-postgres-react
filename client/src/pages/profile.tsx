@@ -4,14 +4,14 @@ import { useAuth } from "../hooks/useAuth";
 
 import ProfileLayout from "../layouts/profile.layout";
 import ProfileForm from "../features/ProfileForm/profileForm";
-import LoaderIcon from "../assets/svg/loader";
+import Loader from "../components/ui/loader";
 
 export default function Profile() {
   const { user } = useAuth();
 
   return (
     <ProfileLayout title="Profile">
-      {user ? <ProfileForm userData={user} /> : <LoaderIcon />}
+      {user ? <ProfileForm userData={user} /> : <Loader />}
     </ProfileLayout>
   );
 }

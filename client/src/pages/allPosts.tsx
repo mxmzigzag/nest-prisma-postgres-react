@@ -5,14 +5,14 @@ import { useGetAllPostsQuery } from "../store/api/post.api";
 
 import ProfileLayout from "../layouts/profile.layout";
 import Posts from "../features/Posts/posts";
-import LoaderIcon from "../assets/svg/loader";
+import Loader from "../components/ui/loader";
 
 export default function AllPosts() {
   const { user } = useAuth();
 
   return (
     <ProfileLayout title="All posts">
-      {user ? <PostsGrid /> : <LoaderIcon />}
+      {user ? <PostsGrid /> : <Loader />}
     </ProfileLayout>
   );
 }
@@ -20,6 +20,5 @@ export default function AllPosts() {
 const PostsGrid = () => {
   const { data: posts = [], isLoading } = useGetAllPostsQuery();
 
-  // @ts-ignore
-  return isLoading ? <LoaderIcon /> : <Posts posts={posts} gridColNum={3} />;
+  return isLoading ? <Loader /> : <Posts posts={posts} gridColNum={3} />;
 };
