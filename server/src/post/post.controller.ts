@@ -60,6 +60,11 @@ export class PostController {
     return this.postService.updatePost(id, postDto);
   }
 
+  @Put('/post/:id/views')
+  UpdatePostViewsCount(@Param('id') id: string) {
+    return this.postService.updatePostViewsCount(id);
+  }
+
   @Delete('/post/:id')
   @UseGuards(JwtAuthGuard)
   deletePost(@Param('id') id: string) {

@@ -98,7 +98,18 @@ export class PostService {
   }
 
   async getOnePost(id: string): Promise<PostModel> {
-    return this.prismaService.post.findUnique({ where: { id } });
+    return this.prismaService.post.findUnique({
+      where: { id },
+      include: {
+        author: { select: { id: true, username: true } },
+        category: true,
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
+      },
+    });
   }
 
   async updatePost(id: string, postDto: UpdatePostDto) {
@@ -117,6 +128,17 @@ export class PostService {
               create: tag,
             },
           })),
+        },
+      },
+    });
+  }
+
+  async updatePostViewsCount(id: string) {
+    return this.prismaService.post.update({
+      where: { id },
+      data: {
+        viewsCount: {
+          increment: 1,
         },
       },
     });

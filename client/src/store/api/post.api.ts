@@ -48,6 +48,24 @@ export const postApi = globalApi
         },
         providesTags: ["Post"],
       }),
+      getOnePost: build.query<Post, string>({
+        query: (postId) => {
+          return {
+            url: `post/${postId}`,
+            method: "GET",
+          };
+        },
+        providesTags: ["Post"],
+      }),
+      updatePostViewsCount: build.mutation<Post, string>({
+        query: (postId) => {
+          return {
+            url: `post/${postId}/views`,
+            method: "PUT",
+          };
+        },
+        invalidatesTags: ["Post"],
+      }),
     }),
   });
 
@@ -56,4 +74,6 @@ export const {
   useGetAllPostsQuery,
   useGetTopViewedPostsQuery,
   useGetPostsByAuthorIdQuery,
+  useGetOnePostQuery,
+  useUpdatePostViewsCountMutation,
 } = postApi;

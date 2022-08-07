@@ -20,6 +20,7 @@ import AllUsers from "./pages/allUsers";
 import Requests from "./pages/Requests";
 import AddPostBtn from "./components/ui/addPostBtn";
 import Categories from "./pages/categories";
+import Post from "./pages/post";
 
 export default function App() {
   const { user } = useAuth();
@@ -90,6 +91,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/registation" element={<Registration />} />
             <Route path="/category/:categoryId" element={<Category />} />
+            <Route path="/post/:postId" element={<Post />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>

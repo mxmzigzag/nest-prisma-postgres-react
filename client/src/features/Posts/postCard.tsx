@@ -19,7 +19,7 @@ export const PostCard = ({
   tags,
 }: Partial<Post>) => {
   return (
-    <NavLink to={`/posts/${id}`}>
+    <NavLink to={`/post/${id}`}>
       <div
         className="post"
         style={{
