@@ -27,3 +27,13 @@ export type CreatePost = {
   categoryId: string;
   tags: NewTag[];
 };
+
+export type GetPostsByAuthorIdArg = {
+  userId: string;
+  limit: number;
+};
+
+export type PostPagination = {
+  totalCount: number;
+  posts: Post[];
+};

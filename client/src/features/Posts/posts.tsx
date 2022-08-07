@@ -7,19 +7,25 @@ import { useAuth } from "../../hooks/useAuth";
 import Modal from "../../components/ui/modal";
 import PostForm from "../PostForm/postForm";
 import { PostCard } from "./postCard";
+import Button from "../../components/ui/button";
 
 type Props = {
   posts: Partial<Post>[];
   gridColNum?: number;
+  showLoadMore?: boolean;
+  isLoadMoreLoading?: boolean;
+  handleIncreaseLimit?: () => void;
 };
 
-export default function Posts({ posts, gridColNum = 4 }: Props) {
+export default function Posts({
+  posts,
+  gridColNum = 4,
+  showLoadMore = true,
+  isLoadMoreLoading = false,
+  handleIncreaseLimit,
+}: Props) {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const handleMore = () => {
-    console.log("load more");
-  };
 
   return (
     <div className="posts-container">
@@ -45,9 +51,15 @@ export default function Posts({ posts, gridColNum = 4 }: Props) {
               />
             ))}
           </div>
-          <button className="load-more-btn" onClick={handleMore}>
-            More
-          </button>
+          {showLoadMore ? (
+            <Button
+              className="load-more-btn"
+              onClick={handleIncreaseLimit}
+              isLoading={isLoadMoreLoading}
+            >
+              More
+            </Button>
+          ) : null}
         </>
       ) : (
         <>

@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -28,8 +29,8 @@ export class PostController {
   }
 
   @Get('/posts')
-  getPosts() {
-    return this.postService.getPosts();
+  getPosts(@Query('limit') { limit }: { limit: number }) {
+    return this.postService.getPosts({ limit: Number(limit) });
   }
 
   @Get('/topViewedPosts')
@@ -39,8 +40,14 @@ export class PostController {
 
   @Get('/posts/author/:authorId')
   @UseGuards(JwtAuthGuard)
-  getPostsByAuthorId(@Param('authorId') authorId: string) {
-    return this.postService.getPostsByAuthorId(authorId);
+  getPostsByAuthorId(
+    @Param('authorId') authorId: string,
+    @Query() { limit }: { limit: number },
+  ) {
+    return this.postService.getPostsByAuthorId({
+      authorId,
+      limit: Number(limit),
+    });
   }
 
   @Get('/post/:id')

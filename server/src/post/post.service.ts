@@ -4,6 +4,7 @@ import { FilesService } from 'src/files/files.service';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePostDto } from './dto/createPost.dto';
+import { PostsPaginationDto } from './dto/PostsPagination.dto';
 import { UpdatePostDto } from './dto/updatePost.dto';
 
 @Injectable()
@@ -36,8 +37,10 @@ export class PostService {
     });
   }
 
-  async getPosts(): Promise<PostModel[]> {
+  async getPosts({ limit }: { limit: number }): Promise<PostModel[]> {
+    const totalCount = await this.prismaService.post.count();
     return this.prismaService.post.findMany({
+      take: limit || totalCount,
       include: {
         author: {
           select: {
@@ -63,8 +66,20 @@ export class PostService {
     });
   }
 
-  async getPostsByAuthorId(authorId: string): Promise<PostModel[]> {
-    return this.prismaService.post.findMany({
+  async getPostsByAuthorId({
+    authorId,
+    limit,
+  }: {
+    authorId: string;
+    limit: number;
+  }): Promise<PostsPaginationDto> {
+    const totalCount = await this.prismaService.post.count({
+      where: {
+        authorId,
+      },
+    });
+    const posts = await this.prismaService.post.findMany({
+      take: limit,
       where: {
         authorId,
       },
@@ -78,6 +93,7 @@ export class PostService {
         },
       },
     });
+    return { totalCount, posts };
   }
 
   async getOnePost(id: string): Promise<PostModel> {

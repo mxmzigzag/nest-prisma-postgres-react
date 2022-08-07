@@ -13,6 +13,10 @@ import Posts from "../features/Posts/posts";
 import Button from "../components/ui/button";
 import Loader from "../components/ui/loader";
 
+type MyPostsGrid = {
+  userId: string;
+};
+
 export default function MyPosts() {
   const { user } = useAuth();
 
@@ -31,11 +35,28 @@ export default function MyPosts() {
   );
 }
 
-const MyPostsGrid = ({ userId }: { userId: string }) => {
-  const { data: posts = [], isLoading } = useGetPostsByAuthorIdQuery(userId);
+const MyPostsGrid = ({ userId }: MyPostsGrid) => {
+  const [limit, setLimit] = useState<number>(3);
+  const { data: postsData, isLoading } = useGetPostsByAuthorIdQuery({
+    userId,
+    limit,
+  });
 
-  // @ts-ignore
-  return isLoading ? <Loader /> : <Posts posts={posts} gridColNum={3} />;
+  const handleIncreaseLimit = () => {
+    setLimit(limit + 3);
+  };
+
+  return isLoading || !postsData ? (
+    <Loader />
+  ) : (
+    <Posts
+      posts={postsData.posts}
+      gridColNum={3}
+      handleIncreaseLimit={handleIncreaseLimit}
+      isLoadMoreLoading={limit > postsData.posts.length}
+      showLoadMore={postsData.posts.length < postsData.totalCount}
+    />
+  );
 };
 
 const BecomeCreatorNotification = ({ userId }: { userId: string }) => {

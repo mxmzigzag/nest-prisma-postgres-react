@@ -1,6 +1,11 @@
 import { globalApi } from "./global.api";
 
-import { Post } from "../../types/post.types";
+import {
+  GetPostsByAuthorIdArg,
+  Post,
+  PostPagination,
+} from "../../types/post.types";
+import { Limit } from "../../types/common.types";
 
 export const postApi = globalApi
   .enhanceEndpoints({ addTagTypes: ["Post"] })
@@ -18,9 +23,9 @@ export const postApi = globalApi
         },
         invalidatesTags: ["Post"],
       }),
-      getAllPosts: build.query<Post[], void>({
-        query: () => ({
-          url: `posts`,
+      getAllPosts: build.query<Post[], Limit>({
+        query: ({ limit }: { limit: number }) => ({
+          url: `posts?limit=${limit}`,
           method: "GET",
         }),
         providesTags: ["Post"],
@@ -32,11 +37,11 @@ export const postApi = globalApi
         }),
         providesTags: ["Post"],
       }),
-      getPostsByAuthorId: build.query<Post[], string>({
-        query: (userId) => {
+      getPostsByAuthorId: build.query<PostPagination, GetPostsByAuthorIdArg>({
+        query: ({ userId, limit }) => {
           const token = localStorage.getItem("token");
           return {
-            url: `posts/author/${userId}`,
+            url: `posts/author/${userId}?limit=${limit}`,
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
           };

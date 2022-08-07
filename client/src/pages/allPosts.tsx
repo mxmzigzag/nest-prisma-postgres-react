@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useAuth } from "../hooks/useAuth";
 import { useGetAllPostsQuery } from "../store/api/post.api";
@@ -18,7 +18,20 @@ export default function AllPosts() {
 }
 
 const PostsGrid = () => {
-  const { data: posts = [], isLoading } = useGetAllPostsQuery();
+  const [limit, setLimit] = useState<number>(3);
+  const { data: posts = [], isLoading } = useGetAllPostsQuery({ limit });
 
-  return isLoading ? <Loader /> : <Posts posts={posts} gridColNum={3} />;
+  const handleIncreaseLimit = () => {
+    setLimit(limit + 3);
+  };
+
+  return isLoading ? (
+    <Loader />
+  ) : (
+    <Posts
+      posts={posts}
+      gridColNum={3}
+      handleIncreaseLimit={handleIncreaseLimit}
+    />
+  );
 };

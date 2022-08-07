@@ -30,3 +30,7 @@ export type Mutation<T, L> = MutationTrigger<
     "globalApi"
   >
 >;
+
+export type Limit = {
+  limit: number;
+};
