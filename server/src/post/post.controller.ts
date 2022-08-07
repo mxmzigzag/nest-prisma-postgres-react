@@ -29,7 +29,7 @@ export class PostController {
   }
 
   @Get('/posts')
-  getPosts(@Query('limit') { limit }: { limit: number }) {
+  getPosts(@Query() { limit }: { limit: number }) {
     return this.postService.getPosts({ limit: Number(limit) });
   }
 

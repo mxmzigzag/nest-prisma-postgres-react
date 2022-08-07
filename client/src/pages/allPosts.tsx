@@ -19,19 +19,21 @@ export default function AllPosts() {
 
 const PostsGrid = () => {
   const [limit, setLimit] = useState<number>(3);
-  const { data: posts = [], isLoading } = useGetAllPostsQuery({ limit });
+  const { data: postsData, isLoading } = useGetAllPostsQuery({ limit });
 
   const handleIncreaseLimit = () => {
     setLimit(limit + 3);
   };
 
-  return isLoading ? (
+  return isLoading || !postsData ? (
     <Loader />
   ) : (
     <Posts
-      posts={posts}
+      posts={postsData.posts}
       gridColNum={3}
       handleIncreaseLimit={handleIncreaseLimit}
+      isLoadMoreLoading={limit > postsData.posts.length}
+      showLoadMore={postsData.posts.length < postsData.totalCount}
     />
   );
 };

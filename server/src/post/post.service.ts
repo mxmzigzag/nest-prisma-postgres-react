@@ -37,10 +37,10 @@ export class PostService {
     });
   }
 
-  async getPosts({ limit }: { limit: number }): Promise<PostModel[]> {
+  async getPosts({ limit }: { limit: number }): Promise<PostsPaginationDto> {
     const totalCount = await this.prismaService.post.count();
-    return this.prismaService.post.findMany({
-      take: limit || totalCount,
+    const posts = await this.prismaService.post.findMany({
+      take: limit,
       include: {
         author: {
           select: {
@@ -57,6 +57,7 @@ export class PostService {
         },
       },
     });
+    return { totalCount, posts };
   }
 
   async getTopViewedPosts() {

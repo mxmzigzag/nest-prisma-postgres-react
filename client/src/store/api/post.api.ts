@@ -23,8 +23,8 @@ export const postApi = globalApi
         },
         invalidatesTags: ["Post"],
       }),
-      getAllPosts: build.query<Post[], Limit>({
-        query: ({ limit }: { limit: number }) => ({
+      getAllPosts: build.query<PostPagination, Limit>({
+        query: ({ limit }) => ({
           url: `posts?limit=${limit}`,
           method: "GET",
         }),
