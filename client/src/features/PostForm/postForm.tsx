@@ -27,7 +27,7 @@ export default function PostForm() {
 
   const { data: tags = [] } = useGetAllTagsQuery();
   const [createTag] = useCreateTagMutation();
-  const [createPost] = useCreatePostMutation();
+  const [createPost, { isLoading: isCreateLoading }] = useCreatePostMutation();
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -114,7 +114,9 @@ export default function PostForm() {
           }
         />
       </div>
-      <Button type="submit">Create</Button>
+      <Button type="submit" isLoading={isCreateLoading}>
+        Create
+      </Button>
     </form>
   );
 }
