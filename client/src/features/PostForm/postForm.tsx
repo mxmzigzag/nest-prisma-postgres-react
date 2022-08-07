@@ -17,7 +17,11 @@ import Upload from "../../components/forms/upload";
 import Select from "../../components/forms/select";
 import Tags from "../../components/forms/tags";
 
-export default function PostForm() {
+type Props = {
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function PostForm({ setIsOpen }: Props) {
   const { user } = useAuth();
   const [formData, setFormData] = useState<Partial<CreatePost>>({
     authorId: user?.id,
@@ -44,13 +48,13 @@ export default function PostForm() {
           await createTag(newTag);
         });
       }
-      // @ts-ignore
-      formData.tags = tagIds;
       const newFormData = new FormData();
       Object.entries(formData).map(([key, value]) => {
         newFormData.append(key, value);
       });
+      newFormData.set("tags", JSON.stringify(tagIds));
       await createPost(newFormData);
+      setIsOpen(false);
       successToast("Post is created! Wait for moderator validation.");
     } catch (err: any) {
       errorToast(err.data.message);

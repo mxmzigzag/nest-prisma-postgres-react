@@ -43,8 +43,4 @@ export class UserService {
   async deleteUser(id: string) {
     return this.prismaService.user.delete({ where: { id } });
   }
-
-  async getUserPosts(authorId: string) {
-    return this.prismaService.post.findMany({ where: { authorId } });
-  }
 }

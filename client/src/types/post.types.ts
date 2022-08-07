@@ -15,7 +15,7 @@ export type Post = {
     username: string;
   };
   category: Category;
-  tags: Tag[];
+  tags: { tag: Tag }[];
 };
 
 export type CreatePost = {

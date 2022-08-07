@@ -14,7 +14,7 @@ export default function AddPostBtn() {
         <PlusIcon width={50} height={50} color="#fff" />
       </button>
       <Modal title="Create Post" isOpen={isOpen} setIsOpen={setIsOpen}>
-        <PostForm />
+        <PostForm setIsOpen={setIsOpen} />
       </Modal>
     </>
   );

@@ -32,9 +32,7 @@ export default function MyPosts() {
 }
 
 const MyPostsGrid = ({ userId }: { userId: string }) => {
-  const { data: posts = [], isLoading } = useGetPostsByAuthorIdQuery(userId, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data: posts = [], isLoading } = useGetPostsByAuthorIdQuery(userId);
 
   // @ts-ignore
   return isLoading ? <Loader /> : <Posts posts={posts} gridColNum={3} />;

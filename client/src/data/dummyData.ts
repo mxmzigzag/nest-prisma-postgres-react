@@ -26,12 +26,16 @@ export const posts = [
     viewsCount: 55,
     tags: [
       {
-        id: "0",
-        name: "NBA",
+        tag: {
+          id: "0",
+          name: "NBA",
+        },
       },
       {
-        id: "1",
-        name: "Chicago Bulls",
+        tag: {
+          id: "1",
+          name: "Chicago Bulls",
+        },
       },
     ],
   },
@@ -55,16 +59,22 @@ export const posts = [
     viewsCount: 3,
     tags: [
       {
-        id: "3",
-        name: "Basketball",
+        tag: {
+          id: "3",
+          name: "Basketball",
+        },
       },
       {
-        id: "0",
-        name: "NBA",
+        tag: {
+          id: "0",
+          name: "NBA",
+        },
       },
       {
-        id: "4",
-        name: "GSW",
+        tag: {
+          id: "4",
+          name: "GSW",
+        },
       },
     ],
   },
@@ -88,16 +98,22 @@ export const posts = [
     viewsCount: 12,
     tags: [
       {
-        id: "5",
-        name: "Webb",
+        tag: {
+          id: "5",
+          name: "Webb",
+        },
       },
       {
-        id: "11",
-        name: "NASA",
+        tag: {
+          id: "11",
+          name: "NASA",
+        },
       },
       {
-        id: "304",
-        name: "Space",
+        tag: {
+          id: "304",
+          name: "Space",
+        },
       },
     ],
   },
@@ -121,8 +137,10 @@ export const posts = [
     viewsCount: 100,
     tags: [
       {
-        id: "220",
-        name: "Phisics",
+        tag: {
+          id: "220",
+          name: "Phisics",
+        },
       },
     ],
   },
@@ -146,12 +164,16 @@ export const posts = [
     viewsCount: 42,
     tags: [
       {
-        id: "440",
-        name: "Euro",
+        tag: {
+          id: "440",
+          name: "Euro",
+        },
       },
       {
-        id: "606",
-        name: "Dollar",
+        tag: {
+          id: "606",
+          name: "Dollar",
+        },
       },
     ],
   },
@@ -175,12 +197,16 @@ export const posts = [
     viewsCount: 263,
     tags: [
       {
-        id: "220",
-        name: "War",
+        tag: {
+          id: "220",
+          name: "War",
+        },
       },
       {
-        id: "456",
-        name: "Ukraine",
+        tag: {
+          id: "456",
+          name: "Ukraine",
+        },
       },
     ],
   },

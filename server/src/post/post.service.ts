@@ -25,7 +25,7 @@ export class PostService {
         authorId: authorId,
         categoryId: categoryId,
         tags: {
-          create: tags.split(',').map((tagId) => ({
+          create: JSON.parse(tags).map((tagId) => ({
             assignedAt: new Date(),
             tag: {
               connect: { id: tagId },
@@ -70,6 +70,12 @@ export class PostService {
       },
       include: {
         author: { select: { id: true, username: true } },
+        category: true,
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
       },
     });
   }

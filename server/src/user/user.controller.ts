@@ -53,10 +53,4 @@ export class UserController {
   deleteUser(@Param('id') id: string) {
     return this.userService.deleteUser(id);
   }
-
-  @Get('/user/:id/posts')
-  @UseGuards(JwtAuthGuard)
-  getUserPosts(@Param('id') authorId: string) {
-    return this.userService.getUserPosts(authorId);
-  }
 }

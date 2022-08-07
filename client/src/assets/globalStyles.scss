@@ -763,6 +763,10 @@ footer {
     display: flex;
     align-items: center;
     z-index: 2;
+    &-message {
+      font-size: 14px;
+      color: #fff;
+    }
   }
 
   &-tag {

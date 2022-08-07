@@ -1,11 +1,11 @@
 import React from "react";
 
-import BlogActionBar from "../features/BlogActionBar/blogActionBar";
-import Posts from "../features/Posts/posts";
 import { posts } from "../data/dummyData";
 
+import BlogActionBar from "../features/BlogActionBar/blogActionBar";
+import Posts from "../features/Posts/posts";
+
 export default function Blog() {
-  // const [postList, setPostList] = useState(posts);
   return (
     <div className="blog-wrapper">
       <BlogActionBar />
