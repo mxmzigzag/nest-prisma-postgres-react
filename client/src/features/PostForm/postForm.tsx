@@ -106,12 +106,7 @@ export default function PostForm() {
           name="tags"
           formTags={formData.tags}
           existingTags={tags}
-          setTag={(tag) =>
-            setFormData((prev) => ({
-              ...prev,
-              tags: [...(prev.tags || []), tag],
-            }))
-          }
+          setTags={(tags) => setFormData((prev) => ({ ...prev, tags }))}
         />
       </div>
       <Button type="submit" isLoading={isCreateLoading}>

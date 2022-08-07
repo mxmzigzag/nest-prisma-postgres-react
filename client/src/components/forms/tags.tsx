@@ -3,16 +3,19 @@ import { v4 as createUID } from "uuid";
 
 import { Tag, NewTag } from "../../types/tag.types";
 
+import RejectIcon from "../../assets/svg/reject";
+
 type Props = {
   name?: string;
   formTags?: NewTag[];
   existingTags: Tag[];
-  setTag: (tag: NewTag) => void;
+  setTags: (tags: NewTag[]) => void;
 };
 
 type TagsSuggestionProps = {
   tagsSuggestions: Tag[];
-  setTag: (tag: Tag) => void;
+  formTags: Tag[];
+  setTags: (tags: Tag[]) => void;
   tagInput: string;
   setTagInput: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -21,7 +24,7 @@ export default function Tags({
   name,
   formTags = [],
   existingTags,
-  setTag,
+  setTags,
 }: Props) {
   const [tagInput, setTagInput] = useState("");
 
@@ -35,11 +38,21 @@ export default function Tags({
     setTagInput(e.target.value);
   };
 
+  const handleRemoveTag = (tagId: string) => {
+    setTags(formTags.filter((tag) => tag.id !== tagId));
+  };
+
   return (
     <div className="tags-wrapper">
       {formTags.map((tag) => (
         <div key={tag.id} className="tags-tag">
           {tag.name}
+          <span
+            className="tags-tag-remove"
+            onClick={() => handleRemoveTag(tag.id)}
+          >
+            <RejectIcon width={14} height={14} />
+          </span>
         </div>
       ))}
       <input
@@ -52,7 +65,8 @@ export default function Tags({
       {tagInput.length ? (
         <TagsSuggestions
           tagsSuggestions={tagsSuggestions}
-          setTag={setTag}
+          setTags={setTags}
+          formTags={formTags}
           tagInput={tagInput}
           setTagInput={setTagInput}
         />
@@ -63,12 +77,13 @@ export default function Tags({
 
 const TagsSuggestions = ({
   tagsSuggestions,
-  setTag,
+  setTags,
+  formTags,
   tagInput,
   setTagInput,
 }: TagsSuggestionProps) => {
   const handleSelectTag = (tag: NewTag) => {
-    setTag(tag);
+    setTags([...formTags, tag]);
     setTagInput("");
   };
 
