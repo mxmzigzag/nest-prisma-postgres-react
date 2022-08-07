@@ -25,10 +25,10 @@ export class PostService {
         authorId: authorId,
         categoryId: categoryId,
         tags: {
-          create: tags?.map((tag) => ({
+          create: tags.split(',').map((tagId) => ({
             assignedAt: new Date(),
             tag: {
-              create: tag,
+              connect: { id: tagId },
             },
           })),
         },

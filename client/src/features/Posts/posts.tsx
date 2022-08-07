@@ -90,7 +90,12 @@ const PostCard = ({
 }: Partial<Post>) => {
   return (
     <NavLink to={`/posts/${id}`}>
-      <div className="post" style={{ backgroundImage: `url(${image})` }}>
+      <div
+        className="post"
+        style={{
+          backgroundImage: `url(http://localhost:5000/${image})`,
+        }}
+      >
         <div className="post-tags">
           {tags?.map((tag) => (
             <div className="post-tag" key={tag.name}>

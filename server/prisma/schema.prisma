@@ -33,7 +33,7 @@ model User {
 
 model BannedUser {
   id        String   @id @unique @default(uuid())
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -46,9 +46,9 @@ model Post {
   body        String
   image       String
   isPublished Boolean       @default(false)
-  author      User          @relation(fields: [authorId], references: [id])
+  author      User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String
-  category    Category      @relation(fields: [categoryId], references: [id])
+  category    Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId  String
   tags        TagsOnPosts[]
   viewsCount  Int           @default(0)
@@ -70,9 +70,9 @@ model Tag {
 }
 
 model TagsOnPosts {
-  post       Post     @relation(fields: [postId], references: [id])
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId     String
-  tag        Tag      @relation(fields: [tagId], references: [id])
+  tag        Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
   tagId      String
   assignedAt DateTime @default(now())
 

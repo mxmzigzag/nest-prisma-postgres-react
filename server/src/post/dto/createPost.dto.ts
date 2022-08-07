@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreatePostDto {
   @IsString({ message: 'Title needs to be string' })
@@ -17,5 +17,5 @@ export class CreatePostDto {
   @IsString()
   readonly categoryId: string;
 
-  readonly tags: { name: string }[];
+  readonly tags: string;
 }

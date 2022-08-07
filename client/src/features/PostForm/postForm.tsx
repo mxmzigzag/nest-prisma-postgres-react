@@ -4,6 +4,7 @@ import { CreatePost } from "../../types/post.types";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useGetAllCategoriesQuery } from "../../store/api/category.api";
+import { useCreatePostMutation } from "../../store/api/post.api";
 import {
   useCreateTagMutation,
   useGetAllTagsQuery,
@@ -26,6 +27,7 @@ export default function PostForm() {
 
   const { data: tags = [] } = useGetAllTagsQuery();
   const [createTag] = useCreateTagMutation();
+  const [createPost] = useCreatePostMutation();
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -34,15 +36,21 @@ export default function PostForm() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log("submit", formData);
-      // await createPost(formData)
-      // const newTags = formData.tags?.filter((tag) => tag.isNew) || [];
-      // if (newTags.length) {
-      //   newTags.forEach(async (tag) => {
-      //     const newTag = { id: tag.id, name: tag.name };
-      //     await createTag(newTag);
-      //   });
-      // }
+      const newTags = formData.tags?.filter((tag) => tag.isNew) || [];
+      const tagIds = formData.tags?.map((tag) => tag.id) || [];
+      if (newTags.length) {
+        newTags.forEach(async (tag) => {
+          const newTag = { id: tag.id, name: tag.name };
+          await createTag(newTag);
+        });
+      }
+      // @ts-ignore
+      formData.tags = tagIds;
+      const newFormData = new FormData();
+      Object.entries(formData).map(([key, value]) => {
+        newFormData.append(key, value);
+      });
+      await createPost(newFormData);
       successToast("Post is created! Wait for moderator validation.");
     } catch (err: any) {
       errorToast(err.data.message);

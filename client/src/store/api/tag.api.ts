@@ -16,7 +16,7 @@ export const tagApi = globalApi
       createTag: build.mutation<Tag, Tag>({
         query: (tag) => {
           return {
-            url: `request`,
+            url: `tag`,
             method: "POST",
             body: tag,
           };

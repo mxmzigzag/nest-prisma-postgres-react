@@ -166,6 +166,9 @@ a {
     background-color: #fff;
     border: 1px solid #000;
     border-radius: 4px;
+    z-index: 10;
+    max-height: 110px;
+    overflow-y: scroll;
     &-item {
       cursor: pointer;
       padding: 4px 6px;
@@ -310,6 +313,7 @@ a {
     margin: 0 auto;
     background-color: #fff;
     border-radius: 10px;
+    overflow: hidden;
   }
 
   &-header {

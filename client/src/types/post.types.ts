@@ -22,7 +22,7 @@ export type CreatePost = {
   title: string;
   description: string;
   body: string;
-  image: File;
+  image: any;
   authorId: string;
   categoryId: string;
   tags: NewTag[];
