@@ -17,6 +17,13 @@ export const categoryApi = globalApi
         }),
         providesTags: ["Category"],
       }),
+      getOneCategory: build.query<Category, string>({
+        query: (categoryId) => ({
+          url: `category/${categoryId}`,
+          method: "GET",
+        }),
+        providesTags: ["Category"],
+      }),
       createCategory: build.mutation<Category, Category>({
         query: (category) => {
           const token = localStorage.getItem("token");
@@ -57,6 +64,7 @@ export const categoryApi = globalApi
 
 export const {
   useGetAllCategoriesQuery,
+  useGetOneCategoryQuery,
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
   useDeleteCategoryMutation,

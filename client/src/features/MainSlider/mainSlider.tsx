@@ -1,35 +1,34 @@
 import React from "react";
-import { topViewedPosts } from "../../data/dummyData";
+import { NavLink } from "react-router-dom";
 
-type Category = {
-  id: string;
-  title: string;
-  color: string;
-};
+import { useGetOneCategoryQuery } from "../../store/api/category.api";
+import { useGetTopViewedPostsQuery } from "../../store/api/post.api";
+
+import Loader from "../../components/ui/loader";
 
 type Slide = {
   id: string;
   title: string;
   description: string;
   image: string;
-  category: Category;
+  categoryId: string;
 };
 
 export default function MainSlider() {
-  // const { data: slides } = useGetTopViewedPostsQuery();
-  // console.log("slides", slides);
-
+  const { data: topViewedPosts, isLoading } = useGetTopViewedPostsQuery();
   return (
     <div className="slider-wrap">
-      {topViewedPosts.length >= 3 ? (
-        topViewedPosts.map((slide) => (
+      {isLoading || !topViewedPosts ? (
+        <Loader />
+      ) : topViewedPosts.length >= 3 ? (
+        topViewedPosts.map(({ _max: post, categoryId }) => (
           <Slide
-            key={slide.id}
-            id={slide.id}
-            title={slide.title}
-            image={slide.image}
-            description={slide.description}
-            category={slide.category}
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            image={post.image}
+            description={post.description}
+            categoryId={categoryId}
           />
         ))
       ) : (
@@ -39,20 +38,28 @@ export default function MainSlider() {
   );
 }
 
-const Slide = ({ title, image, description, category }: Slide) => {
+const Slide = ({ id, title, image, description, categoryId }: Slide) => {
+  const { data: category, isLoading } = useGetOneCategoryQuery(categoryId);
   return (
-    <div className="slide" style={{ backgroundImage: `url(${image})` }}>
-      <div className="slide-content">
-        <span
-          className="slide-category"
-          style={{ backgroundColor: category.color }}
-        >
-          {category.title}
-        </span>
-        <p className="slide-title">{title}</p>
-        <p className="slide-descr">{description}</p>
+    <NavLink to={`post/${id}`} className="slide-wrap">
+      <div
+        className="slide"
+        style={{ backgroundImage: `url(http://localhost:5000/${image})` }}
+      >
+        <div className="slide-content">
+          {isLoading || !category ? null : (
+            <span
+              className="slide-category"
+              style={{ backgroundColor: category.color }}
+            >
+              {category.title}
+            </span>
+          )}
+          <p className="slide-title">{title}</p>
+          <p className="slide-descr">{description}</p>
+        </div>
+        <div className="slide-darkness"></div>
       </div>
-      <div className="slide-darkness"></div>
-    </div>
+    </NavLink>
   );
 };

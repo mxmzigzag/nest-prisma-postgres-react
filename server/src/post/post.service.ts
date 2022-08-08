@@ -61,9 +61,15 @@ export class PostService {
   }
 
   async getTopViewedPosts() {
-    //@ts-ignore
     return this.prismaService.post.groupBy({
-      by: ['title', 'categoryId'],
+      by: ['categoryId'],
+      _max: {
+        id: true,
+        title: true,
+        description: true,
+        image: true,
+        viewsCount: true,
+      },
     });
   }
 

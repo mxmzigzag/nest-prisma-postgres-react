@@ -4,6 +4,7 @@ import {
   GetPostsByAuthorIdArg,
   Post,
   PostPagination,
+  TopViewedPost,
 } from "../../types/post.types";
 import { Limit } from "../../types/common.types";
 
@@ -30,7 +31,7 @@ export const postApi = globalApi
         }),
         providesTags: ["Post"],
       }),
-      getTopViewedPosts: build.query<Post[], void>({
+      getTopViewedPosts: build.query<TopViewedPost[], void>({
         query: () => ({
           url: `topViewedPosts`,
           method: "GET",

@@ -37,3 +37,14 @@ export type PostPagination = {
   totalCount: number;
   posts: Post[];
 };
+
+export type TopViewedPost = {
+  _max: {
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+    viewsCount: number;
+  };
+  categoryId: string;
+};
