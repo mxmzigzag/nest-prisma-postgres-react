@@ -16,6 +16,8 @@ export type Post = {
   };
   category: Category;
   tags: { tag: Tag }[];
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type CreatePost = {

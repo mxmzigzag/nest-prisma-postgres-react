@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import dayjs from "dayjs";
 
 import {
   useGetOnePostQuery,
@@ -10,6 +11,7 @@ import PostTags from "../features/Posts/postTags";
 import Loader from "../components/ui/loader";
 
 import ViewsIcon from "../assets/svg/views";
+import CalendarIcon from "../assets/svg/calendar";
 
 export default function Post() {
   const { postId } = useParams();
@@ -50,10 +52,22 @@ export default function Post() {
               <h3>{post.description}</h3>
             </div>
             <div className="post-page-top-info">
-              {post.author.username} {post.viewsCount} <ViewsIcon />
+              <div className="post-page-top-info-user">
+                {post.author.username}
+              </div>
+              <div className="post-page-top-info-views">
+                <ViewsIcon />
+                <span>{post.viewsCount}</span>
+              </div>
             </div>
           </div>
           <div className="post-page-content">{post.body}</div>
+          <div className="post-page-bottom">
+            <CalendarIcon />
+            <span className="post-page-bottom-date">
+              {dayjs(post.createdAt).format("MMM DD, YYYY")}
+            </span>
+          </div>
         </>
       )}
     </div>
