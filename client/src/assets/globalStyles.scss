@@ -467,6 +467,9 @@ a {
         &:hover {
           background-color: #ccc;
         }
+        &.active {
+          background-color: burlywood;
+        }
       }
     }
   }

@@ -1,11 +1,26 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { Category } from "../../types/category.types";
 
 import { useGetAllCategoriesQuery } from "../../store/api/category.api";
+import { getBlogCategory, setCategory } from "../../store/slice/blog.slice";
 
 export default function CategoryList() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const dispatch = useDispatch();
+  const category = useSelector(getBlogCategory);
+
   const { data: categoriesData, isLoading } = useGetAllCategoriesQuery({});
+
+  const handleSelect = (ctg: Category) => {
+    if (ctg.id === category?.id) {
+      dispatch(setCategory(null));
+    } else {
+      dispatch(setCategory(ctg));
+    }
+  };
 
   return (
     <div className="header-category-wrapper">
@@ -17,9 +32,15 @@ export default function CategoryList() {
       </button>
       {!isLoading && categoriesData && isOpen ? (
         <div className="header-category-list">
-          {categoriesData.page.map((category) => (
-            <button key={category.id} className="header-category-list-item">
-              {category.title}
+          {categoriesData.page.map((ctg) => (
+            <button
+              key={ctg.id}
+              className={`header-category-list-item ${
+                ctg.id === category?.id ? "active" : ""
+              }`}
+              onClick={() => handleSelect(ctg)}
+            >
+              {ctg.title}
             </button>
           ))}
         </div>

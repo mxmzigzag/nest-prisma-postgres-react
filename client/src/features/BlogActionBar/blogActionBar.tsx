@@ -1,4 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
+
+import CategoryList from "../../components/ui/categoryList";
+
 import SearchIcon from "../../assets/svg/search";
 
 export default function BlogActionBar() {
@@ -24,7 +27,9 @@ export default function BlogActionBar() {
         <>
           <div className="action-bar-item">Popular</div>
           <div className="action-bar-item">New</div>
-          <div className="action-bar-item">Category</div>
+          <div className="action-bar-item">
+            <CategoryList />
+          </div>
           <div className="action-bar-item">Tag</div>
         </>
       )}
