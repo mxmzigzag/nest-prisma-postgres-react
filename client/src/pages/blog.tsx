@@ -9,11 +9,13 @@ import Posts from "../features/Posts/posts";
 import Loader from "../components/ui/loader";
 
 export default function Blog() {
-  const { popular, date, category, tags } = useSelector(getBlogState);
+  const { searchQuery, popular, date, category, tags } =
+    useSelector(getBlogState);
   const [limit, setLimit] = useState<number>(4);
 
   const { data: postsData, isLoading } = useGetAllPostsQuery({
     limit,
+    searchQuery,
     popular,
     date,
     category,

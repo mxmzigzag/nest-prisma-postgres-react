@@ -8,6 +8,7 @@ import {
   getPopularSort,
   setDateSort,
   setPopularSort,
+  setSearchQuery,
 } from "../../store/slice/blog.slice";
 import TagList from "../../components/ui/tagList";
 
@@ -24,7 +25,6 @@ export default function BlogActionBar() {
 
   const handleClickOnSearch = () => {
     if (isOpen) {
-      console.log(searchInputValue);
       setIsOpen(false);
     } else {
       setIsOpen(true);
@@ -33,6 +33,7 @@ export default function BlogActionBar() {
 
   const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(e.target.value);
+    dispatch(setSearchQuery(e.target.value));
   };
 
   const handlePopularSortClick = () => {
@@ -98,13 +99,13 @@ export default function BlogActionBar() {
       >
         {isOpen && (
           <input
-            placeholder="search"
+            placeholder="Search by post name"
             value={searchInputValue}
             onChange={handleSearchInputChange}
             className="action-bar-item-search-input"
           />
         )}
-        <SearchIcon width={22} height={22} onClick={handleClickOnSearch} />
+        <SearchIcon width={26} height={26} onClick={handleClickOnSearch} />
       </div>
     </div>
   );

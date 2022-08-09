@@ -41,6 +41,7 @@ export class PostService {
 
   async getPosts({
     limit,
+    searchQuery,
     popular,
     date,
     category,
@@ -54,6 +55,9 @@ export class PostService {
         createdAt: date,
       },
       where: {
+        title: {
+          contains: searchQuery,
+        },
         categoryId: category,
         tags: {
           some: {

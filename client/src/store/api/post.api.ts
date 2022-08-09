@@ -25,8 +25,8 @@ export const postApi = globalApi
         invalidatesTags: ["Post"],
       }),
       getAllPosts: build.query<PostPagination, GetAllPostsQuery>({
-        query: ({ limit, popular, date, category, tags }) => ({
-          url: `posts?limit=${limit}${
+        query: ({ limit, searchQuery, popular, date, category, tags }) => ({
+          url: `posts?limit=${limit}&searchQuery=${searchQuery}${
             category ? `&category=${category.id}` : ""
           }${popular ? `&popular=${popular}` : ""}${
             date ? `&date=${date}` : ""

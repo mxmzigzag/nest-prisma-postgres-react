@@ -33,10 +33,12 @@ export class PostController {
 
   @Get('/posts')
   getPosts(
-    @Query() { limit, popular, date, category, tags }: GetAllPostsQueryDto,
+    @Query()
+    { limit, searchQuery, popular, date, category, tags }: GetAllPostsQueryDto,
   ) {
     return this.postService.getPosts({
       limit: Number(limit),
+      searchQuery,
       popular,
       date,
       category,

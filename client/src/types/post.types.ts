@@ -53,6 +53,7 @@ export type TopViewedPost = {
 
 export type GetAllPostsQuery = {
   limit: number;
+  searchQuery: string;
   popular?: "asc" | "desc";
   date?: "asc" | "desc";
   category?: Category;
