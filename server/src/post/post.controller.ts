@@ -12,10 +12,13 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+
 import { CreatePostDto } from './dto/createPost.dto';
+import { GetAllPostsQueryDto } from './dto/getAllPostsQuery.dto';
 import { UpdatePostDto } from './dto/updatePost.dto';
+
 import { PostService } from './post.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('api')
 export class PostController {
@@ -29,8 +32,16 @@ export class PostController {
   }
 
   @Get('/posts')
-  getPosts(@Query() { limit }: { limit: number }) {
-    return this.postService.getPosts({ limit: Number(limit) });
+  getPosts(
+    @Query() { limit, popular, date, category, tags }: GetAllPostsQueryDto,
+  ) {
+    return this.postService.getPosts({
+      limit: Number(limit),
+      popular,
+      date,
+      category,
+      tags,
+    });
   }
 
   @Get('/topViewedPosts')

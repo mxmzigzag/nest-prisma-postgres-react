@@ -15,6 +15,8 @@ export type TokenResponse = {
   token: string;
 };
 
+export type SortType = "asc" | "desc";
+
 export type Mutation<T, L> = MutationTrigger<
   MutationDefinition<
     T,
@@ -30,7 +32,3 @@ export type Mutation<T, L> = MutationTrigger<
     "globalApi"
   >
 >;
-
-export type Limit = {
-  limit: number;
-};

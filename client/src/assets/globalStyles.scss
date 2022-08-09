@@ -252,6 +252,10 @@ a {
   }
 }
 
+.reverse {
+  transform: rotate(180deg);
+}
+
 .spinner {
   position: absolute;
   top: 50%;
@@ -775,6 +779,19 @@ footer {
     padding: 5px 10px;
     border-right: 1px solid black;
     width: 100%;
+
+    &-btn {
+      display: flex;
+      align-items: center;
+      font-family: "Times";
+      color: black;
+      font-weight: 500;
+      padding: 0px 15px;
+      font-size: 22px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
 
     &-search {
       padding: 2px 10px 2px 5px;

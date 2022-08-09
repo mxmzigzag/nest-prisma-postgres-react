@@ -1,12 +1,12 @@
 import { globalApi } from "./global.api";
 
 import {
+  GetAllPostsQuery,
   GetPostsByAuthorIdArg,
   Post,
   PostPagination,
   TopViewedPost,
 } from "../../types/post.types";
-import { Limit } from "../../types/common.types";
 
 export const postApi = globalApi
   .enhanceEndpoints({ addTagTypes: ["Post"] })
@@ -24,9 +24,13 @@ export const postApi = globalApi
         },
         invalidatesTags: ["Post"],
       }),
-      getAllPosts: build.query<PostPagination, Limit>({
-        query: ({ limit }) => ({
-          url: `posts?limit=${limit}`,
+      getAllPosts: build.query<PostPagination, GetAllPostsQuery>({
+        query: ({ limit, popular, date, category, tags }) => ({
+          url: `posts?limit=${limit}${
+            category ? `&category=${category.id}` : ""
+          }${popular ? `&popular=${popular}` : ""}${
+            date ? `&date=${date}` : ""
+          }${tags?.length ? `&tags=${tags.join(",")}` : ""}`,
           method: "GET",
         }),
         providesTags: ["Post"],

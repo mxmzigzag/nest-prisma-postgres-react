@@ -50,3 +50,11 @@ export type TopViewedPost = {
   };
   categoryId: string;
 };
+
+export type GetAllPostsQuery = {
+  limit: number;
+  popular?: "asc" | "desc";
+  date?: "asc" | "desc";
+  category?: Category;
+  tags?: string[];
+};

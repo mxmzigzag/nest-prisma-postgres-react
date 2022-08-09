@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import SearchIcon from "../../assets/svg/search";
+
 import { useGetAllTagsQuery } from "../../store/api/tag.api";
 import { getBlogTags, setTags } from "../../store/slice/blog.slice";
-import { Tag } from "../../types/tag.types";
+
+import SearchIcon from "../../assets/svg/search";
 
 export default function TagList() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -17,10 +18,10 @@ export default function TagList() {
     tag.name.toLowerCase().includes(searchInput.toLowerCase())
   );
 
-  const handleSelect = (tag: Tag) => {
-    const selectedTags = tags.includes(tag)
-      ? tags.filter((t) => t !== tag)
-      : [...tags, tag];
+  const handleSelect = (tagId: string) => {
+    const selectedTags = tags.includes(tagId)
+      ? tags.filter((t) => t !== tagId)
+      : [...tags, tagId];
 
     dispatch(setTags(selectedTags));
   };
@@ -43,8 +44,10 @@ export default function TagList() {
           {filteredTags.map((tag) => (
             <button
               key={tag.id}
-              className={`tag-list-item ${tags.includes(tag) ? "active" : ""}`}
-              onClick={() => handleSelect(tag)}
+              className={`tag-list-item ${
+                tags.includes(tag.id) ? "active" : ""
+              }`}
+              onClick={() => handleSelect(tag.id)}
             >
               {tag.name}
             </button>

@@ -1,11 +1,24 @@
 import React, { ChangeEvent, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import CategoryList from "../../components/ui/categoryList";
 
-import SearchIcon from "../../assets/svg/search";
+import {
+  getDateSort,
+  getPopularSort,
+  setDateSort,
+  setPopularSort,
+} from "../../store/slice/blog.slice";
 import TagList from "../../components/ui/tagList";
 
+import SearchIcon from "../../assets/svg/search";
+import ChevronDownIcon from "../../assets/svg/chevronDown";
+import { changeSortMethod } from "./utils/sort.utils";
+
 export default function BlogActionBar() {
+  const dispatch = useDispatch();
+  const popularSort = useSelector(getPopularSort);
+  const dateSort = useSelector(getDateSort);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
 
@@ -22,12 +35,54 @@ export default function BlogActionBar() {
     setSearchInputValue(e.target.value);
   };
 
+  const handlePopularSortClick = () => {
+    dispatch(setDateSort(undefined));
+    changeSortMethod({
+      sortData: popularSort,
+      setSortData: setPopularSort,
+      dispatch,
+    });
+  };
+
+  const handleDateSortClick = () => {
+    dispatch(setPopularSort(undefined));
+    changeSortMethod({
+      sortData: dateSort,
+      setSortData: setDateSort,
+      dispatch,
+    });
+  };
+
   return (
     <div className="action-bar-wrapper">
       {!isOpen && (
         <>
-          <div className="action-bar-item">Popular</div>
-          <div className="action-bar-item">New</div>
+          <div className="action-bar-item">
+            <button
+              className="action-bar-item-btn"
+              onClick={handlePopularSortClick}
+            >
+              Popular{" "}
+              {popularSort === "desc" ? (
+                <ChevronDownIcon />
+              ) : popularSort === "asc" ? (
+                <ChevronDownIcon className="reverse" />
+              ) : null}
+            </button>
+          </div>
+          <div className="action-bar-item">
+            <button
+              className="action-bar-item-btn"
+              onClick={handleDateSortClick}
+            >
+              New{" "}
+              {dateSort === "desc" ? (
+                <ChevronDownIcon />
+              ) : dateSort === "asc" ? (
+                <ChevronDownIcon className="reverse" />
+              ) : null}
+            </button>
+          </div>
           <div className="action-bar-item">
             <CategoryList />
           </div>

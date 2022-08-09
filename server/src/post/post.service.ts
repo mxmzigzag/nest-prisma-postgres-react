@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Post as PostModel } from '@prisma/client';
-import { FilesService } from 'src/files/files.service';
 
-import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePostDto } from './dto/createPost.dto';
+import { GetAllPostsQueryDto } from './dto/getAllPostsQuery.dto';
 import { PostsPaginationDto } from './dto/PostsPagination.dto';
 import { UpdatePostDto } from './dto/updatePost.dto';
+
+import { FilesService } from 'src/files/files.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class PostService {
@@ -37,10 +39,30 @@ export class PostService {
     });
   }
 
-  async getPosts({ limit }: { limit: number }): Promise<PostsPaginationDto> {
+  async getPosts({
+    limit,
+    popular,
+    date,
+    category,
+    tags,
+  }: GetAllPostsQueryDto): Promise<PostsPaginationDto> {
     const totalCount = await this.prismaService.post.count();
     const posts = await this.prismaService.post.findMany({
       take: limit,
+      orderBy: {
+        viewsCount: popular,
+        createdAt: date,
+      },
+      where: {
+        categoryId: category,
+        tags: {
+          some: {
+            tagId: {
+              in: tags?.split(','),
+            },
+          },
+        },
+      },
       include: {
         author: {
           select: {
