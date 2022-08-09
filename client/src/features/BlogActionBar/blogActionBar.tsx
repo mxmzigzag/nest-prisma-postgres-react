@@ -3,6 +3,7 @@ import React, { ChangeEvent, useState } from "react";
 import CategoryList from "../../components/ui/categoryList";
 
 import SearchIcon from "../../assets/svg/search";
+import TagList from "../../components/ui/tagList";
 
 export default function BlogActionBar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -30,7 +31,9 @@ export default function BlogActionBar() {
           <div className="action-bar-item">
             <CategoryList />
           </div>
-          <div className="action-bar-item">Tag</div>
+          <div className="action-bar-item">
+            <TagList />
+          </div>
         </>
       )}
       <div

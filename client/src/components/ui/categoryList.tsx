@@ -15,11 +15,7 @@ export default function CategoryList() {
   const { data: categoriesData, isLoading } = useGetAllCategoriesQuery({});
 
   const handleSelect = (ctg: Category) => {
-    if (ctg.id === category?.id) {
-      dispatch(setCategory(null));
-    } else {
-      dispatch(setCategory(ctg));
-    }
+    dispatch(setCategory(ctg.id === category?.id ? null : ctg));
   };
 
   return (
