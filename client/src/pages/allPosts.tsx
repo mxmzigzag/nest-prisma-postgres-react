@@ -19,7 +19,10 @@ export default function AllPosts() {
 
 const PostsGrid = () => {
   const [limit, setLimit] = useState<number>(3);
-  const { data: postsData, isLoading } = useGetAllPostsQuery({ limit });
+  const { data: postsData, isLoading } = useGetAllPostsQuery({
+    limit,
+    searchQuery: "",
+  });
 
   const handleIncreaseLimit = () => {
     setLimit(limit + 3);
