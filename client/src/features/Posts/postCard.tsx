@@ -3,8 +3,9 @@ import { NavLink } from "react-router-dom";
 
 import { Post } from "../../types/post.types";
 
-import ViewsIcon from "../../assets/svg/views";
 import PostTags from "./postTags";
+
+import ViewsIcon from "../../assets/svg/views";
 
 export const PostCard = ({
   id,
@@ -21,7 +22,7 @@ export const PostCard = ({
   return (
     <NavLink to={`/post/${id}`}>
       <div
-        className="post"
+        className="post banned"
         style={{
           backgroundImage: `url(http://localhost:5000/${image})`,
         }}
@@ -44,6 +45,7 @@ export const PostCard = ({
           {author ? (
             <div className="post-author" onClick={() => console.log(authorId)}>
               {author.username}
+              <div className="banned-badge">Banned</div>
             </div>
           ) : null}
           <div className="post-views">

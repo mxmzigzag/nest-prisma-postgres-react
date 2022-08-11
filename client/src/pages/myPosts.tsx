@@ -54,6 +54,7 @@ const MyPostsGrid = ({ userId }: MyPostsGrid) => {
       gridColNum={3}
       handleIncreaseLimit={handleIncreaseLimit}
       isLoadMoreLoading={limit > postsData.posts.length}
+      isUserPosts={true}
       showLoadMore={postsData.posts.length < postsData.totalCount}
     />
   );

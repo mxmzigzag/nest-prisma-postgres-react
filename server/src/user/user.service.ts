@@ -17,7 +17,7 @@ export class UserService {
   }
 
   async getUsers(): Promise<UserModel[]> {
-    return this.prismaService.user.findMany();
+    return this.prismaService.user.findMany({ include: { banned: true } });
   }
 
   async getUserById(id: string): Promise<UserModel> {

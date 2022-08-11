@@ -46,6 +46,7 @@ export class PostService {
     date,
     category,
     tags,
+    isAdmin = false,
   }: GetAllPostsQueryDto): Promise<PostsPaginationDto> {
     const totalCount = await this.prismaService.post.count();
     const posts = await this.prismaService.post.findMany({
@@ -55,6 +56,13 @@ export class PostService {
         createdAt: date,
       },
       where: {
+        author: {
+          ...(isAdmin
+            ? {}
+            : {
+                banned: null,
+              }),
+        },
         title: {
           contains: searchQuery,
         },
@@ -71,6 +79,7 @@ export class PostService {
         author: {
           select: {
             username: true,
+            banned: true,
           },
         },
         category: true,
@@ -95,6 +104,13 @@ export class PostService {
         description: true,
         image: true,
         viewsCount: true,
+      },
+      where: {
+        author: {
+          banned: {
+            is: null,
+          },
+        },
       },
     });
   }

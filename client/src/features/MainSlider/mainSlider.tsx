@@ -31,9 +31,7 @@ export default function MainSlider() {
             categoryId={categoryId}
           />
         ))
-      ) : (
-        <p className="slider-message">Add more categories and posts, please!</p>
-      )}
+      ) : null}
     </div>
   );
 }

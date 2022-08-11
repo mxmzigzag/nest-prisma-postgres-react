@@ -1,5 +1,6 @@
 import { Category } from "./category.types";
 import { NewTag, Tag } from "./tag.types";
+import { BannedUser } from "./user.types";
 
 export type Post = {
   id: string;
@@ -13,6 +14,7 @@ export type Post = {
   viewsCount: number;
   author: {
     username: string;
+    banned: BannedUser;
   };
   category: Category;
   tags: { tag: Tag }[];

@@ -29,3 +29,11 @@ export type ProfileFormData = {
   username?: string;
   email?: string;
 };
+
+export type BannedUser = {
+  id: string;
+  user: User;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
+};

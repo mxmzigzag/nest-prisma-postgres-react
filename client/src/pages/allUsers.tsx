@@ -11,6 +11,11 @@ import Loader from "../components/ui/loader";
 import UserIcon from "../assets/svg/user";
 import LockIcon from "../assets/svg/lock";
 import UnlockIcon from "../assets/svg/unlock";
+import {
+  useBanUserMutation,
+  useUnbanUserMutation,
+} from "../store/api/bannedUser.api";
+import { errorToast, successToast } from "../components/ui/toast";
 
 export default function AllUsers() {
   const { user } = useAuth();
@@ -34,35 +39,49 @@ const UsersGrid = () => {
       ))}
     </div>
   ) : (
-    <p>It&apos;s impossible! How you are here?!</p>
+    <p>It&apos;s impossible! How are you get here?!</p>
   );
 };
 
 const UserCard = ({ user }: { user: User }) => {
-  const handleBanUser = () => {
-    console.log("Ban this user:", user.id);
+  const [banUser] = useBanUserMutation();
+  const [unbanUser] = useUnbanUserMutation();
+
+  const handleBanUser = async () => {
+    try {
+      await banUser(user.id);
+      successToast(`User ${user.username} has been banned!`);
+    } catch (error: any) {
+      errorToast(error.message);
+    }
   };
 
-  const handleUnbanUser = () => {
-    console.log("Unban this user:", user.id);
+  const handleUnbanUser = async () => {
+    try {
+      await unbanUser(user.id);
+      successToast(`User ${user.username} is now free from a Ban-jail!`);
+    } catch (error: any) {
+      errorToast(error.message);
+    }
   };
 
   return (
     <div className="user-card">
+      {user.banned ? <div className="banned-badge">Banned</div> : null}
       <div className="user-actions">
         {user.banned ? (
-          <LockIcon
-            className="cursor-pointer"
-            width={20}
-            height={20}
-            onClick={handleBanUser}
-          />
-        ) : (
           <UnlockIcon
             className="cursor-pointer"
             width={20}
             height={20}
             onClick={handleUnbanUser}
+          />
+        ) : (
+          <LockIcon
+            className="cursor-pointer"
+            width={20}
+            height={20}
+            onClick={handleBanUser}
           />
         )}
       </div>

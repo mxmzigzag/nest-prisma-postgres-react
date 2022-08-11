@@ -5,4 +5,5 @@ export class GetAllPostsQueryDto {
   readonly date?: 'asc' | 'desc';
   readonly category?: string;
   readonly tags?: string;
+  readonly isAdmin?: boolean;
 }

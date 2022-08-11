@@ -14,6 +14,7 @@ type Props = {
   gridColNum?: number;
   showLoadMore?: boolean;
   isLoadMoreLoading?: boolean;
+  isUserPosts?: boolean;
   handleIncreaseLimit?: () => void;
 };
 
@@ -22,6 +23,7 @@ export default function Posts({
   gridColNum = 4,
   showLoadMore = true,
   isLoadMoreLoading = false,
+  isUserPosts = false,
   handleIncreaseLimit,
 }: Props) {
   const { user } = useAuth();
@@ -64,10 +66,10 @@ export default function Posts({
       ) : (
         <>
           <p className="posts-empty-text">
-            There are no posts in {user?.role === "CREATOR" ? "your" : "the"}{" "}
-            blog yet
+            There are no posts in{" "}
+            {user?.role === "CREATOR" && isUserPosts ? "your" : "the"} blog yet
           </p>
-          {user?.role === "CREATOR" ? (
+          {user?.role === "CREATOR" && isUserPosts ? (
             <button className="link-button" onClick={() => setIsOpen(true)}>
               Start it now!
             </button>

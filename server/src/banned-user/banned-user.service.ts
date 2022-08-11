@@ -6,9 +6,11 @@ import { BannedUserDto } from './dto/bannedUser.dto';
 export class BannedUserService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async banUser(dto: BannedUserDto) {
+  async banUser(userId: string) {
     return this.prismaService.bannedUser.create({
-      data: dto,
+      data: {
+        userId,
+      },
     });
   }
 
@@ -16,9 +18,9 @@ export class BannedUserService {
     return this.prismaService.bannedUser.findMany();
   }
 
-  async unbanUser(id: string) {
+  async unbanUser(userId: string) {
     return this.prismaService.bannedUser.delete({
-      where: { id },
+      where: { userId },
     });
   }
 }

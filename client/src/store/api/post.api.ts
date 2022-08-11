@@ -25,14 +25,18 @@ export const postApi = globalApi
         invalidatesTags: ["Post"],
       }),
       getAllPosts: build.query<PostPagination, GetAllPostsQuery>({
-        query: ({ limit, searchQuery, popular, date, category, tags }) => ({
-          url: `posts?limit=${limit}&searchQuery=${searchQuery}${
-            category ? `&category=${category.id}` : ""
-          }${popular ? `&popular=${popular}` : ""}${
-            date ? `&date=${date}` : ""
-          }${tags?.length ? `&tags=${tags.join(",")}` : ""}`,
-          method: "GET",
-        }),
+        query: ({ limit, searchQuery, popular, date, category, tags }) => {
+          const token = localStorage.getItem("token");
+          return {
+            url: `posts?limit=${limit}&searchQuery=${searchQuery}${
+              category ? `&category=${category.id}` : ""
+            }${popular ? `&popular=${popular}` : ""}${
+              date ? `&date=${date}` : ""
+            }${tags?.length ? `&tags=${tags.join(",")}` : ""}`,
+            method: "GET",
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
+          };
+        },
         providesTags: ["Post"],
       }),
       getTopViewedPosts: build.query<TopViewedPost[], void>({
