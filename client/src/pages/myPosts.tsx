@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+import { Role } from "../types/user.types";
+import { RequestType } from "../types/request.types";
+
 import { useAuth } from "../hooks/useAuth";
 import { useGetPostsByAuthorIdQuery } from "../store/api/post.api";
 import {
@@ -23,7 +26,7 @@ export default function MyPosts() {
   return (
     <ProfileLayout title="My posts">
       {user ? (
-        user.role === "USER" ? (
+        user.role === Role.USER ? (
           <BecomeCreatorNotification userId={user.id} />
         ) : (
           <MyPostsGrid userId={user.id} />
@@ -65,7 +68,7 @@ const BecomeCreatorNotification = ({ userId }: { userId: string }) => {
   const { data: isReqSent = false, isLoading: isSentLoading } =
     useGetRequestIsSentByUserQuery({
       userId,
-      type: "UPDATE_TO_CREATOR",
+      type: RequestType.UPDATE_TO_CREATOR,
     });
 
   useEffect(() => {
@@ -78,7 +81,7 @@ const BecomeCreatorNotification = ({ userId }: { userId: string }) => {
     try {
       const res = await createRequest({
         userId,
-        type: "UPDATE_TO_CREATOR",
+        type: RequestType.UPDATE_TO_CREATOR,
       }).unwrap();
 
       if (res.status) {

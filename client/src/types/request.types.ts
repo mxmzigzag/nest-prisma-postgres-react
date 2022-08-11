@@ -1,9 +1,21 @@
 import { User } from "./user.types";
 
+export enum RequestType {
+  UPDATE_TO_CREATOR = "UPDATE_TO_CREATOR",
+  UPDATE_TO_ADMIN = "UPDATE_TO_ADMIN",
+  UNBAN = "UNBAN",
+}
+
+export enum RequestStatus {
+  PENDING = "PENDING",
+  ACCEPTED = "ACCEPTED",
+  REJECTED = "REJECTED",
+}
+
 export type Request = {
   id: string;
-  type: "UPDATE_TO_CREATOR" | "UPDATE_TO_ADMIN";
-  status: "PENDING" | "ACCEPTED" | "REJECTED";
+  type: RequestType;
+  status: RequestStatus;
   userId: string;
   user: Partial<User>;
   createdAt: Date;
@@ -11,6 +23,6 @@ export type Request = {
 };
 
 export type CreateRequest = {
-  type: "UPDATE_TO_CREATOR" | "UPDATE_TO_ADMIN";
+  type: RequestType;
   userId: string;
 };

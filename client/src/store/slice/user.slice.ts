@@ -1,5 +1,6 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { User } from "../../types/user.types";
+
+import { Role, User } from "../../types/user.types";
 
 interface UserState {
   user: User;
@@ -12,7 +13,7 @@ const initialState: UserState = {
     name: "",
     surname: "",
     username: "",
-    role: "USER",
+    role: Role.USER,
     email: "example@gmail.com",
     password: "",
   },

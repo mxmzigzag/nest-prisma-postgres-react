@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
+import { Role } from "../../types/user.types";
 import { Post } from "../../types/post.types";
 
 import { useAuth } from "../../hooks/useAuth";
 
 import Modal from "../../components/ui/modal";
 import PostForm from "../PostForm/postForm";
-import { PostCard } from "./postCard";
+import PostCard from "./postCard";
 import Button from "../../components/ui/button";
 
 type Props = {
@@ -67,9 +68,10 @@ export default function Posts({
         <>
           <p className="posts-empty-text">
             There are no posts in{" "}
-            {user?.role === "CREATOR" && isUserPosts ? "your" : "the"} blog yet
+            {user?.role === Role.CREATOR && isUserPosts ? "your" : "the"} blog
+            yet
           </p>
-          {user?.role === "CREATOR" && isUserPosts ? (
+          {user?.role === Role.CREATOR && isUserPosts ? (
             <button className="link-button" onClick={() => setIsOpen(true)}>
               Start it now!
             </button>

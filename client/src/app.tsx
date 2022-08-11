@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { Role } from "./types/user.types";
+
 import { useAuth } from "./hooks/useAuth";
 
 import { ProtectedRoute } from "./features/ProtectedRoute/ProtectedRoute";
@@ -17,13 +19,17 @@ import Category from "./pages/category";
 import Footer from "./components/ui/footer";
 import AllPosts from "./pages/allPosts";
 import AllUsers from "./pages/allUsers";
-import Requests from "./pages/Requests";
-import AddPostBtn from "./components/ui/addPostBtn";
+import Requests from "./pages/requests";
 import Categories from "./pages/categories";
 import Post from "./pages/post";
 
+import AddPostBtn from "./components/ui/addPostBtn";
+import BannedNotification from "./features/BannedNotification/bannedNotification";
+
 export default function App() {
   const { user } = useAuth();
+  const isCreator = user?.role === Role.CREATOR;
+  const isAdmin = user?.role === Role.ADMIN;
 
   return (
     <div className="app-wrapper">
@@ -51,9 +57,7 @@ export default function App() {
             <Route
               path="/admin/posts"
               element={
-                <ProtectedRoute
-                  isAllowed={Boolean(user) && user?.role === "ADMIN"}
-                >
+                <ProtectedRoute isAllowed={Boolean(user) && isAdmin}>
                   <AllPosts />
                 </ProtectedRoute>
               }
@@ -61,9 +65,7 @@ export default function App() {
             <Route
               path="/admin/users"
               element={
-                <ProtectedRoute
-                  isAllowed={Boolean(user) && user?.role === "ADMIN"}
-                >
+                <ProtectedRoute isAllowed={Boolean(user) && isAdmin}>
                   <AllUsers />
                 </ProtectedRoute>
               }
@@ -71,9 +73,7 @@ export default function App() {
             <Route
               path="/admin/requests"
               element={
-                <ProtectedRoute
-                  isAllowed={Boolean(user) && user?.role === "ADMIN"}
-                >
+                <ProtectedRoute isAllowed={Boolean(user) && isAdmin}>
                   <Requests />
                 </ProtectedRoute>
               }
@@ -81,9 +81,7 @@ export default function App() {
             <Route
               path="/admin/categories"
               element={
-                <ProtectedRoute
-                  isAllowed={Boolean(user) && user?.role === "ADMIN"}
-                >
+                <ProtectedRoute isAllowed={Boolean(user) && isAdmin}>
                   <Categories />
                 </ProtectedRoute>
               }
@@ -96,7 +94,9 @@ export default function App() {
           </Routes>
         </div>
         <Footer />
-        {user?.role === "CREATOR" ? <AddPostBtn /> : null}
+
+        {isCreator ? <AddPostBtn /> : null}
+        <BannedNotification />
       </BrowserRouter>
       <ToastContainer />
     </div>

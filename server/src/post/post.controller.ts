@@ -13,6 +13,9 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
+import { Role } from '@prisma/client';
 
 import { CreatePostDto } from './dto/createPost.dto';
 import { GetAllPostsQueryDto } from './dto/getAllPostsQuery.dto';
@@ -20,8 +23,6 @@ import { UpdatePostDto } from './dto/updatePost.dto';
 
 import { PostService } from './post.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Request } from 'express';
-import { JwtService } from '@nestjs/jwt';
 
 @Controller('api')
 export class PostController {
@@ -47,7 +48,7 @@ export class PostController {
     if (req?.headers?.authorization) {
       const token = req.headers.authorization.split(' ')[1];
       const user = await this.jwtService.verify(token);
-      if (user.role === 'ADMIN') isAdmin = true;
+      if (user.role === Role.ADMIN) isAdmin = true;
     }
 
     return this.postService.getPosts({

@@ -33,6 +33,9 @@ export class UserService {
       where: {
         email,
       },
+      include: {
+        banned: true,
+      },
     });
   }
 

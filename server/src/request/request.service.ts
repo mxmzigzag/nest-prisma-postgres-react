@@ -1,14 +1,18 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { RequestTypes } from '@prisma/client';
+import { RequestStatus, RequestTypes, Role } from '@prisma/client';
+
+import { CreateRequestDto } from './dto/createRequest.dto';
+
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserService } from 'src/user/user.service';
-import { CreateRequestDto } from './dto/createRequest.dto';
+import { BannedUserService } from 'src/banned-user/banned-user.service';
 
 @Injectable()
 export class RequestService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly userService: UserService,
+    private readonly bannedUserService: BannedUserService,
   ) {}
 
   async createRequest(dto: CreateRequestDto) {
@@ -44,7 +48,7 @@ export class RequestService {
       where: {
         type,
         userId,
-        status: 'PENDING',
+        status: RequestStatus.PENDING,
       },
     });
 
@@ -74,14 +78,21 @@ export class RequestService {
       );
     }
 
-    if (request.type === 'UPDATE_TO_CREATOR') {
+    if (request.type === RequestTypes.UPDATE_TO_CREATOR) {
       await this.userService.updateUser(request.userId, {
-        role: 'CREATOR',
+        role: Role.CREATOR,
       });
-    } else if (request.type === 'UPDATE_TO_ADMIN') {
+    } else if (request.type === RequestTypes.UPDATE_TO_ADMIN) {
       await this.userService.updateUser(request.userId, {
-        role: 'ADMIN',
+        role: Role.ADMIN,
       });
+    } else if (request.type === RequestTypes.UNBAN) {
+      await this.bannedUserService.unbanUser(request.userId);
+    } else {
+      throw new HttpException(
+        'There is no request with such type',
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     return this.prismaService.request.update({
@@ -89,7 +100,7 @@ export class RequestService {
         id: reqId,
       },
       data: {
-        status: 'ACCEPTED',
+        status: RequestStatus.ACCEPTED,
       },
     });
   }
@@ -100,7 +111,7 @@ export class RequestService {
         id: reqId,
       },
       data: {
-        status: 'REJECTED',
+        status: RequestStatus.REJECTED,
       },
     });
   }

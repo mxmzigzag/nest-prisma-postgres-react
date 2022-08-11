@@ -7,7 +7,7 @@ import PostTags from "./postTags";
 
 import ViewsIcon from "../../assets/svg/views";
 
-export const PostCard = ({
+export default function PostCard({
   id,
   title,
   image,
@@ -18,11 +18,11 @@ export const PostCard = ({
   category,
   viewsCount,
   tags,
-}: Partial<Post>) => {
+}: Partial<Post>) {
   return (
     <NavLink to={`/post/${id}`}>
       <div
-        className="post banned"
+        className={`post ${author?.banned ? "banned" : ""}`}
         style={{
           backgroundImage: `url(http://localhost:5000/${image})`,
         }}
@@ -45,7 +45,9 @@ export const PostCard = ({
           {author ? (
             <div className="post-author" onClick={() => console.log(authorId)}>
               {author.username}
-              <div className="banned-badge">Banned</div>
+              {author.banned ? (
+                <div className="banned-badge">Banned</div>
+              ) : null}
             </div>
           ) : null}
           <div className="post-views">
@@ -56,4 +58,4 @@ export const PostCard = ({
       </div>
     </NavLink>
   );
-};
+}

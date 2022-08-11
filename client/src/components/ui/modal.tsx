@@ -1,33 +1,42 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
 import RejectIcon from "../../assets/svg/reject";
 
 type Props = {
-  title: string;
+  title?: string;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   customWrapperClass?: string;
-  children: JSX.Element;
+  onClose?: () => void;
+  children: JSX.Element | JSX.Element[];
 };
 
 export default function Modal({
-  title,
+  title = "",
   isOpen,
   setIsOpen,
   customWrapperClass,
+  onClose,
   children,
 }: Props) {
+  const handleClose = () => {
+    setIsOpen(false);
+    if (onClose) onClose();
+  };
+
   if (!isOpen) return null;
   return ReactDOM.createPortal(
     <div className="modal">
       <div className={`${customWrapperClass || "modal-wrapper"}`}>
-        <div className="modal-header">
-          {title}
-          <RejectIcon
-            className="modal-close"
-            onClick={() => setIsOpen(false)}
-          />
-        </div>
+        {title ? (
+          <div className="modal-header">
+            {title}
+            <RejectIcon className="modal-close" onClick={handleClose} />
+          </div>
+        ) : (
+          <RejectIcon className="modal-close" onClick={handleClose} />
+        )}
         {children}
       </div>
     </div>,

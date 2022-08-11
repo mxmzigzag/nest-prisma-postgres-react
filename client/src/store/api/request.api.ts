@@ -3,7 +3,7 @@ import { globalApi } from "./global.api";
 import { CreateRequest, Request } from "../../types/request.types";
 
 export const requestApi = globalApi
-  .enhanceEndpoints({ addTagTypes: ["Request"] })
+  .enhanceEndpoints({ addTagTypes: ["Request", "User", "BannedUser", "Post"] })
   .injectEndpoints({
     endpoints: (build) => ({
       createRequest: build.mutation<Request, CreateRequest>({
@@ -50,7 +50,7 @@ export const requestApi = globalApi
             headers: { Authorization: `Bearer ${token}` },
           };
         },
-        invalidatesTags: ["Request"],
+        invalidatesTags: ["Request", "User", "BannedUser", "Post"],
       }),
       rejectRequest: build.mutation<Request, string>({
         query: (reqId) => {

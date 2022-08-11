@@ -6,5 +6,6 @@ import { BannedUserService } from './banned-user.service';
 @Module({
   controllers: [BannedUserController],
   providers: [PrismaService, BannedUserService],
+  exports: [BannedUserService],
 })
 export class BannedUserModule {}

@@ -1228,13 +1228,7 @@ footer {
     padding: 20px 15px;
   }
 
-  &-created {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 15px;
-  }
-
-  &-answered {
+  &-time {
     display: flex;
     flex-direction: column;
     padding: 20px 15px;
@@ -1499,5 +1493,37 @@ footer {
       max-width: 200px;
       margin: 0px auto 10px;
     }
+  }
+}
+
+// banned notification
+
+.banned-notification {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  .modal-close {
+    top: 20px;
+  }
+  h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+  }
+  p {
+    margin-bottom: 5px;
+    a {
+      color: burlywood;
+    }
+  }
+  button {
+    margin-top: 5px;
+    width: auto;
+    padding: 12px 35px;
   }
 }

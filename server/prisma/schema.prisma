@@ -82,6 +82,7 @@ model TagsOnPosts {
 enum RequestTypes {
   UPDATE_TO_CREATOR
   UPDATE_TO_ADMIN
+  UNBAN
 }
 
 enum RequestStatus {

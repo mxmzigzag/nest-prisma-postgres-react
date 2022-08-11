@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
+import { Role } from "../types/user.types";
+
 import { useAuth } from "../hooks/useAuth";
 import { useLogoutMutation } from "../store/api/auth.api";
 
@@ -23,39 +25,44 @@ export default function ProfileLayout({
   const navigate = useNavigate();
   const { user, logout } = useAuth();
 
-  const [logoutUser] = useLogoutMutation();
+  const [logoutUser, { isLoading }] = useLogoutMutation();
 
   const navItems = [
     {
       id: 0,
       name: "Profile",
       link: "/profile",
-      allowedRoles: ["USER", "CREATOR", "ADMIN"],
+      allowedRoles: [Role.USER, Role.CREATOR, Role.ADMIN],
     },
     {
       id: 1,
       name: "My Posts",
       link: "/profile/posts",
-      allowedRoles: ["USER", "CREATOR"],
+      allowedRoles: [Role.USER, Role.CREATOR],
     },
     {
       id: 2,
       name: "All Posts",
       link: "/admin/posts",
-      allowedRoles: ["ADMIN"],
+      allowedRoles: [Role.ADMIN],
     },
-    { id: 3, name: "All Users", link: "/admin/users", allowedRoles: ["ADMIN"] },
+    {
+      id: 3,
+      name: "All Users",
+      link: "/admin/users",
+      allowedRoles: [Role.ADMIN],
+    },
     {
       id: 4,
       name: "Categories",
       link: "/admin/categories",
-      allowedRoles: ["ADMIN"],
+      allowedRoles: [Role.ADMIN],
     },
     {
       id: 5,
       name: "Requests",
       link: "/admin/requests",
-      allowedRoles: ["ADMIN"],
+      allowedRoles: [Role.ADMIN],
     },
   ];
 
@@ -87,7 +94,11 @@ export default function ProfileLayout({
         <div className="profile-content-row">
           <h2 className="profile-title">{title}</h2>
           {btnTitle ? (
-            <Button onClick={btnOnClick} className="profile-btn">
+            <Button
+              onClick={btnOnClick}
+              className="profile-btn"
+              isLoading={isLoading}
+            >
               {btnTitle}
             </Button>
           ) : null}
