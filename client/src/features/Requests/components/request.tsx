@@ -20,11 +20,7 @@ export default function Request({ request }: Props) {
       <RequestStatusCell status={request.status} />
       <RequestBody type={request.type} user={request.user} />
       <RequestTimeCell name="Created at:" time={request.createdAt} />
-      <RequestTimeCell
-        name="Answered at:"
-        time={request.updatedAt}
-        hideValue={request.status === RequestStatus.PENDING}
-      />
+      <RequestTimeCell name="Answered at:" time={request.updatedAt} />
       <RequestActions
         reqId={request.id}
         isPendingStatus={request.status === RequestStatus.PENDING}
