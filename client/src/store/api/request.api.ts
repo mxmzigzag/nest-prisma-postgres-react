@@ -1,6 +1,7 @@
 import { globalApi } from "./global.api";
 
 import { CreateRequest, Request } from "../../types/request.types";
+import { Limit } from "../../types/common.types";
 
 export const requestApi = globalApi
   .enhanceEndpoints({ addTagTypes: ["Request", "User", "BannedUser", "Post"] })
@@ -18,11 +19,11 @@ export const requestApi = globalApi
         },
         invalidatesTags: ["Request"],
       }),
-      getAllRequests: build.query<Request[], void>({
-        query: () => {
+      getAllRequests: build.query<Request[], Limit>({
+        query: ({ limit }) => {
           const token = localStorage.getItem("token");
           return {
-            url: `requests`,
+            url: `requests?limit=${limit}`,
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
           };

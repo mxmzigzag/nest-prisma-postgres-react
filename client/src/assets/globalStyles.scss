@@ -24,6 +24,10 @@ a {
   margin-top: auto;
 }
 
+.mx-auto {
+  margin: 0 auto;
+}
+
 .border-l {
   border-left: 1px solid black;
 }
@@ -1208,6 +1212,7 @@ footer {
 .requests {
   &-list {
     list-style: none;
+    margin-bottom: 20px;
   }
 
   &-item {

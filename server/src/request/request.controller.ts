@@ -26,8 +26,8 @@ export class RequestController {
 
   @Get('/requests')
   @UseGuards(JwtAuthGuard)
-  getAllRequests() {
-    return this.requestService.getAllRequests();
+  getAllRequests(@Query() { limit }: { limit: number }) {
+    return this.requestService.getAllRequests(Number(limit));
   }
 
   @Get('/requests/unansweredNum')

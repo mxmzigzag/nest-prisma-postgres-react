@@ -17,6 +17,8 @@ export type TokenResponse = {
 
 export type SortType = "asc" | "desc";
 
+export type Limit = { limit: number };
+
 export type Mutation<T, L> = MutationTrigger<
   MutationDefinition<
     T,

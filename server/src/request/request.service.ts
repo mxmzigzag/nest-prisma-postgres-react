@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { RequestStatus, RequestTypes, Role } from '@prisma/client';
+import { Request, RequestStatus, RequestTypes, Role } from '@prisma/client';
 
 import { CreateRequestDto } from './dto/createRequest.dto';
 
@@ -15,7 +15,7 @@ export class RequestService {
     private readonly bannedUserService: BannedUserService,
   ) {}
 
-  async createRequest(dto: CreateRequestDto) {
+  async createRequest(dto: CreateRequestDto): Promise<Request> {
     return this.prismaService.request.create({
       data: {
         type: dto.type,
@@ -28,8 +28,11 @@ export class RequestService {
     });
   }
 
-  async getAllRequests() {
+  async getAllRequests(limit: number): Promise<Request[]> {
     return this.prismaService.request.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
       include: {
         user: {
           select: {
@@ -40,14 +43,18 @@ export class RequestService {
           },
         },
       },
+      take: limit,
     });
   }
 
-  async getNumberOfUnanswered() {
+  async getNumberOfUnanswered(): Promise<number> {
     return this.prismaService.request.count({ where: { updatedAt: null } });
   }
 
-  async getRequestIsSentByUser(userId: string, type: RequestTypes) {
+  async getRequestIsSentByUser(
+    userId: string,
+    type: RequestTypes,
+  ): Promise<boolean> {
     const req = await this.prismaService.request.findFirst({
       where: {
         type,
@@ -62,7 +69,7 @@ export class RequestService {
     return false;
   }
 
-  async deleteRequest(reqId: string) {
+  async deleteRequest(reqId: string): Promise<Request> {
     return this.prismaService.request.delete({
       where: {
         id: reqId,
@@ -70,7 +77,7 @@ export class RequestService {
     });
   }
 
-  async acceptRequest(reqId: string) {
+  async acceptRequest(reqId: string): Promise<Request> {
     const request = await this.prismaService.request.findUnique({
       where: { id: reqId },
     });
@@ -110,7 +117,7 @@ export class RequestService {
     });
   }
 
-  async rejectRequest(reqId: string) {
+  async rejectRequest(reqId: string): Promise<Request> {
     return this.prismaService.request.update({
       where: {
         id: reqId,
