@@ -43,6 +43,10 @@ export class RequestService {
     });
   }
 
+  async getNumberOfUnanswered() {
+    return this.prismaService.request.count({ where: { updatedAt: null } });
+  }
+
   async getRequestIsSentByUser(userId: string, type: RequestTypes) {
     const req = await this.prismaService.request.findFirst({
       where: {

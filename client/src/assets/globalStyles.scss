@@ -1120,9 +1120,23 @@ footer {
     li {
       padding: 10px 10px 10px 0px;
       a {
-        display: block;
         color: black;
         font-size: 18px;
+        position: relative;
+        .navbar-notification {
+          position: absolute;
+          top: -3px;
+          right: -16px;
+          background-color: red;
+          border-radius: 50%;
+          font-size: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 15px;
+          height: 15px;
+          color: #fff;
+        }
       }
     }
   }

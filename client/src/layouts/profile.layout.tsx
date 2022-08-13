@@ -5,6 +5,7 @@ import { Role } from "../types/user.types";
 
 import { useAuth } from "../hooks/useAuth";
 import { useLogoutMutation } from "../store/api/auth.api";
+import { useGetNumberOfUnansweredQuery } from "../store/api/request.api";
 
 import { errorToast } from "../components/ui/toast";
 import Button from "../components/ui/button";
@@ -26,6 +27,7 @@ export default function ProfileLayout({
   const { user, logout } = useAuth();
 
   const [logoutUser, { isLoading }] = useLogoutMutation();
+  const { data: requestNotifications } = useGetNumberOfUnansweredQuery();
 
   const navItems = [
     {
@@ -61,6 +63,7 @@ export default function ProfileLayout({
     {
       id: 5,
       name: "Requests",
+      notifications: requestNotifications,
       link: "/admin/requests",
       allowedRoles: [Role.ADMIN],
     },
@@ -83,7 +86,14 @@ export default function ProfileLayout({
           .filter((item) => item.allowedRoles.includes(user.role))
           .map((item) => (
             <li key={item.id}>
-              <NavLink to={item.link}>{item.name}</NavLink>
+              <NavLink to={item.link}>
+                {item.name}{" "}
+                {item.notifications ? (
+                  <span className="navbar-notification">
+                    {item.notifications}
+                  </span>
+                ) : null}
+              </NavLink>
             </li>
           ))}
         <li className="mt-auto">

@@ -29,6 +29,17 @@ export const requestApi = globalApi
         },
         providesTags: ["Request"],
       }),
+      getNumberOfUnanswered: build.query<number, void>({
+        query: () => {
+          const token = localStorage.getItem("token");
+          return {
+            url: `requests/unansweredNum`,
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          };
+        },
+        providesTags: ["Request"],
+      }),
       getRequestIsSentByUser: build.query<boolean, CreateRequest>({
         query: ({ userId, type }) => {
           const token = localStorage.getItem("token");
@@ -70,6 +81,7 @@ export const requestApi = globalApi
 export const {
   useCreateRequestMutation,
   useGetAllRequestsQuery,
+  useGetNumberOfUnansweredQuery,
   useGetRequestIsSentByUserQuery,
   useAcceptRequestMutation,
   useRejectRequestMutation,

@@ -30,6 +30,12 @@ export class RequestController {
     return this.requestService.getAllRequests();
   }
 
+  @Get('/requests/unansweredNum')
+  @UseGuards(JwtAuthGuard)
+  getNumberOfUnanswered() {
+    return this.requestService.getNumberOfUnanswered();
+  }
+
   @Get('/requestIsSent')
   @UseGuards(JwtAuthGuard)
   getRequestIsSentByUser(@Query() { userId, type }: CreateRequestDto) {
