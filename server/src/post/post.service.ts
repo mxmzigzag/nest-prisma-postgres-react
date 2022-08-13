@@ -133,7 +133,7 @@ export class PostService {
         authorId,
       },
       include: {
-        author: { select: { id: true, username: true } },
+        author: { select: { id: true, username: true, banned: true } },
         category: true,
         tags: {
           include: {
