@@ -19,7 +19,11 @@ export default function AllPosts() {
 
 const PostsGrid = () => {
   const [limit, setLimit] = useState<number>(3);
-  const { data: postsData, isLoading } = useGetAllPostsQuery({
+  const {
+    data: postsData,
+    isLoading,
+    isFetching,
+  } = useGetAllPostsQuery({
     limit,
     searchQuery: "",
   });
@@ -35,7 +39,7 @@ const PostsGrid = () => {
       posts={postsData.posts}
       gridColNum={3}
       handleIncreaseLimit={handleIncreaseLimit}
-      isLoadMoreLoading={limit > postsData.posts.length}
+      isLoadMoreLoading={isFetching}
       showLoadMore={postsData.posts.length < postsData.totalCount}
     />
   );

@@ -13,7 +13,11 @@ export default function Blog() {
     useSelector(getBlogState);
   const [limit, setLimit] = useState<number>(4);
 
-  const { data: postsData, isLoading } = useGetAllPostsQuery({
+  const {
+    data: postsData,
+    isLoading,
+    isFetching,
+  } = useGetAllPostsQuery({
     limit,
     searchQuery,
     popular,
@@ -35,7 +39,7 @@ export default function Blog() {
           <Posts
             posts={postsData.posts}
             handleIncreaseLimit={handleIncreaseLimit}
-            isLoadMoreLoading={limit > postsData.posts.length}
+            isLoadMoreLoading={isFetching}
             showLoadMore={postsData.posts.length < postsData.totalCount}
           />
         </>

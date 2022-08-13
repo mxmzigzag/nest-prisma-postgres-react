@@ -11,7 +11,11 @@ import Button from "../components/ui/button";
 
 export default function Requests() {
   const [limit, setLimit] = useState<number>(5);
-  const { data: requestsData = [], isLoading } = useGetAllRequestsQuery({
+  const {
+    data: requestsData = [],
+    isLoading,
+    isFetching,
+  } = useGetAllRequestsQuery({
     limit,
   });
 
@@ -26,8 +30,6 @@ export default function Requests() {
       .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)) || [];
 
   const requests = [...pendingReqs, ...otherReqs];
-
-  console.log("requests", requests);
 
   const handleIncreaseLimit = () => {
     setLimit(limit + 5);
@@ -47,6 +49,7 @@ export default function Requests() {
           <Button
             className="load-more-btn mx-auto"
             onClick={handleIncreaseLimit}
+            isLoading={isFetching}
           >
             More
           </Button>
