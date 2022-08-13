@@ -101,6 +101,7 @@ export class RequestService {
       },
       data: {
         status: RequestStatus.ACCEPTED,
+        updatedAt: new Date(),
       },
     });
   }
@@ -112,6 +113,7 @@ export class RequestService {
       },
       data: {
         status: RequestStatus.REJECTED,
+        updatedAt: new Date(),
       },
     });
   }
