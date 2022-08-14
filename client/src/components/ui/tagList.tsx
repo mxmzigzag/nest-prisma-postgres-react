@@ -1,12 +1,16 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { useGetAllTagsQuery } from "../../store/api/tag.api";
 import { getBlogTags, setTags } from "../../store/slice/blog.slice";
 
 import SearchIcon from "../../assets/svg/search";
 
+const TAGS_LIMIT = 15;
+
 export default function TagList() {
+  const listRef = useRef(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState<string>("");
 
@@ -30,18 +34,20 @@ export default function TagList() {
     setSearchInput(e.target.value);
   };
 
+  useOutsideClick(listRef, () => setIsOpen(false));
+
   return (
     <div className="tag-list-wrapper">
       <button className="tag-list-btn" onClick={() => setIsOpen(!isOpen)}>
         Tags
       </button>
       {!isLoading && tagsData && isOpen ? (
-        <div className="tag-list">
+        <div className="tag-list" ref={listRef}>
           <div className="tag-list-search">
             <SearchIcon width={18} height={18} />
             <input value={searchInput} onChange={handleChangeSearchInput} />
           </div>
-          {filteredTags.map((tag) => (
+          {filteredTags.slice(0, TAGS_LIMIT).map((tag) => (
             <button
               key={tag.id}
               className={`tag-list-item ${
