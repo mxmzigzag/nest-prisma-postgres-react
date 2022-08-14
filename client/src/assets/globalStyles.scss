@@ -663,7 +663,14 @@ footer {
   position: relative;
 
   background-size: cover;
+  background-size: 270%;
   background-position: right;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-size: 280%;
+    transition: all 0.3s ease;
+  }
 
   &::before {
     content: "";
@@ -885,11 +892,12 @@ footer {
   border-radius: 4px;
   padding: 10px;
   min-height: 225px;
-  background-size: cover;
+  // background-size: cover;
+  background-size: 150%;
   background-position: center;
   position: relative;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
-  transition: all 0.15s ease;
+  transition: all 0.3s ease;
 
   &::before {
     content: "";
@@ -899,12 +907,13 @@ footer {
     height: 100%;
     width: 100%;
     background: linear-gradient(to bottom, transparent 0%, black 150%);
-    transition: all 0.15s ease;
+    transition: all 0.3s ease;
   }
 
   &:hover {
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.4);
-    transition: all 0.15s ease;
+    background-size: 160%;
+    transition: all 0.3s ease;
   }
 
   &.banned {
