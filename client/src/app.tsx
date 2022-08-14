@@ -25,6 +25,8 @@ import Post from "./pages/post";
 
 import AddPostBtn from "./components/ui/addPostBtn";
 import BannedNotification from "./features/BannedNotification/bannedNotification";
+import About from "./pages/about";
+import Contact from "./pages/contact";
 
 export default function App() {
   const { user } = useAuth();
@@ -90,6 +92,8 @@ export default function App() {
             <Route path="/registation" element={<Registration />} />
             <Route path="/category/:categoryId" element={<Category />} />
             <Route path="/post/:postId" element={<Post />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contacts" element={<Contact />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>

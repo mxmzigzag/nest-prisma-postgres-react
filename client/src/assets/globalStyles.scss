@@ -1556,3 +1556,30 @@ footer {
     padding: 12px 35px;
   }
 }
+
+// page
+
+.page {
+  &-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    padding: 25px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 67px);
+  }
+  &-title {
+    font-size: 32px;
+    margin-bottom: 25px;
+  }
+}
+
+// about
+
+.about {
+  &-row {
+    display: flex;
+    align-items: center;
+  }
+}
