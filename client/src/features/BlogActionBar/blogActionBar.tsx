@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import CategoryList from "../../components/ui/categoryList";
+import { useDebounce } from "../../hooks/useDebounce";
 
 import {
   getDateSort,
@@ -10,11 +10,12 @@ import {
   setPopularSort,
   setSearchQuery,
 } from "../../store/slice/blog.slice";
+import { changeSortMethod } from "./utils/sort.utils";
+import CategoryList from "../../components/ui/categoryList";
 import TagList from "../../components/ui/tagList";
 
 import SearchIcon from "../../assets/svg/search";
 import ChevronDownIcon from "../../assets/svg/chevronDown";
-import { changeSortMethod } from "./utils/sort.utils";
 
 export default function BlogActionBar() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ export default function BlogActionBar() {
   const dateSort = useSelector(getDateSort);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
+  const debouncedSearchInput = useDebounce<string>(searchInputValue, 100);
 
   const handleClickOnSearch = () => {
     if (isOpen) {
@@ -33,8 +35,11 @@ export default function BlogActionBar() {
 
   const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(e.target.value);
-    dispatch(setSearchQuery(e.target.value));
   };
+
+  useEffect(() => {
+    dispatch(setSearchQuery(debouncedSearchInput));
+  }, [debouncedSearchInput]);
 
   const handlePopularSortClick = () => {
     dispatch(setDateSort(undefined));
