@@ -37,12 +37,12 @@ export default function TagList() {
   useOutsideClick(listRef, () => setIsOpen(false));
 
   return (
-    <div className="tag-list-wrapper">
+    <div className="tag-list-wrapper" ref={listRef}>
       <button className="tag-list-btn" onClick={() => setIsOpen(!isOpen)}>
         Tags
       </button>
       {!isLoading && tagsData && isOpen ? (
-        <div className="tag-list" ref={listRef}>
+        <div className="tag-list">
           <div className="tag-list-search">
             <SearchIcon width={18} height={18} />
             <input value={searchInput} onChange={handleChangeSearchInput} />

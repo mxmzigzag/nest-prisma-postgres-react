@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { Category } from "../../types/category.types";
 
@@ -8,6 +9,8 @@ import { useGetAllCategoriesQuery } from "../../store/api/category.api";
 import { getBlogCategory, setCategory } from "../../store/slice/blog.slice";
 
 export default function CategoryList() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
   const listRef = useRef(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -18,12 +21,13 @@ export default function CategoryList() {
 
   const handleSelect = (ctg: Category) => {
     dispatch(setCategory(ctg.id === category?.id ? null : ctg));
+    if (pathname !== "/") navigate("/");
   };
 
   useOutsideClick(listRef, () => setIsOpen(false));
 
   return (
-    <div className="header-category-wrapper">
+    <div className="header-category-wrapper" ref={listRef}>
       <button
         className="header-category-btn"
         onClick={() => setIsOpen(!isOpen)}
@@ -31,7 +35,7 @@ export default function CategoryList() {
         Category
       </button>
       {!isLoading && categoriesData && isOpen ? (
-        <div className="header-category-list" ref={listRef}>
+        <div className="header-category-list">
           {categoriesData.page.map((ctg) => (
             <button
               key={ctg.id}
