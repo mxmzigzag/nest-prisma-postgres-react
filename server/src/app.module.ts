@@ -24,6 +24,7 @@ import { RequestModule } from './request/request.module';
 import { RequestController } from './request/request.controller';
 import { RequestService } from './request/request.service';
 import { FilesModule } from './files/files.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   controllers: [
@@ -56,6 +57,7 @@ import { FilesModule } from './files/files.module';
     AuthModule,
     RequestModule,
     FilesModule,
+    MailModule,
   ],
 })
 export class AppModule {}
