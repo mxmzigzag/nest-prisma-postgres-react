@@ -12,10 +12,10 @@ import {
   useGetCommentsOfPostQuery,
 } from "../store/api/comment.api";
 
+import { pluralize } from "../utils/string";
+import { successToast } from "../components/ui/toast";
 import PostTags from "../features/Posts/postTags";
 import Loader from "../components/ui/loader";
-
-import { successToast } from "../components/ui/toast";
 import Comments from "../features/Comments/comments";
 import TextareaInput from "../components/forms/textareaInput";
 import Button from "../components/ui/button";
@@ -25,13 +25,13 @@ import CalendarIcon from "../assets/svg/calendar";
 
 export default function Post() {
   const { postId } = useParams();
-  const { user } = useAuth();
+  const { user, isAuth } = useAuth();
   const [comment, setComment] = useState<string>("");
 
   const { data: post, isLoading } = useGetOnePostQuery(postId || "");
   const [updateViewsCount] = useUpdatePostViewsCountMutation();
 
-  const { data: comments = [], isLoading: isLoadingComments } =
+  const { data: commentsData, isLoading: isLoadingComments } =
     useGetCommentsOfPostQuery(postId || "");
   const [createComment, { isLoading: isSending }] = useCreateCommentMutation();
 
@@ -98,26 +98,39 @@ export default function Post() {
             </span>
           </div>
           <div className="post-page-comments">
-            <h4 className="post-page-comments-title">Comments</h4>
-            {isLoadingComments ? (
+            <div className="post-page-comments-heading">
+              <h4 className="post-page-comments-title">Comments</h4>
+              {!isLoadingComments && commentsData ? (
+                <span className="post-page-comments-count">
+                  {commentsData.totalCount}{" "}
+                  {pluralize({
+                    text: "comment",
+                    count: commentsData.totalCount,
+                  })}
+                </span>
+              ) : null}
+            </div>
+            {isLoadingComments || !commentsData ? (
               <Loader />
             ) : (
               <>
-                <Comments comments={comments} />
-                <form
-                  className="post-page-comments-form"
-                  onChange={handleCreateComment}
-                >
-                  <TextareaInput
-                    name="comment"
-                    placeholder={"Write a comment"}
-                    value={comment}
-                    onChange={handleChangeComment}
-                  />
-                  <Button type="submit" isLoading={isSending}>
-                    Send
-                  </Button>
-                </form>
+                <Comments comments={commentsData.comments} />
+                {isAuth ? (
+                  <form
+                    className="post-page-comments-form"
+                    onChange={handleCreateComment}
+                  >
+                    <TextareaInput
+                      name="comment"
+                      placeholder={"Write a comment"}
+                      value={comment}
+                      onChange={handleChangeComment}
+                    />
+                    <Button type="submit" isLoading={isSending}>
+                      Send
+                    </Button>
+                  </form>
+                ) : null}
               </>
             )}
           </div>

@@ -21,6 +21,11 @@ export class CommentController {
     return this.commentService.getCommentsOfPost(postId);
   }
 
+  @Post('/comment/reply')
+  addReplyToComment(@Body() commentDto: CreateCommentDto) {
+    return this.commentService.addReplyToComment(commentDto);
+  }
+
   @Get('/comment/:commentId')
   getCommentReplies(@Param('commentId') commentId: string) {
     return this.commentService.getCommentReplies(commentId);

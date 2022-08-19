@@ -19,4 +19,10 @@ export type CreateComment = {
   message: string;
   userId: string;
   postId: string;
+  parentId?: string;
+};
+
+export type GetAllComments = {
+  comments: Comment[];
+  totalCount: number;
 };

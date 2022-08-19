@@ -1,8 +1,13 @@
-import { Comment, CreateComment } from "../../types/comment.types";
 import { globalApi } from "./global.api";
 
+import {
+  Comment,
+  CreateComment,
+  GetAllComments,
+} from "../../types/comment.types";
+
 export const commentApi = globalApi
-  .enhanceEndpoints({ addTagTypes: ["Comment"] })
+  .enhanceEndpoints({ addTagTypes: ["Comment", "Post"] })
   .injectEndpoints({
     endpoints: (build) => ({
       createComment: build.mutation<Comment, CreateComment>({
@@ -11,19 +16,27 @@ export const commentApi = globalApi
           method: "POST",
           body: comment,
         }),
-        invalidatesTags: ["Comment"],
+        invalidatesTags: ["Comment", "Post"],
       }),
-      getCommentsOfPost: build.query<Comment[], string>({
+      getCommentsOfPost: build.query<GetAllComments, string>({
         query: (postId) => ({
           url: `post/${postId}/comments`,
         }),
-        providesTags: ["Comment"],
+        providesTags: ["Comment", "Post"],
+      }),
+      addReplyToComment: build.mutation<Comment, CreateComment>({
+        query: (comment) => ({
+          url: "comment/reply",
+          method: "POST",
+          body: comment,
+        }),
+        invalidatesTags: ["Comment", "Post"],
       }),
       getCommentReplies: build.query<Comment[], string>({
         query: (commentId) => ({
           url: `comment/${commentId}`,
         }),
-        providesTags: ["Comment"],
+        providesTags: ["Comment", "Post"],
       }),
     }),
   });
@@ -31,5 +44,6 @@ export const commentApi = globalApi
 export const {
   useCreateCommentMutation,
   useGetCommentsOfPostQuery,
+  useAddReplyToCommentMutation,
   useGetCommentRepliesQuery,
 } = commentApi;

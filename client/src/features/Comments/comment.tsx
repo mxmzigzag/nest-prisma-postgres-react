@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import dayjs from "dayjs";
 
 import { Comment as CommentModel } from "../../types/comment.types";
 
+import { useAuth } from "../../hooks/useAuth";
 import { useGetCommentRepliesQuery } from "../../store/api/comment.api";
+
+import Reply from "./reply";
 
 type Props = {
   comment: CommentModel;
 };
 
 export default function Comment({ comment }: Props) {
+  const { user, isAuth } = useAuth();
+  const [isReplyOpen, setIsReplyOpen] = useState<boolean>(false);
+
   const { data: childComments = [], isLoading } = useGetCommentRepliesQuery(
     comment.id
   );
-
-  const handleAddReply = () => {
-    console.log("reply");
-  };
 
   return (
     <div className="comment-wrapper">
@@ -29,11 +31,24 @@ export default function Comment({ comment }: Props) {
         </div>
         <div className="comment-message">{comment.message}</div>
         <div className="comment-bottom">
-          <button className="comment-reply" onClick={handleAddReply}>
-            Reply
-          </button>
+          {isAuth ? (
+            <button
+              className="comment-reply-btn"
+              onClick={() => setIsReplyOpen(!isReplyOpen)}
+            >
+              {isReplyOpen ? "Close Reply" : "Reply"}
+            </button>
+          ) : null}
         </div>
       </div>
+      {isReplyOpen && user ? (
+        <Reply
+          userId={user.id}
+          parentId={comment.id}
+          postId={comment.postId}
+          setIsReplyOpen={setIsReplyOpen}
+        />
+      ) : null}
       {childComments.length && !isLoading ? (
         <div className="comment-child">
           {childComments.map((comment) => (

@@ -1104,7 +1104,7 @@ footer {
     justify-content: flex-end;
     max-width: 800px;
     width: 100%;
-    margin: 0 auto 15px;
+    margin: 0 auto 25px;
     &-date {
       font-size: 16px;
       margin-left: 5px;
@@ -1116,9 +1116,17 @@ footer {
     max-width: 800px;
     width: 100%;
     margin: 0 auto 15px;
+    &-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
     &-title {
       font-size: 24px;
-      margin-bottom: 15px;
+    }
+    &-count {
+      font-size: 18px;
     }
     &-form {
       display: flex;
@@ -1156,6 +1164,7 @@ footer {
     border: 1px solid black;
     border-radius: 8px;
     width: 100%;
+    background-color: #fff;
   }
   &-top {
     display: flex;
@@ -1180,13 +1189,28 @@ footer {
     justify-content: flex-end;
   }
   &-reply {
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    font-size: 16px;
-    color: burlywood;
-    &:hover {
-      color: rgb(216, 158, 82);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    max-width: 90%;
+    width: 100%;
+    margin-bottom: 15px;
+    &-btn {
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      font-size: 16px;
+      color: burlywood;
+      &:hover {
+        color: rgb(216, 158, 82);
+      }
+    }
+    > button {
+      margin-top: 10px;
+      max-width: 200px;
+    }
+    textarea {
+      width: 100%;
     }
   }
   &-child {

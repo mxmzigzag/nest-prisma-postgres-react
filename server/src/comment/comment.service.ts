@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Comment } from '@prisma/client';
 
 import { CreateCommentDto } from './dto/createComment.dto';
+import { GetAllCommentsDto } from './dto/getAllComments.dto';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -15,14 +16,21 @@ export class CommentService {
     });
   }
 
-  async getAllComments(): Promise<Comment[]> {
-    return this.prismaService.comment.findMany({
+  async getAllComments(): Promise<GetAllCommentsDto> {
+    const totalCount = await this.prismaService.comment.count();
+    const comments = await this.prismaService.comment.findMany({
       include: { parent: true, children: true },
     });
+    return { comments, totalCount };
   }
 
-  async getCommentsOfPost(postId: string): Promise<Comment[]> {
-    return this.prismaService.comment.findMany({
+  async getCommentsOfPost(postId: string): Promise<GetAllCommentsDto> {
+    const totalCount = await this.prismaService.comment.count({
+      where: {
+        postId,
+      },
+    });
+    const comments = await this.prismaService.comment.findMany({
       where: {
         postId,
         parentId: null,
@@ -34,6 +42,13 @@ export class CommentService {
           },
         },
       },
+    });
+    return { comments, totalCount };
+  }
+
+  async addReplyToComment(commentDto: CreateCommentDto) {
+    return this.prismaService.comment.create({
+      data: commentDto,
     });
   }
 
