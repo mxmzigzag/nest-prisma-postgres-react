@@ -13,6 +13,7 @@ export type Comment = {
   parent?: Comment;
   children: Comment[];
   parentId?: string;
+  like: Like[];
 };
 
 export type CreateComment = {
@@ -25,4 +26,9 @@ export type CreateComment = {
 export type GetAllComments = {
   comments: Comment[];
   totalCount: number;
+};
+
+export type Like = {
+  userId: string;
+  commentId: string;
 };

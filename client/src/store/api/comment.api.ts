@@ -4,6 +4,7 @@ import {
   Comment,
   CreateComment,
   GetAllComments,
+  Like,
 } from "../../types/comment.types";
 
 export const commentApi = globalApi
@@ -38,6 +39,22 @@ export const commentApi = globalApi
         }),
         providesTags: ["Comment", "Post"],
       }),
+      likeComment: build.mutation<Like, Like>({
+        query: ({ userId, commentId }) => ({
+          url: `comment/${commentId}/like`,
+          method: "POST",
+          body: { userId },
+        }),
+        invalidatesTags: ["Comment", "Post"],
+      }),
+      unlikeComment: build.mutation<Like, Like>({
+        query: ({ userId, commentId }) => ({
+          url: `comment/${commentId}/unlike`,
+          method: "POST",
+          body: { userId },
+        }),
+        invalidatesTags: ["Comment", "Post"],
+      }),
       deleteComment: build.mutation<Comment, string>({
         query: (commentId) => ({
           url: `comment/${commentId}`,
@@ -53,5 +70,7 @@ export const {
   useGetCommentsOfPostQuery,
   useAddReplyToCommentMutation,
   useGetCommentRepliesQuery,
+  useLikeCommentMutation,
+  useUnlikeCommentMutation,
   useDeleteCommentMutation,
 } = commentApi;

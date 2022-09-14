@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Comment } from '@prisma/client';
+import { Comment, Like } from '@prisma/client';
 
 import { CreateCommentDto } from './dto/createComment.dto';
 import { GetAllCommentsDto } from './dto/getAllComments.dto';
@@ -19,7 +19,7 @@ export class CommentService {
   async getAllComments(): Promise<GetAllCommentsDto> {
     const totalCount = await this.prismaService.comment.count();
     const comments = await this.prismaService.comment.findMany({
-      include: { parent: true, children: true },
+      include: { parent: true, children: true, like: true },
     });
     return { comments, totalCount };
   }
@@ -41,6 +41,7 @@ export class CommentService {
             username: true,
           },
         },
+        like: true,
       },
     });
     return { comments, totalCount };
@@ -62,6 +63,27 @@ export class CommentService {
           select: {
             username: true,
           },
+        },
+        like: true,
+      },
+    });
+  }
+
+  async likeComment(userId: string, commentId: string): Promise<Like> {
+    return this.prismaService.like.create({
+      data: {
+        userId,
+        commentId,
+      },
+    });
+  }
+
+  async unlikeComment(userId: string, commentId: string): Promise<Like> {
+    return this.prismaService.like.delete({
+      where: {
+        userId_commentId: {
+          userId,
+          commentId,
         },
       },
     });

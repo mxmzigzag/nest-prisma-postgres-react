@@ -8,6 +8,8 @@ import { useAuth } from "../../hooks/useAuth";
 import {
   useDeleteCommentMutation,
   useGetCommentRepliesQuery,
+  useLikeCommentMutation,
+  useUnlikeCommentMutation,
 } from "../../store/api/comment.api";
 
 import { errorToast, successToast } from "../../components/ui/toast";
@@ -18,6 +20,7 @@ import ReplyFilledIcon from "../../assets/svg/replyFilled";
 import ReplyOutlinedIcon from "../../assets/svg/replyOutlined";
 import DeleteIcon from "../../assets/svg/delete";
 import HeartOutlinedIcon from "../../assets/svg/heartOutlined";
+import HeartFilledIcon from "../../assets/svg/heartFilled";
 
 type Props = {
   comment: CommentModel;
@@ -27,6 +30,7 @@ export default function Comment({ comment }: Props) {
   const { user, isAuth } = useAuth();
   const isCommentOwner = user?.id === comment.userId;
   const isAdmin = user?.role === Role.ADMIN;
+  const isLikedByMe = !!comment.like.find((like) => like.userId === user?.id);
 
   const [isReplyOpen, setIsReplyOpen] = useState<boolean>(false);
   const [confirmationIsOpen, setConfirmationIsOpen] = useState<boolean>(false);
@@ -35,6 +39,8 @@ export default function Comment({ comment }: Props) {
     comment.id
   );
 
+  const [likeComment] = useLikeCommentMutation();
+  const [unlikeComment] = useUnlikeCommentMutation();
   const [deleteComment, { isLoading: isLoadingDelete }] =
     useDeleteCommentMutation();
 
@@ -44,6 +50,16 @@ export default function Comment({ comment }: Props) {
       successToast("Comment removed");
     } catch (error: any) {
       errorToast(error.message);
+    }
+  };
+
+  const handleLike = async () => {
+    if (user && isAuth) {
+      if (isLikedByMe) {
+        await unlikeComment({ userId: user.id, commentId: comment.id });
+      } else {
+        await likeComment({ userId: user.id, commentId: comment.id });
+      }
     }
   };
 
@@ -58,8 +74,15 @@ export default function Comment({ comment }: Props) {
         </div>
         <div className="comment-message">{comment.message}</div>
         <div className="comment-bottom">
-          <button className="comment-btn">
-            <HeartOutlinedIcon color="#f64848" />
+          <button className="comment-like-btn" onClick={handleLike}>
+            {isLikedByMe ? (
+              <HeartFilledIcon color="#f64848" />
+            ) : (
+              <HeartOutlinedIcon color="#f64848" />
+            )}
+            {comment.like.length ? (
+              <span className="comment-like-count">{comment.like.length}</span>
+            ) : null}
           </button>
           {isAuth ? (
             <>

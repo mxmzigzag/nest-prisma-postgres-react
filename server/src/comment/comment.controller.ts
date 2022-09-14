@@ -1,6 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { CommentService } from './comment.service';
+
 import { CreateCommentDto } from './dto/createComment.dto';
+import { LikeDto } from './dto/like.dto';
+
+import { CommentService } from './comment.service';
 
 @Controller('api')
 export class CommentController {
@@ -29,6 +32,22 @@ export class CommentController {
   @Get('/comment/:commentId')
   getCommentReplies(@Param('commentId') commentId: string) {
     return this.commentService.getCommentReplies(commentId);
+  }
+
+  @Post('/comment/:commentId/like')
+  likeComment(
+    @Param('commentId') commentId: string,
+    @Body() { userId }: LikeDto,
+  ) {
+    this.commentService.likeComment(userId, commentId);
+  }
+
+  @Post('/comment/:commentId/unlike')
+  unlikeComment(
+    @Param('commentId') commentId: string,
+    @Body() { userId }: LikeDto,
+  ) {
+    this.commentService.unlikeComment(userId, commentId);
   }
 
   @Delete('/comment/:commentId')
