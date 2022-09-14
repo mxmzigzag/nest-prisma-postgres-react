@@ -28,6 +28,7 @@ model User {
   banned    BannedUser?
   Request   Request[]
   Comment   Comment[]
+  Like      Like[]
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 }
@@ -115,4 +116,14 @@ model Comment {
   parent    Comment?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
   children  Comment[] @relation("ParentChild")
   parentId  String?
+  Like      Like[]
+}
+
+model Like {
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  userId    String
+  commentId String
+
+  @@id([userId, commentId])
 }
