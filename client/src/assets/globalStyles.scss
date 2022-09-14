@@ -1201,6 +1201,7 @@ footer {
       border: none;
       font-size: 16px;
       color: burlywood;
+      margin-left: 5px;
       &:hover {
         color: rgb(216, 158, 82);
       }
@@ -1212,6 +1213,12 @@ footer {
     textarea {
       width: 100%;
     }
+  }
+  &-btn {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    margin-left: 5px;
   }
   &-child {
     display: flex;

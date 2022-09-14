@@ -7,6 +7,10 @@ import { useAuth } from "../../hooks/useAuth";
 import { useGetCommentRepliesQuery } from "../../store/api/comment.api";
 
 import Reply from "./reply";
+import ReplyFilledIcon from "../../assets/svg/replyFilled";
+import ReplyOutlinedIcon from "../../assets/svg/replyOutlined";
+import DeleteIcon from "../../assets/svg/delete";
+import HeartOutlinedIcon from "../../assets/svg/heartOutlined";
 
 type Props = {
   comment: CommentModel;
@@ -31,13 +35,25 @@ export default function Comment({ comment }: Props) {
         </div>
         <div className="comment-message">{comment.message}</div>
         <div className="comment-bottom">
+          <button className="comment-btn">
+            <HeartOutlinedIcon color="#f64848" />
+          </button>
           {isAuth ? (
-            <button
-              className="comment-reply-btn"
-              onClick={() => setIsReplyOpen(!isReplyOpen)}
-            >
-              {isReplyOpen ? "Close Reply" : "Reply"}
-            </button>
+            <>
+              <button
+                className="comment-reply-btn"
+                onClick={() => setIsReplyOpen(!isReplyOpen)}
+              >
+                {isReplyOpen ? (
+                  <ReplyFilledIcon color="#deb887" />
+                ) : (
+                  <ReplyOutlinedIcon color="#deb887" />
+                )}
+              </button>
+              <button className="comment-btn">
+                <DeleteIcon color="#ff0000" />
+              </button>
+            </>
           ) : null}
         </div>
       </div>
