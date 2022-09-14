@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
 
+import { Role } from "../../types/user.types";
 import { Comment as CommentModel } from "../../types/comment.types";
 
 import { useAuth } from "../../hooks/useAuth";
-import { useGetCommentRepliesQuery } from "../../store/api/comment.api";
+import {
+  useDeleteCommentMutation,
+  useGetCommentRepliesQuery,
+} from "../../store/api/comment.api";
 
+import { errorToast, successToast } from "../../components/ui/toast";
 import Reply from "./reply";
+import Confirmation from "../../components/ui/confirmation";
+
 import ReplyFilledIcon from "../../assets/svg/replyFilled";
 import ReplyOutlinedIcon from "../../assets/svg/replyOutlined";
 import DeleteIcon from "../../assets/svg/delete";
@@ -18,11 +25,27 @@ type Props = {
 
 export default function Comment({ comment }: Props) {
   const { user, isAuth } = useAuth();
+  const isCommentOwner = user?.id === comment.userId;
+  const isAdmin = user?.role === Role.ADMIN;
+
   const [isReplyOpen, setIsReplyOpen] = useState<boolean>(false);
+  const [confirmationIsOpen, setConfirmationIsOpen] = useState<boolean>(false);
 
   const { data: childComments = [], isLoading } = useGetCommentRepliesQuery(
     comment.id
   );
+
+  const [deleteComment, { isLoading: isLoadingDelete }] =
+    useDeleteCommentMutation();
+
+  const handleDelete = async () => {
+    try {
+      await deleteComment(comment.id);
+      successToast("Comment removed");
+    } catch (error: any) {
+      errorToast(error.message);
+    }
+  };
 
   return (
     <div className="comment-wrapper">
@@ -50,9 +73,21 @@ export default function Comment({ comment }: Props) {
                   <ReplyOutlinedIcon color="#deb887" />
                 )}
               </button>
-              <button className="comment-btn">
-                <DeleteIcon color="#ff0000" />
-              </button>
+              {isCommentOwner || isAdmin ? (
+                <button
+                  className="comment-btn"
+                  onClick={() => setConfirmationIsOpen(true)}
+                >
+                  <DeleteIcon color="#ff0000" />
+                  <Confirmation
+                    isOpen={confirmationIsOpen}
+                    setIsOpen={setConfirmationIsOpen}
+                    description={`This will delete your comment`}
+                    okCallback={handleDelete}
+                    okIsLoading={isLoadingDelete}
+                  />
+                </button>
+              ) : null}
             </>
           ) : null}
         </div>

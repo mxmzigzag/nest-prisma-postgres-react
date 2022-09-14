@@ -38,6 +38,13 @@ export const commentApi = globalApi
         }),
         providesTags: ["Comment", "Post"],
       }),
+      deleteComment: build.mutation<Comment, string>({
+        query: (commentId) => ({
+          url: `comment/${commentId}`,
+          method: "DELETE",
+        }),
+        invalidatesTags: ["Comment", "Post"],
+      }),
     }),
   });
 
@@ -46,4 +53,5 @@ export const {
   useGetCommentsOfPostQuery,
   useAddReplyToCommentMutation,
   useGetCommentRepliesQuery,
+  useDeleteCommentMutation,
 } = commentApi;

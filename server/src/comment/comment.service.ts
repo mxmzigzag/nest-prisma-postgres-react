@@ -66,4 +66,12 @@ export class CommentService {
       },
     });
   }
+
+  async deleteComment(commentId: string): Promise<Comment> {
+    return this.prismaService.comment.delete({
+      where: {
+        id: commentId,
+      },
+    });
+  }
 }
