@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+import { Role } from "../../types/user.types";
 import { Post } from "../../types/post.types";
 
+import { useAuth } from "../../hooks/useAuth";
+
 import PostTags from "./postTags";
+import PostForm from "../PostForm/postForm";
+import Modal from "../../components/ui/modal";
 
 import ViewsIcon from "../../assets/svg/views";
+import PenIcon from "../../assets/svg/pen";
 
 export default function PostCard({
   id,
@@ -19,6 +25,12 @@ export default function PostCard({
   viewsCount,
   tags,
 }: Partial<Post>) {
+  const { user } = useAuth();
+  const isAuthor = authorId === user?.id;
+  const isAdmin = user?.role === Role.ADMIN;
+
+  const [editIsOpen, setEditIsOpen] = useState(false);
+
   return (
     <NavLink to={`/post/${id}`}>
       <div
@@ -28,6 +40,40 @@ export default function PostCard({
         }}
       >
         {tags ? <PostTags tags={tags} /> : null}
+        {isAuthor || isAdmin ? (
+          <>
+            <button
+              className="post-edit-btn"
+              onClick={(e) => {
+                e.preventDefault();
+                setEditIsOpen(true);
+              }}
+            >
+              <PenIcon color="#fff" width={20} height={20} />
+            </button>
+            <Modal
+              title="Edit Post"
+              isOpen={editIsOpen}
+              setIsOpen={setEditIsOpen}
+            >
+              <PostForm
+                post={{
+                  id,
+                  title,
+                  image,
+                  description,
+                  authorId,
+                  author,
+                  categoryId,
+                  category,
+                  viewsCount,
+                  tags,
+                }}
+                setIsOpen={setEditIsOpen}
+              />
+            </Modal>
+          </>
+        ) : null}
         <div className="post-content">
           {category ? (
             <span
