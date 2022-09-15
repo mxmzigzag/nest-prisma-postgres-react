@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 
-import { CreatePost } from "../../types/post.types";
+import { CreatePost, Post } from "../../types/post.types";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useGetAllCategoriesQuery } from "../../store/api/category.api";
@@ -18,13 +18,16 @@ import Select from "../../components/forms/select";
 import Tags from "../../components/forms/tags";
 
 type Props = {
+  post?: Partial<Post>;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function PostForm({ setIsOpen }: Props) {
+export default function PostForm({ post = {}, setIsOpen }: Props) {
   const { user } = useAuth();
   const [formData, setFormData] = useState<Partial<CreatePost>>({
+    ...post,
     authorId: user?.id,
+    tags: post.tags?.map((t) => t.tag),
   });
 
   const { data: categoriesData } = useGetAllCategoriesQuery({});
