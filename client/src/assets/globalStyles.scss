@@ -945,7 +945,7 @@ footer {
     position: absolute;
     top: 10px;
     right: 10px;
-    z-index: 2;
+    z-index: 4;
     background: none;
     border: none;
     &:hover {
@@ -953,6 +953,15 @@ footer {
         fill: burlywood;
       }
     }
+  }
+
+  &-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
   }
 
   &-tag {
