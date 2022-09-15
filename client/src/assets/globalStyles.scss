@@ -659,7 +659,7 @@ footer {
 .slide {
   min-height: 430px;
   display: flex;
-  padding: 30px 10px;
+  padding: 40px 10px;
   position: relative;
 
   background-size: cover;
@@ -1731,4 +1731,24 @@ footer {
     width: 100%;
     margin: 0 auto;
   }
+}
+
+// alice slider override
+.alice-carousel__dots {
+  margin: 0;
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+}
+
+.alice-carousel__dots-item:not(.__custom) {
+  border-radius: 0;
+  &:only-child {
+    display: none;
+  }
+}
+
+.alice-carousel__dots-item:not(.__custom):hover,
+.alice-carousel__dots-item:not(.__custom).__active {
+  background-color: burlywood;
 }

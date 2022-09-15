@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 
 import { useGetOneCategoryQuery } from "../../store/api/category.api";
 import { useGetTopViewedPostsQuery } from "../../store/api/post.api";
@@ -21,16 +23,27 @@ export default function MainSlider() {
       {isLoading || !topViewedPosts ? (
         <Loader />
       ) : topViewedPosts.length >= 3 ? (
-        topViewedPosts.map(({ _max: post, categoryId }) => (
-          <Slide
-            key={post.id}
-            id={post.id}
-            title={post.title}
-            image={post.image}
-            description={post.description}
-            categoryId={categoryId}
-          />
-        ))
+        <AliceCarousel
+          mouseTracking
+          disableButtonsControls={true}
+          items={topViewedPosts.map(({ _max: post, categoryId }) => (
+            <Slide
+              key={post.id}
+              id={post.id}
+              title={post.title}
+              image={post.image}
+              description={post.description}
+              categoryId={categoryId}
+            />
+          ))}
+          responsive={{
+            0: {
+              items: 1,
+            },
+            1024: { items: 3 },
+            1400: { items: 5 },
+          }}
+        />
       ) : null}
     </div>
   );
