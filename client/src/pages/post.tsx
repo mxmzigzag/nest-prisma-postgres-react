@@ -2,6 +2,8 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 
+import { Role } from "../types/user.types";
+
 import { useAuth } from "../hooks/useAuth";
 import {
   useGetOnePostQuery,
@@ -19,6 +21,7 @@ import Loader from "../components/ui/loader";
 import Comments from "../features/Comments/comments";
 import TextareaInput from "../components/forms/textareaInput";
 import Button from "../components/ui/button";
+import EditPostBtn from "../features/Posts/EditPostBtn";
 
 import ViewsIcon from "../assets/svg/views";
 import CalendarIcon from "../assets/svg/calendar";
@@ -29,6 +32,10 @@ export default function Post() {
   const [comment, setComment] = useState<string>("");
 
   const { data: post, isLoading } = useGetOnePostQuery(postId || "");
+
+  const isAuthor = post?.authorId === user?.id;
+  const isAdmin = user?.role === Role.ADMIN;
+
   const [updateViewsCount] = useUpdatePostViewsCountMutation();
 
   const { data: commentsData, isLoading: isLoadingComments } =
@@ -89,6 +96,14 @@ export default function Post() {
                 <span>{post.viewsCount}</span>
               </div>
             </div>
+            {isAuthor || isAdmin ? (
+              <EditPostBtn
+                post={post}
+                text="Edit"
+                iconSize={18}
+                className="post-page-edit-btn"
+              />
+            ) : null}
           </div>
           <div className="post-page-content">{post.body}</div>
           <div className="post-page-bottom">

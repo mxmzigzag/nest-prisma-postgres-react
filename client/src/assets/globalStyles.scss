@@ -1118,6 +1118,23 @@ footer {
       }
     }
   }
+  &-edit-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: burlywood;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 4px;
+    span {
+      color: #fff;
+      font-size: 18px;
+      margin-right: 5px;
+    }
+  }
   &-content {
     display: flex;
     flex-direction: column;

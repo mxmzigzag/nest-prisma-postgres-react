@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
 import { Role } from "../../types/user.types";
@@ -7,11 +7,9 @@ import { Post } from "../../types/post.types";
 import { useAuth } from "../../hooks/useAuth";
 
 import PostTags from "./postTags";
-import PostForm from "../PostForm/postForm";
-import Modal from "../../components/ui/modal";
+import EditPostBtn from "./EditPostBtn";
 
 import ViewsIcon from "../../assets/svg/views";
-import PenIcon from "../../assets/svg/pen";
 
 export default function PostCard({
   id,
@@ -29,8 +27,6 @@ export default function PostCard({
   const isAuthor = authorId === user?.id;
   const isAdmin = user?.role === Role.ADMIN;
 
-  const [editIsOpen, setEditIsOpen] = useState(false);
-
   return (
     <div
       className={`post ${author?.banned ? "banned" : ""}`}
@@ -40,38 +36,21 @@ export default function PostCard({
     >
       {tags ? <PostTags tags={tags} /> : null}
       {isAuthor || isAdmin ? (
-        <>
-          <button
-            className="post-edit-btn"
-            onClick={(e) => {
-              e.preventDefault();
-              setEditIsOpen(true);
-            }}
-          >
-            <PenIcon color="#fff" width={20} height={20} />
-          </button>
-          <Modal
-            title="Edit Post"
-            isOpen={editIsOpen}
-            setIsOpen={setEditIsOpen}
-          >
-            <PostForm
-              post={{
-                id,
-                title,
-                image,
-                description,
-                authorId,
-                author,
-                categoryId,
-                category,
-                viewsCount,
-                tags,
-              }}
-              setIsOpen={setEditIsOpen}
-            />
-          </Modal>
-        </>
+        <EditPostBtn
+          post={{
+            id,
+            title,
+            image,
+            description,
+            authorId,
+            author,
+            categoryId,
+            category,
+            viewsCount,
+            tags,
+          }}
+          className="post-edit-btn"
+        />
       ) : null}
       <div className="post-content">
         {category ? (

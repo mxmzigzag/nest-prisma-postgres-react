@@ -74,6 +74,7 @@ export function AuthProvider({ children }: Props) {
   ): Promise<string> => {
     try {
       const data = await logoutUser().unwrap();
+      setUser(null);
       setIsAuth(false);
       localStorage.removeItem("user");
       localStorage.removeItem("token");
