@@ -1,5 +1,12 @@
 import { Role } from '@prisma/client';
-import { IsEmail, IsEnum, IsNotEmpty, IsString, Length } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Length,
+} from 'class-validator';
 
 export class UpdateUserDto {
   @IsString({ message: 'Name needs to be a string' })
@@ -16,6 +23,10 @@ export class UpdateUserDto {
   @Length(1)
   @IsNotEmpty()
   readonly username: string;
+
+  // @IsString({ message: 'Avatar path needs to be a string' })
+  // @IsOptional()
+  // readonly avatar: string;
 
   @IsEmail({}, { message: 'Incorrect email' })
   @IsNotEmpty()

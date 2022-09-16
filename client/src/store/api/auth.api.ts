@@ -1,5 +1,5 @@
 import { UserTokenResponse } from "../../types/auth.types";
-import { LoginData, RegistrationData } from "../../types/user.types";
+import { LoginData } from "../../types/user.types";
 import { globalApi } from "./global.api";
 
 export const authApi = globalApi.injectEndpoints({
@@ -12,8 +12,8 @@ export const authApi = globalApi.injectEndpoints({
         credentials: "include",
       }),
     }),
-    registration: build.mutation<UserTokenResponse, RegistrationData>({
-      query: (userData: RegistrationData) => ({
+    registration: build.mutation<UserTokenResponse, FormData>({
+      query: (userData) => ({
         url: "registration",
         method: "POST",
         body: userData,

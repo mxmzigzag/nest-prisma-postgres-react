@@ -6,9 +6,12 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { CreateUserDto } from './dto/createUser.dto';
@@ -44,9 +47,14 @@ export class UserController {
 
   @Put('/user/:id')
   @UseGuards(JwtAuthGuard)
-  @UsePipes(ValidationPipe)
-  updateUser(@Param('id') id: string, @Body() userDto: Partial<UpdateUserDto>) {
-    return this.userService.updateUser(id, userDto);
+  // @UsePipes(ValidationPipe)
+  @UseInterceptors(FileInterceptor('avatar'))
+  updateUser(
+    @Param('id') id: string,
+    @Body() userDto: Partial<UpdateUserDto>,
+    @UploadedFile() avatar: any,
+  ) {
+    return this.userService.updateUser(id, userDto, avatar);
   }
 
   @Delete('/user/:id')

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User as UserModel } from '@prisma/client';
 import 'dotenv/config';
+import { FilesService } from 'src/files/files.service';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/createUser.dto';
@@ -8,7 +9,10 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly filesService: FilesService,
+  ) {}
 
   async createUser(dto: CreateUserDto) {
     return this.prismaService.user.create({
@@ -39,8 +43,19 @@ export class UserService {
     });
   }
 
-  async updateUser(id: string, dto: Partial<UpdateUserDto>) {
-    return this.prismaService.user.update({ where: { id }, data: dto });
+  async updateUser(id: string, dto: Partial<UpdateUserDto>, avatar?: any) {
+    if (avatar) {
+      const fileName = await this.filesService.createFile(avatar);
+      return this.prismaService.user.update({
+        where: { id },
+        data: { ...dto, avatar: fileName },
+      });
+    } else {
+      return this.prismaService.user.update({
+        where: { id },
+        data: { ...dto },
+      });
+    }
   }
 
   async deleteUser(id: string) {

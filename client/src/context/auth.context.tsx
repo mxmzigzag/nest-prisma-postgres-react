@@ -1,7 +1,7 @@
 import React, { createContext, useMemo, useState } from "react";
 
 import { Mutation } from "../types/common.types";
-import { LoginData, RegistrationData, User } from "../types/user.types";
+import { LoginData, User } from "../types/user.types";
 import { UserTokenResponse } from "../types/auth.types";
 
 export interface IAuthContext {
@@ -9,8 +9,8 @@ export interface IAuthContext {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   registration: (
-    registerUser: Mutation<RegistrationData, UserTokenResponse>,
-    data: RegistrationData
+    registerUser: Mutation<FormData, UserTokenResponse>,
+    data: FormData
   ) => Promise<UserTokenResponse>;
   login: (
     loginUser: Mutation<LoginData, UserTokenResponse>,
@@ -34,8 +34,8 @@ export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<User | null>(userLS);
 
   const registration = async (
-    registerUser: Mutation<RegistrationData, UserTokenResponse>,
-    data: RegistrationData
+    registerUser: Mutation<FormData, UserTokenResponse>,
+    data: FormData
   ): Promise<UserTokenResponse> => {
     try {
       const { user, token } = await registerUser(data).unwrap();

@@ -13,6 +13,8 @@ export class CreateUserDto {
   @IsNotEmpty()
   readonly username: string;
 
+  readonly avatar: string;
+
   @IsEmail({}, { message: 'Incorrect email' })
   @IsNotEmpty()
   readonly email: string;

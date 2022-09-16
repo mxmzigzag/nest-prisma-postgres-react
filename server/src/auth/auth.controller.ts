@@ -3,9 +3,12 @@ import {
   Controller,
   Post,
   Res,
+  UploadedFile,
+  UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 
 import { CreateUserDto } from 'src/user/dto/createUser.dto';
@@ -17,12 +20,14 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('/registration')
-  @UsePipes(ValidationPipe)
+  // @UsePipes(ValidationPipe)
+  @UseInterceptors(FileInterceptor('image'))
   async registration(
     @Body() userDto: CreateUserDto,
+    @UploadedFile() image: any,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const userData = await this.authService.registration(userDto);
+    const userData = await this.authService.registration(userDto, image);
     res.cookie('token', userData.token, {
       expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 7),
       sameSite: 'strict',

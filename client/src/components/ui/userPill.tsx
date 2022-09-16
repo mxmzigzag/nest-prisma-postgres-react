@@ -19,7 +19,11 @@ export default function UserPill() {
           </div>
         ) : null}
         <div className="header-user-img">
-          <UserIcon />
+          {user?.avatar ? (
+            <img src={`http://localhost:5000/${user.avatar}`} alt="avatar" />
+          ) : (
+            <UserIcon />
+          )}
         </div>
       </div>
     </NavLink>

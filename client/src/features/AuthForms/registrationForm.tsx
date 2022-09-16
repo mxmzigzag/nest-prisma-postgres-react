@@ -10,6 +10,7 @@ import { useRegistrationMutation } from "../../store/api/auth.api";
 import InputGroup from "../../components/forms/inputGroup";
 import { errorToast, successToast } from "../../components/ui/toast";
 import Button from "../../components/ui/button";
+import Upload from "../../components/forms/upload";
 
 export default function RegistrationForm() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function RegistrationForm() {
     name: "",
     surname: "",
     username: "",
+    avatar: "",
     email: "",
     password: "",
   });
@@ -33,7 +35,11 @@ export default function RegistrationForm() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const data = await registration(registerUser, formData);
+      const newFormData = new FormData();
+      Object.entries(formData).map(([key, value]) => {
+        newFormData.append(key, value);
+      });
+      const data = await registration(registerUser, newFormData);
       if (data) {
         successToast("You have been registered!");
         navigate("/");
@@ -73,6 +79,11 @@ export default function RegistrationForm() {
         value={formData.username}
         error={errors.username}
         onChange={onChange}
+      />
+      <Upload
+        label="Avatar"
+        name="avatar"
+        setValue={(value) => setFormData((prev) => ({ ...prev, image: value }))}
       />
       <InputGroup
         label="Email"

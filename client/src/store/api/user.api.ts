@@ -1,6 +1,6 @@
 import { globalApi } from "./global.api";
 
-import { ProfileFormData, User } from "../../types/user.types";
+import { User } from "../../types/user.types";
 
 export const userApi = globalApi
   .enhanceEndpoints({ addTagTypes: ["User"] })
@@ -17,13 +17,13 @@ export const userApi = globalApi
         },
         providesTags: ["User"],
       }),
-      updateProfile: build.mutation<User, ProfileFormData>({
-        query: (userData: ProfileFormData) => {
+      updateProfile: build.mutation<User, { data: FormData; userId: string }>({
+        query: ({ data, userId }) => {
           const token = localStorage.getItem("token");
           return {
-            url: `user/${userData.id}`,
+            url: `user/${userId}`,
             method: "PUT",
-            body: userData,
+            body: data,
             headers: { Authorization: `Bearer ${token}` },
           };
         },

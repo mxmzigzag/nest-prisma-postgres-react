@@ -4,6 +4,7 @@ import { UserController } from './user.controller';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuthModule } from 'src/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { FilesModule } from 'src/files/files.module';
 
 @Module({
   providers: [UserService, PrismaService],
@@ -16,6 +17,7 @@ import { JwtModule } from '@nestjs/jwt';
         expiresIn: '24h',
       },
     }),
+    FilesModule,
   ],
   exports: [UserService],
 })

@@ -14,6 +14,7 @@ const initialState: UserState = {
     surname: "",
     username: "",
     role: Role.USER,
+    avatar: "",
     email: "example@gmail.com",
     password: "",
   },

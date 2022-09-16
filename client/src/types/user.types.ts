@@ -10,6 +10,7 @@ export type User = {
   surname: string;
   username: string;
   role: Role;
+  avatar: string;
   email: string;
   password: string;
   banned?: string;
@@ -24,6 +25,7 @@ export type RegistrationData = {
   name: string;
   surname: string;
   username: string;
+  avatar: any;
   email: string;
   password: string;
 };
@@ -34,6 +36,7 @@ export type ProfileFormData = {
   surname?: string;
   username?: string;
   email?: string;
+  avatar?: string;
 };
 
 export type BannedUser = {

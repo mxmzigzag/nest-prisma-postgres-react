@@ -10,15 +10,17 @@ import { LoginUserDto } from 'src/user/dto/loginUser.dto';
 import { User as UserModel } from '@prisma/client';
 import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
+import { FilesService } from 'src/files/files.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UserService,
+    private filesService: FilesService,
     private jwtService: JwtService,
   ) {}
 
-  async registration(dto: CreateUserDto) {
+  async registration(dto: CreateUserDto, image: any) {
     const candidate = await this.userService.getUserByEmail(dto.email);
     if (candidate) {
       throw new HttpException(
@@ -29,9 +31,11 @@ export class AuthService {
 
     const hashedPassword = await bcrypt.hash(dto.password, 3);
 
+    const fileName = await this.filesService.createFile(image);
     const user = await this.userService.createUser({
       ...dto,
       password: hashedPassword,
+      avatar: fileName,
     });
     const { token } = await this.generateToken(user);
 

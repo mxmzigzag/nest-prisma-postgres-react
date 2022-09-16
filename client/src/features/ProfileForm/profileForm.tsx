@@ -9,6 +9,8 @@ import InputGroup from "../../components/forms/inputGroup";
 import { errorToast, successToast } from "../../components/ui/toast";
 import Button from "../../components/ui/button";
 
+import UserIcon from "../../assets/svg/user";
+
 type Props = {
   userData: User;
 };
@@ -24,23 +26,71 @@ export default function ProfileForm({ userData }: Props) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const user = await updateProfile(formData).unwrap();
-      console.log("upd", user);
+  const handleUpload = async (e: any) => {
+    if (formData.id) {
+      const file = e.target.files[0];
+      const newFormData = new FormData();
+      newFormData.set("avatar", file);
+
+      const user = await updateProfile({
+        data: newFormData,
+        userId: formData.id,
+      }).unwrap();
+      console.log("updated avatar", user);
 
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
-      successToast("User data updated");
-    } catch (err: any) {
-      errorToast(err.message);
+      successToast("User avatar updated");
+    }
+  };
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (formData.id) {
+      try {
+        const newFormData = new FormData();
+        Object.entries(formData).map(([key, value]) => {
+          newFormData.append(key, value);
+        });
+
+        const user = await updateProfile({
+          data: newFormData,
+          userId: formData.id,
+        }).unwrap();
+        console.log("upd", user);
+
+        setUser(user);
+        localStorage.setItem("user", JSON.stringify(user));
+        successToast("User data updated");
+      } catch (err: any) {
+        errorToast(err.message);
+      }
     }
   };
 
   return (
     <>
       <form className="profile-form" onSubmit={onSubmit}>
+        <div className="profile-form-avatar">
+          <label htmlFor="avatar">
+            {formData.avatar ? (
+              <img
+                src={`http://localhost:5000/${userData.avatar}`}
+                alt="avatar"
+              />
+            ) : (
+              <UserIcon width={200} height={200} />
+            )}
+          </label>
+          <input
+            type="file"
+            id="avatar"
+            name="avatar"
+            accept="image/*"
+            className="hidden"
+            onChange={handleUpload}
+          />
+        </div>
         <InputGroup
           label="Name"
           name="name"
@@ -73,10 +123,14 @@ export default function ProfileForm({ userData }: Props) {
           onChange={onChange}
           fullWidth={false}
         />
+        <Button
+          type="submit"
+          className="profile-form-btn"
+          isLoading={isLoading}
+        >
+          Save
+        </Button>
       </form>
-      <Button type="submit" className="profile-form-btn" isLoading={isLoading}>
-        Save
-      </Button>
     </>
   );
 }
