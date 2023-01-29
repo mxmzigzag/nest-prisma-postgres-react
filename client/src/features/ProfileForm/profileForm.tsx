@@ -1,12 +1,15 @@
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { ProfileFormData, User } from "../../types/user.types";
+import { schema } from "./profileForm.schema";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useUpdateProfileMutation } from "../../store/api/user.api";
 
-import InputGroup from "../../components/forms/inputGroup";
 import { errorToast, successToast } from "../../components/ui/toast";
+import InputGroup from "../../components/forms/inputGroup";
 import Button from "../../components/ui/button";
 
 import UserIcon from "../../assets/svg/user";
@@ -18,25 +21,39 @@ type Props = {
 export default function ProfileForm({ userData }: Props) {
   const { setUser } = useAuth();
 
-  const [formData, setFormData] = useState<ProfileFormData>(userData);
-
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
 
-  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const defaultValues = {
+    id: userData.id,
+    name: userData.name,
+    surname: userData.surname,
+    username: userData.username,
+    email: userData.email,
+    avatar: userData.avatar,
   };
 
+  const {
+    watch,
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
+
+  const formState = watch();
+
   const handleUpload = async (e: any) => {
-    if (formData.id) {
+    if (formState.id) {
       const file = e.target.files[0];
       const newFormData = new FormData();
       newFormData.set("avatar", file);
 
       const user = await updateProfile({
         data: newFormData,
-        userId: formData.id,
+        userId: formState.id,
       }).unwrap();
-      console.log("updated avatar", user);
 
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
@@ -44,8 +61,7 @@ export default function ProfileForm({ userData }: Props) {
     }
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = async (formData: ProfileFormData) => {
     if (formData.id) {
       try {
         const newFormData = new FormData();
@@ -57,7 +73,6 @@ export default function ProfileForm({ userData }: Props) {
           data: newFormData,
           userId: formData.id,
         }).unwrap();
-        console.log("upd", user);
 
         setUser(user);
         localStorage.setItem("user", JSON.stringify(user));
@@ -69,68 +84,62 @@ export default function ProfileForm({ userData }: Props) {
   };
 
   return (
-    <>
-      <form className="profile-form" onSubmit={onSubmit}>
-        <div className="profile-form-avatar">
-          <label htmlFor="avatar">
-            {formData.avatar ? (
-              <img
-                src={`http://localhost:5000/${userData.avatar}`}
-                alt="avatar"
-              />
-            ) : (
-              <UserIcon width={200} height={200} />
-            )}
-          </label>
-          <input
-            type="file"
-            id="avatar"
-            name="avatar"
-            accept="image/*"
-            className="hidden"
-            onChange={handleUpload}
-          />
-        </div>
-        <InputGroup
-          label="Name"
-          name="name"
-          placeholder="Name"
-          value={formData.name || ""}
-          onChange={onChange}
-          fullWidth={false}
+    <form className="profile-form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="profile-form-avatar">
+        <label htmlFor="avatar">
+          {formState.avatar ? (
+            <img
+              src={`http://localhost:5000/${formState.avatar}`}
+              alt="avatar"
+            />
+          ) : (
+            <UserIcon width={200} height={200} />
+          )}
+        </label>
+        <input
+          type="file"
+          id="avatar"
+          name="avatar"
+          accept="image/*"
+          className="hidden"
+          onChange={handleUpload}
         />
-        <InputGroup
-          label="Surname"
-          name="surname"
-          placeholder="Surname"
-          value={formData.surname || ""}
-          onChange={onChange}
-          fullWidth={false}
-        />
-        <InputGroup
-          label="Username"
-          name="username"
-          placeholder="Username"
-          value={formData.username || ""}
-          onChange={onChange}
-          fullWidth={false}
-        />
-        <InputGroup
-          label="Email"
-          name="email"
-          placeholder="E-mail"
-          value={formData.email || ""}
-          onChange={onChange}
-          fullWidth={false}
-        />
-        <Button
-          type="submit"
-          className="profile-form-btn"
-          isLoading={isLoading}
-        >
-          Save
-        </Button>
-      </form>
-    </>
+      </div>
+      <InputGroup
+        label="Name"
+        name="name"
+        placeholder="Name"
+        register={register}
+        error={errors.name?.message}
+        fullWidth={false}
+      />
+      <InputGroup
+        label="Surname"
+        name="surname"
+        placeholder="Surname"
+        register={register}
+        error={errors.surname?.message}
+        fullWidth={false}
+      />
+      <InputGroup
+        label="Username"
+        name="username"
+        placeholder="Username"
+        register={register}
+        error={errors.username?.message}
+        fullWidth={false}
+      />
+      <InputGroup
+        label="Email"
+        name="email"
+        placeholder="E-mail"
+        register={register}
+        error={errors.email?.message}
+        fullWidth={false}
+      />
+      <Button type="submit" className="profile-form-btn" isLoading={isLoading}>
+        Save
+      </Button>
+    </form>
   );
 }
