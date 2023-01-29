@@ -50,6 +50,7 @@ export default function Post() {
     e.preventDefault();
     if (user?.id && postId) {
       await createComment({ message: comment, userId: user.id, postId });
+      setComment("");
       successToast("Your comment is added!");
     }
   };
