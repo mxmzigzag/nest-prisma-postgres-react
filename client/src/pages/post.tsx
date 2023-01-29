@@ -133,7 +133,7 @@ export default function Post() {
                 {isAuth ? (
                   <form
                     className="post-page-comments-form"
-                    onChange={handleCreateComment}
+                    onSubmit={handleCreateComment}
                   >
                     <TextareaInput
                       name="comment"
