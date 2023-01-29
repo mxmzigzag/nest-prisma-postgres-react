@@ -1,6 +1,9 @@
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { CreatePost, Post } from "../../types/post.types";
+import { schema } from "./postForm.schema";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useGetAllCategoriesQuery } from "../../store/api/category.api";
@@ -24,24 +27,33 @@ type Props = {
 
 export default function PostForm({ post = {}, setIsOpen }: Props) {
   const { user } = useAuth();
-  const [formData, setFormData] = useState<Partial<CreatePost>>({
-    ...post,
-    authorId: user?.id,
-    tags: post.tags?.map((t) => t.tag),
-  });
 
   const { data: categoriesData } = useGetAllCategoriesQuery({});
-
   const { data: tags = [] } = useGetAllTagsQuery();
+
   const [createTag] = useCreateTagMutation();
   const [createPost, { isLoading: isCreateLoading }] = useCreatePostMutation();
 
-  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const defaultValues = {
+    ...post,
+    authorId: user?.id,
+    tags: post.tags?.map((t) => t.tag),
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    watch,
+    register,
+    formState: { errors },
+    setValue,
+    handleSubmit,
+  } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
+
+  const formState = watch();
+
+  const onSubmit = async (formData: Partial<CreatePost>) => {
     try {
       const newTags = formData.tags?.filter((tag) => tag.isNew) || [];
       const tagIds = formData.tags?.map((tag) => tag.id) || [];
@@ -65,33 +77,33 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
   };
 
   return (
-    <form className="modal-form" onSubmit={onSubmit}>
+    <form className="modal-form" onSubmit={handleSubmit(onSubmit)}>
       <InputGroup
         label="Title"
         name="title"
         placeholder="Title"
-        value={formData.title || ""}
-        onChange={onChange}
+        register={register}
+        error={errors.title?.message}
       />
       <InputGroup
         label="Description"
         name="description"
         placeholder="Description"
-        value={formData.description || ""}
-        onChange={onChange}
+        register={register}
+        error={errors.description?.message}
       />
       <InputGroup
         label="Body"
         name="body"
         type="textarea"
         placeholder="Body"
-        value={formData.body || ""}
-        onChange={onChange}
+        register={register}
+        error={errors.body?.message}
       />
       <Upload
         label="Image"
         name="image"
-        setValue={(value) => setFormData((prev) => ({ ...prev, image: value }))}
+        setValue={(value) => setValue("image", value)}
       />
       {categoriesData ? (
         <div className="input-group">
@@ -99,9 +111,7 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
           <Select
             defaultText="Select a category"
             items={categoriesData.page}
-            setItem={(item) =>
-              setFormData((prev) => ({ ...prev, categoryId: item }))
-            }
+            setItem={(item) => setValue("categoryId", item)}
           />
         </div>
       ) : null}
@@ -111,13 +121,13 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
         </label>
         <Tags
           name="tags"
-          formTags={formData.tags}
+          formTags={formState.tags}
           existingTags={tags}
-          setTags={(tags) => setFormData((prev) => ({ ...prev, tags }))}
+          setTags={(tags) => setValue("tags", tags)}
         />
       </div>
       <Button type="submit" isLoading={isCreateLoading}>
-        Create
+        {post.id ? "Update" : "Create"}
       </Button>
     </form>
   );

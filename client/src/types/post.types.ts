@@ -8,7 +8,7 @@ export type Post = {
   description: string;
   body: string;
   isPublished: boolean;
-  image: string;
+  image: string | File;
   authorId: string;
   categoryId: string;
   viewsCount: number;
