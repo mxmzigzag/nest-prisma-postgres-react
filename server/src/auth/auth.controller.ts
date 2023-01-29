@@ -7,8 +7,6 @@ import {
   UploadedFile,
   UseGuards,
   UseInterceptors,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
@@ -23,7 +21,6 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('/registration')
-  // @UsePipes(ValidationPipe)
   @UseInterceptors(FileInterceptor('image'))
   async registration(
     @Body() userDto: CreateUserDto,
@@ -35,7 +32,6 @@ export class AuthController {
   }
 
   @Post('/login')
-  @UsePipes(ValidationPipe)
   async login(@Body() userDto: LoginUserDto, @Res() res: Response) {
     const userData = await this.authService.login(userDto);
     return res.send(userData);

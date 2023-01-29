@@ -9,11 +9,9 @@ import {
   UploadedFile,
   UseGuards,
   UseInterceptors,
-  UsePipes,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { CreateUserDto } from './dto/createUser.dto';
 
 import { UpdateUserDto } from './dto/updateUser.dto';
@@ -24,7 +22,6 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   @Post('/user')
-  @UsePipes(ValidationPipe)
   createUser(dto: CreateUserDto) {
     return this.userService.createUser(dto);
   }
@@ -47,7 +44,6 @@ export class UserController {
 
   @Put('/user/:id')
   @UseGuards(JwtAuthGuard)
-  // @UsePipes(ValidationPipe)
   @UseInterceptors(FileInterceptor('avatar'))
   updateUser(
     @Param('id') id: string,
