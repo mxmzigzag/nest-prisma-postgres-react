@@ -39,7 +39,7 @@ export default function Requests() {
     <ProfileLayout title="Reguests">
       {isLoading ? (
         <Loader />
-      ) : (
+      ) : requests.length ? (
         <>
           <ul className="requests-list">
             {requests.map((req) => (
@@ -54,6 +54,8 @@ export default function Requests() {
             More
           </Button>
         </>
+      ) : (
+        <p className="posts-empty-text">No requests found here!</p>
       )}
     </ProfileLayout>
   );
