@@ -25,7 +25,7 @@ export type RegistrationData = {
   name: string;
   surname: string;
   username: string;
-  avatar: any;
+  image: any;
   email: string;
   password: string;
 };

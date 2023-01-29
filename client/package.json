@@ -6,16 +6,19 @@
     "build": "webpack --config webpack.prod.config.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "@reduxjs/toolkit": "^1.8.3",
     "dayjs": "^1.11.4",
     "js-cookie": "^3.0.1",
     "react": "^18.2.0",
     "react-alice-carousel": "^2.6.4",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.42.1",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-toastify": "^9.0.5",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6",

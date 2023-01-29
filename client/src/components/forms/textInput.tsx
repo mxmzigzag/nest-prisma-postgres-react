@@ -4,8 +4,9 @@ type Props = {
   name: string;
   type?: string;
   placeholder: string;
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  register?: any;
 };
 
 export default function TextInput({
@@ -14,8 +15,18 @@ export default function TextInput({
   value,
   onChange,
   type = "text",
+  register,
 }: Props) {
-  return (
+  return register ? (
+    <input
+      {...register(name)}
+      type={type}
+      id={name}
+      name={name}
+      placeholder={placeholder}
+      className="input"
+    />
+  ) : (
     <input
       type={type}
       id={name}

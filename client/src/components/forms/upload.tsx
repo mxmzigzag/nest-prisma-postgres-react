@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 
 import UploadIcon from "../../assets/svg/upload";
+import { ErrorText } from "./errorText";
 
 type Props = {
   label: string;
   name: string;
   setValue: (file: File) => void;
+  error?: string;
 };
 
-export default function Upload({ label, name, setValue }: Props) {
+export default function Upload({ label, name, setValue, error }: Props) {
   const [fileName, setFileName] = useState<string>("");
 
   const handleUpload = (e: any) => {
@@ -18,27 +20,30 @@ export default function Upload({ label, name, setValue }: Props) {
   };
 
   return (
-    <div className="upload-margin">
-      <label htmlFor={name}>{label}</label>
-      <div className="upload-wrap">
-        <p className="upload-text">
-          {fileName ? `File is uploaded (${fileName})` : "Choose a file"}
-        </p>
-        <label
-          htmlFor={name}
-          className={`upload-icon ${fileName && "upload-uploaded"}`}
-        >
-          <UploadIcon />
-        </label>
+    <>
+      <div className="upload-margin">
+        <label htmlFor={name}>{label}</label>
+        <div className="upload-wrap">
+          <p className="upload-text">
+            {fileName ? `File is uploaded (${fileName})` : "Choose a file"}
+          </p>
+          <label
+            htmlFor={name}
+            className={`upload-icon ${fileName && "upload-uploaded"}`}
+          >
+            <UploadIcon />
+          </label>
+        </div>
+        <input
+          type="file"
+          id={name}
+          name={name}
+          accept="image/*"
+          className="hidden"
+          onChange={handleUpload}
+        />
       </div>
-      <input
-        type="file"
-        id={name}
-        name={name}
-        accept="image/*"
-        className="hidden"
-        onChange={handleUpload}
-      />
-    </div>
+      {error && <ErrorText text={error} />}
+    </>
   );
 }

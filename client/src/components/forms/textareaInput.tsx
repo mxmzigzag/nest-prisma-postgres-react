@@ -3,8 +3,9 @@ import React, { ChangeEvent } from "react";
 type Props = {
   name: string;
   placeholder: string;
-  value: string;
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  register?: any;
 };
 
 export default function TextareaInput({
@@ -12,8 +13,18 @@ export default function TextareaInput({
   placeholder,
   value,
   onChange,
+  register,
 }: Props) {
-  return (
+  return register ? (
+    <textarea
+      {...register(name)}
+      id={name}
+      name={name}
+      rows={5}
+      placeholder={placeholder}
+      className="input"
+    />
+  ) : (
     <textarea
       id={name}
       name={name}

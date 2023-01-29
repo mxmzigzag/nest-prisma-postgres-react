@@ -1,18 +1,20 @@
 import React, { ChangeEvent } from "react";
-import TextareaInput from "./textareaInput";
 
 import Input from "./textInput";
+import TextareaInput from "./textareaInput";
+import { ErrorText } from "./errorText";
 
 type Props = {
   label: string;
   name: string;
   type?: "text" | "textarea" | "password";
   placeholder: string;
-  value: string;
+  value?: string;
   error?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   className?: string;
   fullWidth?: boolean;
+  register?: any;
 };
 
 export default function InputGroup({
@@ -25,6 +27,7 @@ export default function InputGroup({
   onChange,
   className,
   fullWidth = true,
+  register,
 }: Props) {
   return (
     <div className={`input-group ${!fullWidth ? "half" : ""} ${className}`}>
@@ -38,6 +41,7 @@ export default function InputGroup({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          register={register}
         />
       ) : (
         <TextareaInput
@@ -45,9 +49,10 @@ export default function InputGroup({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          register={register}
         />
       )}
-      {error && <span className="input-error">{error}</span>}
+      {error && <ErrorText text={error} />}
     </div>
   );
 }

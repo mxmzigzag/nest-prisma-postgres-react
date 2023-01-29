@@ -1,3 +1,5 @@
+$COLOR_ERROR: #ff3333;
+
 * {
   margin: 0;
   padding: 0;
@@ -766,15 +768,30 @@ footer {
   }
 }
 
-.form-title {
-  font-size: 20px;
-  text-transform: uppercase;
-  margin-bottom: 15px;
-}
-
-.form-undertext {
-  margin-top: 10px;
-  font-size: 16px;
+.form {
+  &-title {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+  &-undertext {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  &-error {
+    &-wrap {
+      display: flex;
+      align-items: center;
+      background-color: $COLOR_ERROR;
+      border-radius: 8px;
+      opacity: 0.7;
+      padding: 2px 6px;
+      margin-top: 10px;
+    }
+    &-text {
+      color: #fff;
+    }
+  }
 }
 
 // post action bar

@@ -1,8 +1,10 @@
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { RegistrationData } from "../../types/user.types";
-import { Errors } from "../../types/common.types";
+import { schema } from "./registration.schema";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useRegistrationMutation } from "../../store/api/auth.api";
@@ -16,90 +18,93 @@ export default function RegistrationForm() {
   const navigate = useNavigate();
   const { registration } = useAuth();
 
-  const [errors, setErrors] = useState<Errors>({});
-  const [formData, setFormData] = useState<RegistrationData>({
+  const [registerUser, { isLoading }] = useRegistrationMutation();
+
+  const defaultValues = {
     name: "",
     surname: "",
     username: "",
-    avatar: "",
+    image: "" as unknown as File,
     email: "",
     password: "",
-  });
-
-  const [registerUser, { isLoading }] = useRegistrationMutation();
-
-  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const {
+    register,
+    formState: { errors },
+    setValue,
+    handleSubmit,
+  } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
+
+  const handleFileUpload = (file: File) => {
+    setValue("image", file);
+  };
+
+  const onSubmit = async (formData: RegistrationData) => {
     try {
       const newFormData = new FormData();
       Object.entries(formData).map(([key, value]) => {
         newFormData.append(key, value);
       });
-      const data = await registration(registerUser, newFormData);
-      if (data) {
+
+      const userToken = await registration(registerUser, newFormData);
+      // @ts-ignore
+      if (userToken.data) {
         successToast("You have been registered!");
         navigate("/");
       }
     } catch (err: any) {
-      if (!err.message) {
-        setErrors(err);
-      } else {
-        errorToast(err);
-      }
+      errorToast(err);
     }
   };
 
   return (
-    <form className="auth-form" onSubmit={onSubmit}>
+    <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
       <h1 className="text-center form-title">Sign in</h1>
       <InputGroup
         label="Name"
         name="name"
         placeholder="Name"
-        value={formData.name}
-        error={errors.name}
-        onChange={onChange}
+        register={register}
+        error={errors.name?.message}
       />
       <InputGroup
         label="Surname"
         name="surname"
         placeholder="Surname"
-        value={formData.surname}
-        error={errors.surname}
-        onChange={onChange}
+        register={register}
+        error={errors.surname?.message}
       />
       <InputGroup
         label="Username"
         name="username"
         placeholder="Username"
-        value={formData.username}
-        error={errors.username}
-        onChange={onChange}
+        register={register}
+        error={errors.username?.message}
       />
       <Upload
         label="Avatar"
         name="avatar"
-        setValue={(value) => setFormData((prev) => ({ ...prev, image: value }))}
+        setValue={handleFileUpload}
+        error={errors.image?.message}
       />
       <InputGroup
         label="Email"
         name="email"
         placeholder="Email"
-        value={formData.email}
-        error={errors.email}
-        onChange={onChange}
+        register={register}
+        error={errors.email?.message}
       />
       <InputGroup
+        type="password"
         label="Password"
         name="password"
         placeholder="Password"
-        value={formData.password}
-        error={errors.password}
-        onChange={onChange}
+        register={register}
+        error={errors.password?.message}
       />
       <Button type="submit" isLoading={isLoading}>
         Sign in
