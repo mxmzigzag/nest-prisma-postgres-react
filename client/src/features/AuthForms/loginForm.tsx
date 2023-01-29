@@ -46,6 +46,7 @@ export default function LoginForm() {
         onChange={onChange}
       />
       <InputGroup
+        type="password"
         label="Password"
         name="password"
         placeholder="Password"

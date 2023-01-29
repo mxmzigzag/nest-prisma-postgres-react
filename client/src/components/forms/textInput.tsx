@@ -2,6 +2,7 @@ import React, { ChangeEvent } from "react";
 
 type Props = {
   name: string;
+  type?: string;
   placeholder: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -12,10 +13,11 @@ export default function TextInput({
   placeholder,
   value,
   onChange,
+  type = "text",
 }: Props) {
   return (
     <input
-      type="text"
+      type={type}
       id={name}
       name={name}
       placeholder={placeholder}

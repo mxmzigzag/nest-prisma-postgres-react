@@ -6,7 +6,7 @@ import Input from "./textInput";
 type Props = {
   label: string;
   name: string;
-  type?: "text" | "textarea";
+  type?: "text" | "textarea" | "password";
   placeholder: string;
   value: string;
   error?: string;
@@ -31,8 +31,9 @@ export default function InputGroup({
       <label htmlFor={name} className="label">
         {label}
       </label>
-      {type === "text" ? (
+      {type === "text" || type === "password" ? (
         <Input
+          type={type}
           name={name}
           placeholder={placeholder}
           value={value}

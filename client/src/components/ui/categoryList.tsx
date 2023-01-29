@@ -36,17 +36,21 @@ export default function CategoryList() {
       </button>
       {!isLoading && categoriesData && isOpen ? (
         <div className="header-category-list">
-          {categoriesData.page.map((ctg) => (
-            <button
-              key={ctg.id}
-              className={`header-category-list-item ${
-                ctg.id === category?.id ? "active" : ""
-              }`}
-              onClick={() => handleSelect(ctg)}
-            >
-              {ctg.title}
-            </button>
-          ))}
+          {categoriesData.page.length ? (
+            categoriesData.page.map((ctg) => (
+              <button
+                key={ctg.id}
+                className={`header-category-list-item ${
+                  ctg.id === category?.id ? "active" : ""
+                }`}
+                onClick={() => handleSelect(ctg)}
+              >
+                {ctg.title}
+              </button>
+            ))
+          ) : (
+            <p className="header-category-list-item no-hover">No categories</p>
+          )}
         </div>
       ) : null}
     </div>
