@@ -31,12 +31,6 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     const userData = await this.authService.registration(userDto, image);
-    res.cookie('token', userData.token, {
-      expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 7),
-      sameSite: 'strict',
-      httpOnly: true,
-    });
-    res.set({ 'Access-Control-Allow-Credentials': true });
     return res.send(userData);
   }
 
@@ -44,19 +38,11 @@ export class AuthController {
   @UsePipes(ValidationPipe)
   async login(@Body() userDto: LoginUserDto, @Res() res: Response) {
     const userData = await this.authService.login(userDto);
-    res.cookie('token', userData.token, {
-      expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 7),
-      sameSite: 'strict',
-      httpOnly: true,
-    });
-    res.set({ 'Access-Control-Allow-Credentials': true });
     return res.send(userData);
   }
 
   @Post('/logout')
   async logout(@Res() res: Response) {
-    res.clearCookie('token');
-    res.set({ 'Access-Control-Allow-Credentials': true });
     return res.send({ message: 'Logged out' });
   }
 

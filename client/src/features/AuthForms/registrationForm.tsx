@@ -51,8 +51,7 @@ export default function RegistrationForm() {
       });
 
       const userToken = await registration(registerUser, newFormData);
-      // @ts-ignore
-      if (userToken.data) {
+      if (userToken.user && userToken.token) {
         successToast("You have been registered!");
         navigate("/");
       }
