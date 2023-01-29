@@ -1,8 +1,18 @@
-import React, { createContext, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { Mutation } from "../types/common.types";
 import { LoginData, User } from "../types/user.types";
 import { UserTokenResponse } from "../types/auth.types";
+import {
+  useCheckTokenMutation,
+  useLogoutMutation,
+} from "../store/api/auth.api";
 
 export interface IAuthContext {
   isAuth: boolean;
@@ -16,7 +26,7 @@ export interface IAuthContext {
     loginUser: Mutation<LoginData, UserTokenResponse>,
     data: LoginData
   ) => Promise<UserTokenResponse>;
-  logout: (logoutUser: Mutation<void, string>) => Promise<string>;
+  logout: () => Promise<string>;
 }
 
 type Props = {
@@ -32,6 +42,9 @@ export function AuthProvider({ children }: Props) {
 
   const [isAuth, setIsAuth] = useState<boolean>(Boolean(userLS));
   const [user, setUser] = useState<User | null>(userLS);
+
+  const [logoutUser] = useLogoutMutation();
+  const [checkToken] = useCheckTokenMutation();
 
   const registration = async (
     registerUser: Mutation<FormData, UserTokenResponse>,
@@ -69,9 +82,25 @@ export function AuthProvider({ children }: Props) {
     }
   };
 
-  const logout = async (
-    logoutUser: Mutation<void, string>
-  ): Promise<string> => {
+  const logout = async (): Promise<string> => {
+    return lgtUsr();
+  };
+
+  const checkTokenValidity = useCallback(async () => {
+    const response = await checkToken();
+    if ("error" in response && response.error) {
+      lgtUsr();
+    }
+    if ("data" in response && response.data) {
+      localStorage.setItem("token", response.data.token);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isAuth) checkTokenValidity();
+  }, [isAuth, checkTokenValidity]);
+
+  const lgtUsr = async () => {
     try {
       const data = await logoutUser().unwrap();
       setUser(null);

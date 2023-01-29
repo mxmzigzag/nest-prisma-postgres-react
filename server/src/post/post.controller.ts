@@ -8,6 +8,7 @@ import {
   Put,
   Query,
   Req,
+  UnauthorizedException,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -47,6 +48,10 @@ export class PostController {
     let isAdmin = false;
     if (req?.headers?.authorization) {
       const token = req.headers.authorization.split(' ')[1];
+      const decodedToken = this.jwtService.decode(token);
+      if (decodedToken['exp'] * 1000 < +new Date()) {
+        throw new UnauthorizedException({ message: 'Token expired!' });
+      }
       const user = await this.jwtService.verify(token);
       if (user.role === Role.ADMIN) isAdmin = true;
     }

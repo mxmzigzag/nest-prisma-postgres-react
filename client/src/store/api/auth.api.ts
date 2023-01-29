@@ -27,8 +27,23 @@ export const authApi = globalApi.injectEndpoints({
         credentials: "include",
       }),
     }),
+    checkToken: build.mutation<{ token: string }, void>({
+      query: () => {
+        const token = localStorage.getItem("token");
+        return {
+          url: `check-token`,
+          method: "POST",
+          body: { token },
+          headers: { Authorization: `Bearer ${token}` },
+        };
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegistrationMutation, useLogoutMutation } =
-  authApi;
+export const {
+  useLoginMutation,
+  useRegistrationMutation,
+  useLogoutMutation,
+  useCheckTokenMutation,
+} = authApi;

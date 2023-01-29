@@ -4,7 +4,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Role } from "../types/user.types";
 
 import { useAuth } from "../hooks/useAuth";
-import { useLogoutMutation } from "../store/api/auth.api";
 import { useGetNumberOfUnansweredQuery } from "../store/api/request.api";
 
 import { errorToast } from "../components/ui/toast";
@@ -26,7 +25,6 @@ export default function ProfileLayout({
   const navigate = useNavigate();
   const { user, logout } = useAuth();
 
-  const [logoutUser, { isLoading }] = useLogoutMutation();
   const { data: requestNotifications } = useGetNumberOfUnansweredQuery();
 
   const navItems = [
@@ -71,7 +69,7 @@ export default function ProfileLayout({
 
   const handleLogout = async () => {
     try {
-      const data = await logout(logoutUser);
+      const data = await logout();
       if (data) navigate("/");
     } catch (err: any) {
       errorToast(err.message);
@@ -104,11 +102,7 @@ export default function ProfileLayout({
         <div className="profile-content-row">
           <h2 className="profile-title">{title}</h2>
           {btnTitle ? (
-            <Button
-              onClick={btnOnClick}
-              className="profile-btn"
-              isLoading={isLoading}
-            >
+            <Button onClick={btnOnClick} className="profile-btn">
               {btnTitle}
             </Button>
           ) : null}

@@ -479,6 +479,11 @@ a {
         &.active {
           background-color: burlywood;
         }
+        &.no-hover {
+          &:hover {
+            background: none;
+          }
+        }
       }
     }
   }

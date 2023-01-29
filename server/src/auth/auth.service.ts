@@ -49,14 +49,19 @@ export class AuthService {
     return { user, token };
   }
 
-  // async logout(email: string) {
-  //   return this.prismaService.user.update({
-  //     where: { email },
-  //     data: { token: '' },
-  //   });
-  // }
+  async checkToken(curToken: string) {
+    const decoded = this.jwtService.decode(curToken);
 
-  private async generateToken(user: UserModel) {
+    const { token } = await this.generateToken({
+      email: decoded['email'],
+      id: decoded['id'],
+      role: decoded['role'],
+    });
+
+    return { token };
+  }
+
+  private async generateToken(user: Partial<UserModel>) {
     const payload = { email: user.email, id: user.id, role: user.role };
     return {
       token: this.jwtService.sign(payload),
