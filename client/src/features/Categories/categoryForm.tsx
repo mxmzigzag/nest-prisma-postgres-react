@@ -1,6 +1,9 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React from "react";
 import { v4 as createUID } from "uuid";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
+import { schema } from "./categoryForm.schema";
 import { Category } from "../../types/category.types";
 
 import {
@@ -25,19 +28,21 @@ export default function CategoryForm({
   },
   setIsOpen,
 }: Props) {
-  const [formData, setFormData] = useState<Category>(category);
-
   const [createCategory, { isLoading: isLoadingCreation }] =
     useCreateCategoryMutation();
   const [updateCategory, { isLoading: isLoadingUpdation }] =
     useUpdateCategoryMutation();
 
-  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((state) => ({ ...state, [e.target.name]: e.target.value }));
-  };
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    defaultValues: { ...category },
+    resolver: yupResolver(schema),
+  });
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (formData: Category) => {
     try {
       if (category.title) {
         await updateCategory(formData);
@@ -53,22 +58,22 @@ export default function CategoryForm({
   };
 
   return (
-    <form className="category-form" onSubmit={handleSubmit}>
+    <form className="category-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="category-form-content">
         <InputGroup
           label="Title"
           name="title"
           placeholder="Title"
-          value={formData.title}
-          onChange={onChange}
+          register={register}
+          error={errors.title?.message}
           className="category-form-input"
         />
         <InputGroup
           label="Color"
           name="color"
           placeholder="Color"
-          value={formData.color}
-          onChange={onChange}
+          register={register}
+          error={errors.color?.message}
           className="category-form-input"
         />
       </div>
