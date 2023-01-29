@@ -1,28 +1,43 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { schema } from "./contactForm.schema";
 
 import { useAuth } from "../../hooks/useAuth";
+import { useSendContactLetterMutation } from "../../store/api/mail.api";
 
+import { errorToast, successToast } from "../../components/ui/toast";
 import InputGroup from "../../components/forms/inputGroup";
 import Button from "../../components/ui/button";
-import { useSendContactLetterMutation } from "../../store/api/mail.api";
-import { errorToast, successToast } from "../../components/ui/toast";
+
+type ContactForm = {
+  name: string;
+  email: string;
+  body: string;
+};
 
 export default function ContactForm() {
   const { user } = useAuth();
-  const [formData, setFormData] = useState({
-    name: user ? `${user.name} ${user.surname}` : "",
-    email: user ? user.email : "",
-    body: "",
-  });
 
   const [sendLetter, { isLoading }] = useSendContactLetterMutation();
 
-  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const defaultValues = {
+    name: user ? `${user.name} ${user.surname}` : "",
+    email: user ? user.email : "",
+    body: "",
   };
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (formData: ContactForm) => {
     try {
       await sendLetter(formData);
       successToast("Letter is sent!");
@@ -32,28 +47,28 @@ export default function ContactForm() {
   };
 
   return (
-    <form className="contact-form" onSubmit={onSubmit}>
+    <form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
       <InputGroup
         label="Name"
         name="name"
         placeholder="Name"
-        value={formData.name || ""}
-        onChange={onChange}
+        register={register}
+        error={errors.name?.message}
       />
       <InputGroup
         label="Email"
-        name="emal"
+        name="email"
         placeholder="Email"
-        value={formData.email || ""}
-        onChange={onChange}
+        register={register}
+        error={errors.email?.message}
       />
       <InputGroup
         label="Message"
         name="body"
         type="textarea"
         placeholder="Message"
-        value={formData.body || ""}
-        onChange={onChange}
+        register={register}
+        error={errors.body?.message}
       />
       <Button type="submit" isLoading={isLoading}>
         Send
