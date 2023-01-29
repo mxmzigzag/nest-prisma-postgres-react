@@ -106,6 +106,7 @@ export default function Comment({ comment }: Props) {
                     isOpen={confirmationIsOpen}
                     setIsOpen={setConfirmationIsOpen}
                     description={`This will delete your comment`}
+                    okText="Remove"
                     okCallback={handleDelete}
                     okIsLoading={isLoadingDelete}
                   />

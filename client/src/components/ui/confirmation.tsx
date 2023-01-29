@@ -8,6 +8,7 @@ type Props = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   title?: string;
   description: string;
+  okText?: string;
   okCallback: () => void;
   okIsLoading?: boolean;
 };
@@ -18,6 +19,7 @@ export default function Confirmation({
   title = "Are you sure?",
   description,
   okCallback,
+  okText = "Accept",
   okIsLoading = false,
 }: Props) {
   if (!isOpen) return null;
@@ -29,7 +31,7 @@ export default function Confirmation({
         <div className="confirmation-actions">
           <Button onClick={() => setIsOpen(false)}>Cancel</Button>
           <Button onClick={() => okCallback()} isLoading={okIsLoading}>
-            Accept
+            {okText}
           </Button>
         </div>
       </div>
