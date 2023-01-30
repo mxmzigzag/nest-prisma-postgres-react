@@ -6,7 +6,7 @@ import { store } from "./store";
 import { AuthProvider } from "./context/auth.context";
 import App from "./app";
 
-import "./assets/globalStyles.scss";
+import "./style.css";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement as Element);

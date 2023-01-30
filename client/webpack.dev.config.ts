@@ -14,10 +14,11 @@ interface Configuration extends WebpackConfiguration {
 
 const config: Configuration = {
   mode: "development",
-  output: {
-    publicPath: "/",
-  },
   entry: "./src/index.tsx",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+  },
   module: {
     rules: [
       {
@@ -35,20 +36,20 @@ const config: Configuration = {
         },
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader", "postcss-loader"],
       },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          // Creates `style` nodes from JS strings
-          "style-loader",
-          // Translates CSS into CommonJS
-          "css-loader",
-          // Compiles Sass to CSS
-          "sass-loader",
-        ],
-      },
+      // {
+      //   test: /\.s[ac]ss$/i,
+      //   use: [
+      //     // Creates `style` nodes from JS strings
+      //     "style-loader",
+      //     // Translates CSS into CommonJS
+      //     "css-loader",
+      //     // Compiles Sass to CSS
+      //     "sass-loader",
+      //   ],
+      // },
       {
         test: /\.(png|jpg|jpeg|webp|gif)$/,
         use: [
@@ -65,7 +66,7 @@ const config: Configuration = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: path.join(__dirname, "dist", "index.html"),
     }),
     new HotModuleReplacementPlugin(),
     new ForkTsCheckerWebpackPlugin({
@@ -77,11 +78,14 @@ const config: Configuration = {
   ],
   devtool: "inline-source-map",
   devServer: {
-    static: path.join(__dirname, "dist"),
-    historyApiFallback: true,
+    static: {
+      directory: path.resolve(__dirname, "dist"),
+    },
     port: 4000,
     open: true,
     hot: true,
+    compress: true,
+    historyApiFallback: true,
   },
 };
 
