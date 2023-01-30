@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from "react";
+import { baseInputStyles } from "./textInput";
 
 type Props = {
   name: string;
@@ -22,7 +23,7 @@ export default function TextareaInput({
       name={name}
       rows={5}
       placeholder={placeholder}
-      className="input"
+      className={baseInputStyles}
     />
   ) : (
     <textarea
@@ -32,7 +33,7 @@ export default function TextareaInput({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className="input"
+      className={baseInputStyles}
     />
   );
 }

@@ -24,11 +24,11 @@ export default function Button({
   return (
     <button
       type={type}
-      className={`btn ${className}`}
+      className={`bg-bBrown py-3 px-4 border-0 rounded text-lg w-full cursor-pointer transition-all hover:bg-bBrownHover hover:transition-all ${className}`}
       onClick={onClick}
       disabled={disabled || isLoading}
     >
-      <div className="btn-content">
+      <div className="inline-block relative">
         {children}
         {isLoading && <Spinner className={spinnerClasses} />}
       </div>

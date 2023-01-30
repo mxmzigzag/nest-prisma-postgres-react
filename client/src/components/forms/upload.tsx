@@ -21,17 +21,19 @@ export default function Upload({ label, name, setValue, error }: Props) {
 
   return (
     <>
-      <div className="upload-margin">
+      <div className="mb-1">
         <label htmlFor={name}>{label}</label>
-        <div className="upload-wrap">
-          <p className="upload-text">
+        <div className="flex items-center justify-between py-2.5">
+          <p className="text-lg">
             {fileName ? `File is uploaded (${fileName})` : "Choose a file"}
           </p>
           <label
             htmlFor={name}
-            className={`upload-icon ${fileName && "upload-uploaded"}`}
+            className={`flex border-2 border-solid border-black rounded-xl p-1 cursor-pointer ${
+              fileName && "border-bGreen"
+            }`}
           >
-            <UploadIcon />
+            <UploadIcon className={fileName && "fill-bGreen"} />
           </label>
         </div>
         <input

@@ -23,17 +23,20 @@ export default function Select({ defaultText, items, setItem }: Props) {
   };
 
   return (
-    <div className="select-wrapper">
-      <div className="select-selected" onClick={() => setIsOpen(!isOpen)}>
+    <div className="flex flex-col relative w-fit">
+      <div
+        className="flex items-center justify-between border-[1px] border-solid border-black rounded py-1 px-1.5 cursor-pointer"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <span>{activeItem?.title || defaultText}</span>
-        <ChevronDownIcon className={` ${isOpen && "select-icon-open"}`} />
+        <ChevronDownIcon className={` ${isOpen && "rotate-180"}`} />
       </div>
       {isOpen && itemsWithoutActive.length ? (
-        <div className={`select-list`}>
+        <div className="flex flex-col absolute top-full left-0 w-full bg-white border-[1px] border-solid border-black rounded z-10 max-h-[110px] overflow-y-scroll">
           {itemsWithoutActive.map((item) => (
             <div
               key={item.id}
-              className="select-list-item"
+              className="py-1 px-1.5 cursor-pointer hover:bg-bGrayLight"
               onClick={() => handleItemClick(item)}
             >
               {item.title}

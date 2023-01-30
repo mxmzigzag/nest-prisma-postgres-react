@@ -9,6 +9,9 @@ type Props = {
   register?: any;
 };
 
+export const baseInputStyles =
+  "text-lg border-[1px] border-solid border-bInputBorder rounded-lg outline-0 py-1 px-4";
+
 export default function TextInput({
   name,
   placeholder,
@@ -24,7 +27,7 @@ export default function TextInput({
       id={name}
       name={name}
       placeholder={placeholder}
-      className="input"
+      className={baseInputStyles}
     />
   ) : (
     <input
@@ -34,7 +37,7 @@ export default function TextInput({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className="input"
+      className={baseInputStyles}
     />
   );
 }

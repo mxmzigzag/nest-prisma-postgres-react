@@ -8,6 +8,9 @@ import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { useGetAllCategoriesQuery } from "../../store/api/category.api";
 import { getBlogCategory, setCategory } from "../../store/slice/blog.slice";
 
+const listItem =
+  "text-base py-1 px-2 border-0 bg-none cursor-pointer hover:bg-bGrayLight";
+
 export default function CategoryList() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -27,21 +30,21 @@ export default function CategoryList() {
   useOutsideClick(listRef, () => setIsOpen(false));
 
   return (
-    <div className="header-category-wrapper" ref={listRef}>
+    <div className="relative" ref={listRef}>
       <button
-        className="header-category-btn"
+        className="font-serif	color-black font-medium px-4 text-xl bg-none border-0 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         Category
       </button>
       {!isLoading && categoriesData && isOpen ? (
-        <div className="header-category-list">
+        <div className="absolute top-[130%] left-0 right-0 max-h-[110px] flex flex-col bg-white rounded z-10 overflow-hidden shadow-bShadow">
           {categoriesData.page.length ? (
             categoriesData.page.map((ctg) => (
               <button
                 key={ctg.id}
-                className={`header-category-list-item ${
-                  ctg.id === category?.id ? "active" : ""
+                className={`${listItem} ${
+                  ctg.id === category?.id ? "bg-bBrown" : ""
                 }`}
                 onClick={() => handleSelect(ctg)}
               >
@@ -49,7 +52,7 @@ export default function CategoryList() {
               </button>
             ))
           ) : (
-            <p className="header-category-list-item no-hover">No categories</p>
+            <p className={`${listItem} hover:bg-none`}>No categories</p>
           )}
         </div>
       ) : null}

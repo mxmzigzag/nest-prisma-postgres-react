@@ -7,12 +7,12 @@ export default function Footer() {
   };
 
   return (
-    <footer>
+    <footer className="flex items-center justify-center bg-bFooter p-7 mt-auto">
       <Logo
         width={100}
         height={70}
         onClick={handleScrollToTop}
-        className="footer-logo"
+        className="mr-4 cursor-pointer transition-all hover:translate-y-1 hover:transition-all"
       />
     </footer>
   );

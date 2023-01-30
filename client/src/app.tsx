@@ -34,10 +34,10 @@ export default function App() {
   const isAdmin = user?.role === Role.ADMIN;
 
   return (
-    <div className="app-wrapper">
+    <div className="min-h-screen flex flex-col">
       <BrowserRouter>
         <Header />
-        <div className="app-content">
+        <div className="flex flex-col flex-1 bg-offWhite">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route

@@ -41,17 +41,23 @@ export default function BannedNotification() {
     <Modal
       isOpen={isOpen}
       setIsOpen={setIsOpen}
-      customWrapperClass="banned-notification"
+      customWrapperClass="w-full max-w-[600px] mx-auto bg-white rounded-lg overflow-hidden p-5 text-center relative"
       onClose={() => localStorage.setItem("bannedNotificationWatched", "true")}
     >
-      <h2>You has been banned!</h2>
-      <p>
+      <h2 className="text-3xl mb-4">You has been banned!</h2>
+      <p className="mb-1">
         If you are thinking that this is a mistake you can{" "}
-        <NavLink to="/contact">contact us</NavLink>
+        <NavLink to="/contact" className="color-bBrown">
+          contact us
+        </NavLink>
       </p>
-      <p>--- or ---</p>
+      <p className="mb-1">--- or ---</p>
       {user?.id ? (
-        <Button onClick={() => sendRequest(user.id)} isLoading={isLoading}>
+        <Button
+          onClick={() => sendRequest(user.id)}
+          isLoading={isLoading}
+          className="mt-1 w-auto py-3 px-9"
+        >
           Send an unban request
         </Button>
       ) : (

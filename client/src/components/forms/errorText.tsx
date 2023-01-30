@@ -6,8 +6,8 @@ type Props = {
 
 export const ErrorText = ({ text }: Props) => {
   return (
-    <div className="form-error-wrap">
-      <p className="form-error-text">{text}</p>
+    <div className="flex items-center bg-bRed rounded-xl opacity-70 py-0.5 px-1.5 mt-2.5">
+      <p className="text-white">{text}</p>
     </div>
   );
 };

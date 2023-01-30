@@ -14,7 +14,7 @@ export default function Spinner({
       width={width}
       viewBox="0 0 38 38"
       xmlns="http://www.w3.org/2000/svg"
-      className={`spinner ${className}`}
+      className={`absolute top-1/2 -right-7 -translate-y-1/2 ${className}`}
       {...otherProps}
     >
       <defs>
@@ -41,7 +41,13 @@ export default function Spinner({
               repeatCount="indefinite"
             />
           </path>
-          <circle fill={spinnerColor} cx="36" cy="18" r="1">
+          <circle
+            className="fill-bBrownHover"
+            fill={spinnerColor}
+            cx="36"
+            cy="18"
+            r="1"
+          >
             <animateTransform
               attributeName="transform"
               type="rotate"

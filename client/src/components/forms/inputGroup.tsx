@@ -17,6 +17,9 @@ type Props = {
   register?: any;
 };
 
+export const inputGroupStyles = "flex flex-col mb-2.5 w-full";
+export const labelStyles = "text-base mb-1";
+
 export default function InputGroup({
   label,
   name,
@@ -30,8 +33,14 @@ export default function InputGroup({
   register,
 }: Props) {
   return (
-    <div className={`input-group ${!fullWidth ? "half" : ""} ${className}`}>
-      <label htmlFor={name} className="label">
+    <div
+      className={`${inputGroupStyles} ${
+        !fullWidth
+          ? "w-1/2 [&:nth-child(2n)]:pr-4 [&:nth-child(2n-1)]:pl-4"
+          : ""
+      } ${className}`}
+    >
+      <label htmlFor={name} className={labelStyles}>
         {label}
       </label>
       {type === "text" || type === "password" ? (

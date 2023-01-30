@@ -14,7 +14,11 @@ import {
 } from "../../store/api/tag.api";
 
 import { errorToast, successToast } from "../../components/ui/toast";
-import InputGroup from "../../components/forms/inputGroup";
+import { baseModalFormStyles } from "../../components/ui/modal";
+import InputGroup, {
+  inputGroupStyles,
+  labelStyles,
+} from "../../components/forms/inputGroup";
 import Button from "../../components/ui/button";
 import Upload from "../../components/forms/upload";
 import Select from "../../components/forms/select";
@@ -77,7 +81,7 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
   };
 
   return (
-    <form className="modal-form" onSubmit={handleSubmit(onSubmit)}>
+    <form className={baseModalFormStyles} onSubmit={handleSubmit(onSubmit)}>
       <InputGroup
         label="Title"
         name="title"
@@ -106,8 +110,8 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
         setValue={(value) => setValue("image", value)}
       />
       {categoriesData ? (
-        <div className="input-group">
-          <label className="label">Category</label>
+        <div className={inputGroupStyles}>
+          <label className={labelStyles}>Category</label>
           <Select
             defaultText="Select a category"
             items={categoriesData.page}
@@ -115,8 +119,8 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
           />
         </div>
       ) : null}
-      <div className="input-group">
-        <label htmlFor="tags" className="label">
+      <div className={inputGroupStyles}>
+        <label htmlFor="tags" className={labelStyles}>
           Tags
         </label>
         <Tags
