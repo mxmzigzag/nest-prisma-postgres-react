@@ -30,7 +30,7 @@ export default function Blog() {
     setLimit(limit + 4);
   };
   return (
-    <div className="blog-wrapper">
+    <div className="flex flex-col">
       {isLoading || !postsData ? (
         <Loader />
       ) : (

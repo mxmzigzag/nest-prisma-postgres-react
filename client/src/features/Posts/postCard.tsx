@@ -29,7 +29,11 @@ export default function PostCard({
 
   return (
     <div
-      className={`post ${author?.banned ? "banned" : ""}`}
+      className={`${postCardStyles} ${
+        author?.banned
+          ? "grayscale transition-all hover:grayscale-0 hover:transition-all"
+          : ""
+      }`}
       style={{
         backgroundImage: `url(http://localhost:5000/${image})`,
       }}
@@ -49,35 +53,64 @@ export default function PostCard({
             viewsCount,
             tags,
           }}
-          className="post-edit-btn"
+          className="invisible absolute top-2.5 right-2.5 z-10 bg-none border-0 cursor-pointer group-hover:visible"
         />
       ) : null}
-      <div className="post-content">
+      <div className="flex flex-col items-baseline mt-auto w-full z-10">
         {category ? (
           <span
-            className="post-category"
+            className="inline-block rounded py-0.5 px-1 text-white"
             style={{ backgroundColor: category.color }}
             onClick={() => console.log(categoryId)}
           >
             {category.title}
           </span>
         ) : null}
-        <p className="post-title">{title}</p>
-        <p className="post-descr">{description}</p>
+        <p className="text-lg mt-2.5 mb-3 text-white">{title}</p>
+        <p className="text-sm text-white">{description}</p>
       </div>
-      <div className="post-bottom">
+      <div className="flex items-center justify-between text-white w-full z-10">
         {author ? (
-          <div className="post-author" onClick={() => console.log(authorId)}>
+          <div
+            className="flex items-center"
+            onClick={() => console.log(authorId)}
+          >
             {author.username}
-            {author.banned ? <div className="banned-badge">Banned</div> : null}
+            {author.banned ? <div className="ml-1 bg-bGray">Banned</div> : null}
           </div>
         ) : null}
-        <div className="post-views">
-          <ViewsIcon className="post-views-icon" />
+        <div className="flex items-center text-white">
+          <ViewsIcon className="mr-1 text-white" />
           {viewsCount}
         </div>
       </div>
-      <NavLink to={`/post/${id}`} className="post-link" />
+      <NavLink to={`/post/${id}`} className="absolute inset-0 z-10" />
     </div>
   );
 }
+
+const postCardStyles = `
+  group
+  flex 
+  flex-col 
+  items-start 
+  rounded 
+  p-2.5 
+  min-h-[225px] 
+  bg-[length:150%] 
+  bg-center 
+  relative 
+  shadow-bShadow 
+  transition-all 
+  before:absolute 
+  before:top-0 
+  before:left-0 
+  before:h-full 
+  before:w-full 
+  before:pointer-events-none 
+  before:bg-bBgGradient 
+  before:transition-all 
+  hover:shadow-bShadowHover 
+  hover:bg-[length:160%] 
+  hover:transition-all
+`;

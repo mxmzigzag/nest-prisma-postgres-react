@@ -10,14 +10,17 @@ type Props = {
 export default function PostTags({ tags, limit = 3 }: Props) {
   const tagsLeft = tags.length - limit;
   return (
-    <div className="post-tags">
+    <div className="flex items-center z-10">
       {tags.slice(0, limit).map(({ tag }) => (
-        <div className="post-tag" key={tag.name}>
+        <div
+          className="rounded bg-bBrown py-0.5 px-1 mr-1 text-white"
+          key={tag.name}
+        >
           {tag.name}
         </div>
       ))}
       {tagsLeft > 0 ? (
-        <span className="post-tags-message">+ {tagsLeft} more</span>
+        <span className="text-sm text-white">+ {tagsLeft} more</span>
       ) : null}
     </div>
   );

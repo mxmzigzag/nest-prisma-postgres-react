@@ -15,8 +15,12 @@ module.exports = {
         bGreen: "#49a930",
         bRed: "#ff3333",
       },
+      backgroundImage: {
+        bBgGradient: "linear-gradient(to bottom, transparent 0%, black 150%)",
+      },
       boxShadow: {
         bShadow: "box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.18)",
+        bShadowHover: "box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.4);",
       },
     },
   },

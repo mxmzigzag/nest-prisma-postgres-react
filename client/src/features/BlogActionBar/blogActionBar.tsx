@@ -17,6 +17,13 @@ import TagList from "../../components/ui/tagList";
 import SearchIcon from "../../assets/svg/search";
 import ChevronDownIcon from "../../assets/svg/chevronDown";
 
+const actionBarItemStyles =
+  "flex items-center justify-center py-1 px-2.5 border-r-[1px] border-r-solid border-r-black w-full";
+const actionBarItemBtnStyles =
+  "flex items-center font-serif color-black text-xl text-medium px-4 bg-none border-0 cursor-pointer";
+const actionBarSearchStyles =
+  "flex items-center py-0.5 pr-2.5 pl-1 cursor-pointer";
+
 export default function BlogActionBar() {
   const dispatch = useDispatch();
   const popularSort = useSelector(getPopularSort);
@@ -60,46 +67,48 @@ export default function BlogActionBar() {
   };
 
   return (
-    <div className="action-bar-wrapper">
+    <div className="flex items-center justify-between border-[1px] border-solid border-black rounded-full bg-bGrayLight w-full max-w-[700px] mx-auto mb-5">
       {!isOpen && (
         <>
-          <div className="action-bar-item">
+          <div className={actionBarItemStyles}>
             <button
-              className="action-bar-item-btn"
+              className={actionBarItemBtnStyles}
               onClick={handlePopularSortClick}
             >
               Popular{" "}
               {popularSort === "desc" ? (
                 <ChevronDownIcon />
               ) : popularSort === "asc" ? (
-                <ChevronDownIcon className="reverse" />
+                <ChevronDownIcon className="rotate-180" />
               ) : null}
             </button>
           </div>
-          <div className="action-bar-item">
+          <div className={actionBarItemStyles}>
             <button
-              className="action-bar-item-btn"
+              className={actionBarItemBtnStyles}
               onClick={handleDateSortClick}
             >
               New{" "}
               {dateSort === "desc" ? (
                 <ChevronDownIcon />
               ) : dateSort === "asc" ? (
-                <ChevronDownIcon className="reverse" />
+                <ChevronDownIcon className="rotate-180" />
               ) : null}
             </button>
           </div>
-          <div className="action-bar-item">
+          <div className={actionBarItemStyles}>
             <CategoryList />
           </div>
-          <div className="action-bar-item">
+          <div className={actionBarItemStyles}>
             <TagList />
           </div>
         </>
       )}
       <div
         className={
-          isOpen ? "action-bar-item-search-full" : "action-bar-item-search"
+          isOpen
+            ? `${actionBarSearchStyles} w-full`
+            : `${actionBarSearchStyles} justify-center`
         }
       >
         {isOpen && (
@@ -107,7 +116,7 @@ export default function BlogActionBar() {
             placeholder="Search by post name"
             value={searchInputValue}
             onChange={handleSearchInputChange}
-            className="action-bar-item-search-input"
+            className="text-base w-full my-[3px] mx-2.5 pt-[1px] px-1 bg-transparent border-0 border-b-[1px] border-b-solid border-b-black outline-0"
           />
         )}
         <SearchIcon width={26} height={26} onClick={handleClickOnSearch} />

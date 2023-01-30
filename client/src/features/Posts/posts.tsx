@@ -31,11 +31,11 @@ export default function Posts({
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <div className="posts-container">
+    <div className="flex flex-col items-center">
       {posts.length ? (
         <>
           <div
-            className="posts-wrapper"
+            className={`grid grid-cols-4 gap-5 w-full mb-6`}
             style={{ gridTemplateColumns: `repeat(${gridColNum}, 1fr)` }}
           >
             {posts.map((post) => (
@@ -56,7 +56,7 @@ export default function Posts({
           </div>
           {showLoadMore ? (
             <Button
-              className="load-more-btn"
+              className="text-lg py-2.5 px-5 max-w-[150px] rounded-lg border-[1px] border-solid border-bBrown bg-bBrown cursor-pointer"
               onClick={handleIncreaseLimit}
               isLoading={isLoadMoreLoading}
             >
@@ -66,13 +66,16 @@ export default function Posts({
         </>
       ) : (
         <>
-          <p className="posts-empty-text">
+          <p className="text-lg mx-auto mb-2.5">
             There are no posts in{" "}
             {user?.role === Role.CREATOR && isUserPosts ? "your" : "the"} blog
             yet
           </p>
           {user?.role === Role.CREATOR && isUserPosts ? (
-            <button className="link-button" onClick={() => setIsOpen(true)}>
+            <button
+              className="bg-none border-0 outline-0 color-bBrownHover underline cursor-pointer"
+              onClick={() => setIsOpen(true)}
+            >
               Start it now!
             </button>
           ) : null}

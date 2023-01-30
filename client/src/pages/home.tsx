@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <MainSlider />
-      <div className="main-wrapper">
+      <div className="w-full max-w-[1200px] mx-auto py-4 px-6">
         <Blog />
       </div>
     </>
