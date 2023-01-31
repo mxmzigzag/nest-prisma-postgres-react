@@ -7,7 +7,10 @@ import { schema } from "./postForm.schema";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useGetAllCategoriesQuery } from "../../store/api/category.api";
-import { useCreatePostMutation } from "../../store/api/post.api";
+import {
+  useCreatePostMutation,
+  useUpdatePostMutation,
+} from "../../store/api/post.api";
 import {
   useCreateTagMutation,
   useGetAllTagsQuery,
@@ -37,6 +40,7 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
 
   const [createTag] = useCreateTagMutation();
   const [createPost, { isLoading: isCreateLoading }] = useCreatePostMutation();
+  const [updatePost, { isLoading: isUpdateLoading }] = useUpdatePostMutation();
 
   const defaultValues = {
     ...post,
@@ -57,7 +61,7 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
 
   const formState = watch();
 
-  const onSubmit = async (formData: Partial<CreatePost>) => {
+  const onSubmit = async (formData: Partial<CreatePost & { id?: string }>) => {
     try {
       const newTags = formData.tags?.filter((tag) => tag.isNew) || [];
       const tagIds = formData.tags?.map((tag) => tag.id) || [];
@@ -72,9 +76,14 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
         newFormData.append(key, value);
       });
       newFormData.set("tags", JSON.stringify(tagIds));
-      await createPost(newFormData);
+      if (formData.id) {
+        await updatePost({ postId: formData.id, post: newFormData });
+        successToast("Post updated!");
+      } else {
+        await createPost(newFormData);
+        successToast("Post is created! Wait for moderator validation.");
+      }
       setIsOpen(false);
-      successToast("Post is created! Wait for moderator validation.");
     } catch (err: any) {
       errorToast(err.data.message);
     }
@@ -107,6 +116,7 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
       <Upload
         label="Image"
         name="image"
+        value={formState.image?.toString()}
         setValue={(value) => setValue("image", value)}
       />
       {categoriesData ? (
@@ -116,6 +126,7 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
             defaultText="Select a category"
             items={categoriesData.page}
             setItem={(item) => setValue("categoryId", item)}
+            currentItem={formState.categoryId}
           />
         </div>
       ) : null}
@@ -130,7 +141,7 @@ export default function PostForm({ post = {}, setIsOpen }: Props) {
           setTags={(tags) => setValue("tags", tags)}
         />
       </div>
-      <Button type="submit" isLoading={isCreateLoading}>
+      <Button type="submit" isLoading={isCreateLoading || isUpdateLoading}>
         {post.id ? "Update" : "Create"}
       </Button>
     </form>

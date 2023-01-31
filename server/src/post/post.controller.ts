@@ -90,8 +90,14 @@ export class PostController {
   }
 
   @Put('/post/:id')
-  updatePost(@Param('id') id: string, @Body() postDto: UpdatePostDto) {
-    return this.postService.updatePost(id, postDto);
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(FileInterceptor('image'))
+  updatePost(
+    @Param('id') id: string,
+    @Body() postDto: UpdatePostDto,
+    @UploadedFile() image: any,
+  ) {
+    return this.postService.updatePost(id, postDto, image);
   }
 
   @Put('/post/:id/views')

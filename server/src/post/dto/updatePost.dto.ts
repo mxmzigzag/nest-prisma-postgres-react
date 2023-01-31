@@ -3,5 +3,5 @@ export class UpdatePostDto {
   readonly description: string;
   readonly body: string;
   readonly categoryId: string;
-  readonly tags: { name: string }[];
+  readonly tags: string[];
 }

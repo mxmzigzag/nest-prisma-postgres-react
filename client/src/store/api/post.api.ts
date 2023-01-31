@@ -75,6 +75,18 @@ export const postApi = globalApi
         },
         invalidatesTags: ["Post"],
       }),
+      updatePost: build.mutation<Post, { postId: string; post: FormData }>({
+        query: ({ postId, post }) => {
+          const token = localStorage.getItem("token");
+          return {
+            url: `post/${postId}`,
+            method: "PUT",
+            body: post,
+            headers: { Authorization: `Bearer ${token}` },
+          };
+        },
+        invalidatesTags: ["Post"],
+      }),
     }),
   });
 
@@ -85,4 +97,5 @@ export const {
   useGetPostsByAuthorIdQuery,
   useGetOnePostQuery,
   useUpdatePostViewsCountMutation,
+  useUpdatePostMutation,
 } = postApi;

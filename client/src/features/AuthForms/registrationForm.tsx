@@ -30,6 +30,7 @@ export default function RegistrationForm() {
   };
 
   const {
+    watch,
     register,
     formState: { errors },
     setValue,
@@ -38,6 +39,8 @@ export default function RegistrationForm() {
     defaultValues,
     resolver: yupResolver(schema),
   });
+
+  const formState = watch();
 
   const handleFileUpload = (file: File) => {
     setValue("image", file);
@@ -87,6 +90,7 @@ export default function RegistrationForm() {
       <Upload
         label="Avatar"
         name="avatar"
+        value={formState.image.toString()}
         setValue={handleFileUpload}
         error={errors.image?.message}
       />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import UploadIcon from "../../assets/svg/upload";
 import { ErrorText } from "./errorText";
@@ -6,16 +6,14 @@ import { ErrorText } from "./errorText";
 type Props = {
   label: string;
   name: string;
+  value: string | undefined;
   setValue: (file: File) => void;
   error?: string;
 };
 
-export default function Upload({ label, name, setValue, error }: Props) {
-  const [fileName, setFileName] = useState<string>("");
-
+export default function Upload({ label, name, value, setValue, error }: Props) {
   const handleUpload = (e: any) => {
     const file = e.target.files[0];
-    setFileName(file.name);
     setValue(file);
   };
 
@@ -25,15 +23,15 @@ export default function Upload({ label, name, setValue, error }: Props) {
         <label htmlFor={name}>{label}</label>
         <div className="flex items-center justify-between py-2.5">
           <p className="text-lg">
-            {fileName ? `File is uploaded (${fileName})` : "Choose a file"}
+            {value ? `File is uploaded (${value})` : "Choose a file"}
           </p>
           <label
             htmlFor={name}
             className={`flex border-2 border-solid border-black rounded-xl p-1 cursor-pointer ${
-              fileName && "border-bGreen"
+              value && "border-bGreen"
             }`}
           >
-            <UploadIcon className={fileName && "fill-bGreen"} />
+            <UploadIcon className={value && "fill-bGreen"} />
           </label>
         </div>
         <input

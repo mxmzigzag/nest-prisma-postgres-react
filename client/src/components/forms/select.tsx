@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import ChevronDownIcon from "../../assets/svg/chevronDown";
 
@@ -7,10 +7,16 @@ type Item = { id: string; title: string };
 type Props = {
   defaultText: string;
   items: Item[];
+  currentItem: string | undefined;
   setItem: (item: string) => void;
 };
 
-export default function Select({ defaultText, items, setItem }: Props) {
+export default function Select({
+  defaultText,
+  items,
+  currentItem,
+  setItem,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeItem, setActiveItem] = useState<Item | null>(null);
 
@@ -21,6 +27,13 @@ export default function Select({ defaultText, items, setItem }: Props) {
     setIsOpen(false);
     setActiveItem(item);
   };
+
+  useEffect(() => {
+    if (currentItem) {
+      const item = items.find((item) => item.id === currentItem) || null;
+      setActiveItem(item);
+    }
+  }, [currentItem]);
 
   return (
     <div className="flex flex-col relative w-fit">

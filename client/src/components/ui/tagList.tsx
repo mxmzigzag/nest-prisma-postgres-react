@@ -45,7 +45,7 @@ export default function TagList() {
         Tags
       </button>
       {!isLoading && tagsData && isOpen ? (
-        <div className="absolute top-[130%] left-0 right-0 max-h-[110px] flex flex-col bg-white rounded z-10 overflow-auto shadow-bShadow">
+        <div className="absolute top-[130%] left-0 right-0 max-h-[110px] flex flex-col bg-white rounded z-30 overflow-auto shadow-bShadow">
           <div className="flex items-center sticky top-0 left-0 right-0">
             <SearchIcon
               width={18}

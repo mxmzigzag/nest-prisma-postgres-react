@@ -84,7 +84,12 @@ export default function ProfileLayout({
           .filter((item) => item.allowedRoles.includes(user.role))
           .map((item) => (
             <li key={item.id} className="py-2.5 pr-2.5">
-              <NavLink to={item.link} className="text-black text-lg relative">
+              <NavLink
+                to={item.link}
+                className={({ isActive }) =>
+                  `"text-black text-lg relative" ${isActive && "!underline"}`
+                }
+              >
                 {item.name}{" "}
                 {item.notifications ? (
                   <span className="absolute -top-[3px] -right-4 bg-bRed rounded-full text-xxs flex items-center justify-center w-4 h-4 text-white">

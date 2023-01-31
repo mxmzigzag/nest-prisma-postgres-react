@@ -160,23 +160,30 @@ export class PostService {
     });
   }
 
-  async updatePost(id: string, postDto: UpdatePostDto) {
+  async updatePost(id: string, postDto: UpdatePostDto, image: any) {
     const { title, description, body, categoryId, tags } = postDto;
+    const data = {
+      title,
+      description,
+      body,
+      categoryId,
+    };
+    console.log('t', tags);
+
+    if (image) {
+      const fileName = await this.filesService.createFile(image);
+      data['image'] = fileName;
+    }
     return this.prismaService.post.update({
       where: { id },
       data: {
-        title,
-        description,
-        body,
-        categoryId,
-        tags: {
-          create: tags.map((tag) => ({
-            assignedAt: new Date(),
-            tag: {
-              create: tag,
-            },
-          })),
-        },
+        ...data,
+        // tags: {
+        //   connectOrCreate: tags.map((tag) => ({
+        //     where: { postId_tagId: tag },
+        //     create: { assignedAt: new Date(), tagId: tag },
+        //   })),
+        // },
       },
     });
   }
