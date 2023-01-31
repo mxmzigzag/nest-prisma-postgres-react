@@ -8,7 +8,7 @@ export default function Login() {
   return (
     <AuthLayout>
       <LoginForm />
-      <p className="form-undertext">
+      <p className="text-base mt-2.5">
         Don`t have an account yet?{" "}
         <NavLink to="/registation">Create one.</NavLink>
       </p>

@@ -8,7 +8,7 @@ export default function Register() {
   return (
     <AuthLayout>
       <RegistrationForm />
-      <p className="form-undertext">
+      <p className="text-base mt-2.5">
         Already have an account? <NavLink to="/login">Log in.</NavLink>
       </p>
     </AuthLayout>

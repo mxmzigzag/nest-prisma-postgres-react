@@ -61,8 +61,8 @@ export default function RegistrationForm() {
   };
 
   return (
-    <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="text-center form-title">Sign in</h1>
+    <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+      <h1 className="text-center text-[20px] uppercase mb-4">Sign in</h1>
       <InputGroup
         label="Name"
         name="name"

@@ -7,6 +7,7 @@ module.exports = {
         offWhiteLight: "#e6e6e6",
         bBrown: "#deb887",
         bBrownHover: "#d89e52",
+        bAuthBg: "#a37340",
         bGray: "#969696",
         bGrayLight: "#cccccc",
         bModalBack: "rgba(0, 0, 0, 0.25);",

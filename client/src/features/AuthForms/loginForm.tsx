@@ -43,8 +43,8 @@ export default function LoginForm() {
   };
 
   return (
-    <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="text-center form-title">Log in</h1>
+    <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+      <h1 className="text-center text-[20px] uppercase mb-4">Log in</h1>
       <InputGroup
         label="Email"
         name="email"

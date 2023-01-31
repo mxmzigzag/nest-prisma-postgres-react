@@ -177,7 +177,7 @@ const RowActions = ({ category }: RowActionsProps) => {
         title="Edit Category"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        customWrapperClass="category-form-wrapper"
+        customWrapperClass="w-full max-w-[660px] h-[25vh] mx-auto bg-white rounded-lg"
       >
         <CategoryForm setIsOpen={setIsOpen} category={category} />
       </Modal>

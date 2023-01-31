@@ -19,7 +19,7 @@ type Slide = {
 export default function MainSlider() {
   const { data: topViewedPosts, isLoading } = useGetTopViewedPostsQuery();
   return (
-    <div className="slider-wrap">
+    <div className="flex items-center justify-center">
       {isLoading || !topViewedPosts ? (
         <Loader />
       ) : topViewedPosts.length >= 3 ? (
@@ -37,9 +37,7 @@ export default function MainSlider() {
             />
           ))}
           responsive={{
-            0: {
-              items: 1,
-            },
+            0: { items: 1 },
             1024: { items: 3 },
             1400: { items: 5 },
           }}
@@ -52,25 +50,46 @@ export default function MainSlider() {
 const Slide = ({ id, title, image, description, categoryId }: Slide) => {
   const { data: category, isLoading } = useGetOneCategoryQuery(categoryId);
   return (
-    <NavLink to={`post/${id}`} className="slide-wrap">
+    <NavLink to={`post/${id}`} className="w-1/5">
       <div
-        className="slide"
+        className={slideStyles}
         style={{ backgroundImage: `url(http://localhost:5000/${image})` }}
       >
-        <div className="slide-content">
+        <div className="mt-auto z-10">
           {isLoading || !category ? null : (
             <span
-              className="slide-category"
+              className="py-0.5 px-1.5 rounded text-white"
               style={{ backgroundColor: category.color }}
             >
               {category.title}
             </span>
           )}
-          <p className="slide-title">{title}</p>
-          <p className="slide-descr">{description}</p>
+          <p className="text-[20px] text-white my-4">{title}</p>
+          <p className="text-base text-white">{description}</p>
         </div>
-        <div className="slide-darkness"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 transtition-all group-hover:opacity-0 group-hover:transition-all"></div>
       </div>
     </NavLink>
   );
 };
+
+const slideStyles = `
+  flex 
+  group
+  min-h-[430px] 
+  py-10 
+  px-2.5 
+  relative 
+  bg-[length:270%] 
+  bg-right 
+  transition-all 
+  hover:bg-[length:280%] 
+  before:absolute 
+  before:top-0 
+  before:left-0 
+  before:w-full 
+  before:h-full 
+  before:bg-bBgGradient 
+  before:transition-all
+
+`;

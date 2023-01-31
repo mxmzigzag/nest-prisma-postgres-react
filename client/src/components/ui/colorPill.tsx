@@ -6,9 +6,12 @@ type Props = {
 
 export default function ColorPill({ color }: Props) {
   return (
-    <div className="color-pill-wrap">
-      <div className="color-pill-box" style={{ backgroundColor: color }}></div>
-      <span className="color-pill-text">{color}</span>
+    <div className="flex items-center">
+      <div
+        className="w-[15px] h-[15px] rounded mr-1 border-[1px] border-solid border-bGrayLight"
+        style={{ backgroundColor: color }}
+      ></div>
+      <span className="text-lg">{color}</span>
     </div>
   );
 }

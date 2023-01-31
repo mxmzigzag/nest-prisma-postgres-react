@@ -11,3 +11,23 @@
 a {
   text-decoration: none;
 }
+
+.alice-carousel__dots {
+  margin: 0;
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+}
+
+.alice-carousel__dots-item:not(.__custom) {
+  border-radius: 0;
+}
+
+.alice-carousel__dots-item:not(.__custom):only-child {
+  display: none;
+}
+
+.alice-carousel__dots-item:not(.__custom):hover,
+.alice-carousel__dots-item:not(.__custom).__active {
+  background-color: burlywood;
+}

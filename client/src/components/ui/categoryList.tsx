@@ -38,7 +38,7 @@ export default function CategoryList() {
         Category
       </button>
       {!isLoading && categoriesData && isOpen ? (
-        <div className="absolute top-[130%] left-0 right-0 max-h-[110px] flex flex-col bg-white rounded z-10 overflow-auto shadow-bShadow">
+        <div className="absolute top-[130%] left-0 right-0 max-h-[110px] flex flex-col bg-white rounded z-30 overflow-auto shadow-bShadow">
           {categoriesData.page.length ? (
             categoriesData.page.map((ctg) => (
               <button

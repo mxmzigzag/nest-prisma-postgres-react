@@ -14,7 +14,7 @@ export default function RequestStatusCell({ status }: Props) {
       className="flex items-center justify-center w-[40px]"
       style={{ backgroundColor: getStatusColor(status) }}
     >
-      <span className="text-lg text-white tracking-[1px] -rotate-90 -translate-y-[8px]">
+      <span className="text-lg text-white tracking-[1px] -rotate-90">
         {status}
       </span>
     </div>
