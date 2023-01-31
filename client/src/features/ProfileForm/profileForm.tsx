@@ -84,9 +84,12 @@ export default function ProfileForm({ userData }: Props) {
   };
 
   return (
-    <form className="profile-form" onSubmit={handleSubmit(onSubmit)}>
-      <div className="profile-form-avatar">
-        <label htmlFor="avatar">
+    <form className="flex flex-wrap" onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex justify-center w-full mb-4">
+        <label
+          htmlFor="avatar"
+          className="flex rounded-full overflow-hidden bg-white border-2 border-solid border-black p-2.5 cursor-pointer"
+        >
           {formState.avatar ? (
             <img
               src={`http://localhost:5000/${formState.avatar}`}
@@ -101,7 +104,7 @@ export default function ProfileForm({ userData }: Props) {
           id="avatar"
           name="avatar"
           accept="image/*"
-          className="hidden"
+          className="hidden w-0 h-0"
           onChange={handleUpload}
         />
       </div>
@@ -137,7 +140,11 @@ export default function ProfileForm({ userData }: Props) {
         error={errors.email?.message}
         fullWidth={false}
       />
-      <Button type="submit" className="profile-form-btn" isLoading={isLoading}>
+      <Button
+        type="submit"
+        className="w-full max-w-[150px] ml-auto"
+        isLoading={isLoading}
+      >
         Save
       </Button>
     </form>

@@ -46,15 +46,19 @@ export default function RequestActions({ reqId, isPendingStatus }: Props) {
   };
 
   return (
-    <div className={`requests-actions ${isPendingStatus && "border-l"}`}>
+    <div
+      className={`flex flex-col items-center justify-center p-2.5 w-[38px] ${
+        isPendingStatus && "border-l-[1px] border-l-solid border-l-black"
+      }`}
+    >
       {isPendingStatus ? (
         <>
           <AcceptIcon
-            className="requests-actions-accept"
+            className="mb-2.5 cursor-pointer hover:fill-bGreen"
             onClick={handleAcceptRequest}
           />
           <RejectIcon
-            className="requests-actions-reject"
+            className="cursor-pointer hover:fill-bRed"
             onClick={handleRejectRequest}
           />
         </>

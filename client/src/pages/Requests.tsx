@@ -41,13 +41,13 @@ export default function Requests() {
         <Loader />
       ) : requests.length ? (
         <>
-          <ul className="requests-list">
+          <ul className="list-none mb-5">
             {requests.map((req) => (
               <Request key={req.id} request={req} />
             ))}
           </ul>
           <Button
-            className="load-more-btn mx-auto"
+            className="text-lg py-1.5 px-2.5 max-w-[150px] rounded-lg border-[1px] border-solid border-bBrown bg-bBrown cursor-pointer mx-auto"
             onClick={handleIncreaseLimit}
             isLoading={isFetching}
           >
@@ -55,7 +55,7 @@ export default function Requests() {
           </Button>
         </>
       ) : (
-        <p className="posts-empty-text">No requests found here!</p>
+        <p className="text-lg mx-auto mb-2.5">No requests found here!</p>
       )}
     </ProfileLayout>
   );

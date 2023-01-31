@@ -29,7 +29,7 @@ export default function Categories() {
       {isLoading || !categoriesData ? (
         <Loader />
       ) : (
-        <div className="categories-wrapper">
+        <div className="flex flex-col">
           {categoriesData.totalCount ? (
             <>
               <CategoriesList categories={categoriesData.page} />
@@ -42,8 +42,8 @@ export default function Categories() {
               />
             </>
           ) : (
-            <div className="categories-empty-wrapper">
-              <p className="categories-empty-text">There is no categories!</p>
+            <div className="flex flex-col items-center w-full max-w-[300px] mx-auto p-5">
+              <p className="text-lg">There is no categories!</p>
             </div>
           )}
         </div>
@@ -52,7 +52,7 @@ export default function Categories() {
         title="Create Category"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        customWrapperClass="category-form-wrapper"
+        customWrapperClass="w-full max-w-[660px] h-[25vh] mx-auto bg-white rounded-lg"
       >
         <CategoryForm setIsOpen={setIsOpen} />
       </Modal>

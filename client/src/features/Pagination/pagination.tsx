@@ -26,8 +26,8 @@ export function Pagination({
   const noPages = totalPages <= 1;
 
   return (
-    <div className="pagination-wrapper">
-      <div className="pagination-summary">
+    <div className="flex flex-row items-center justify-between mb-4">
+      <div className="text-lg">
         {itemCount > 0 ? (
           <>
             Showing <strong>{(currentPage - 1) * pageLimit + 1}</strong> to{" "}
@@ -42,16 +42,18 @@ export function Pagination({
         ) : null}
       </div>
       {noPages ? null : (
-        <div className="pagination-actions">
+        <div className="flex items-center">
           <Button
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={isFirstPage}
+            className="ml-2.5 w-full"
           >
             Previous
           </Button>
           <Button
             onClick={() => setCurrentPage(currentPage + 1)}
             disabled={isLastPage}
+            className="ml-2.5 w-full"
           >
             Next
           </Button>

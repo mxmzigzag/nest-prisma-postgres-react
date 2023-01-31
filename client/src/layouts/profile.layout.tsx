@@ -78,16 +78,16 @@ export default function ProfileLayout({
 
   if (!user) return null;
   return (
-    <div className="profile-wrapper">
-      <ul className="profile-navbar">
+    <div className="flex flex-1 w-full max-w-[1200px] mx-auto px-6">
+      <ul className="flex flex-col w-[200px] border-r-[1px] border-r-solid border-r-black py-6 pr-4 list-none">
         {navItems
           .filter((item) => item.allowedRoles.includes(user.role))
           .map((item) => (
-            <li key={item.id}>
-              <NavLink to={item.link}>
+            <li key={item.id} className="py-2.5 pr-2.5">
+              <NavLink to={item.link} className="text-black text-lg relative">
                 {item.name}{" "}
                 {item.notifications ? (
-                  <span className="navbar-notification">
+                  <span className="absolute -top-[3px] -right-4 bg-bRed rounded-full text-xxs flex items-center justify-center w-4 h-4 text-white">
                     {item.notifications}
                   </span>
                 ) : null}
@@ -98,11 +98,11 @@ export default function ProfileLayout({
           <Button onClick={handleLogout}>Logout</Button>
         </li>
       </ul>
-      <div className="profile-content">
-        <div className="profile-content-row">
-          <h2 className="profile-title">{title}</h2>
+      <div className="flex flex-col w-full p-6">
+        <div className="flex item-center justify-between mb-6">
+          <h2 className="text-3xl">{title}</h2>
           {btnTitle ? (
-            <Button onClick={btnOnClick} className="profile-btn">
+            <Button onClick={btnOnClick} className="max-w-[200px]">
               {btnTitle}
             </Button>
           ) : null}

@@ -58,15 +58,18 @@ export default function CategoryForm({
   };
 
   return (
-    <form className="category-form" onSubmit={handleSubmit(onSubmit)}>
-      <div className="category-form-content">
+    <form
+      className="flex flex-col bg-white rounded-lg"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="flex items-center p-2.5">
         <InputGroup
           label="Title"
           name="title"
           placeholder="Title"
           register={register}
           error={errors.title?.message}
-          className="category-form-input"
+          className="py-0 px-1"
         />
         <InputGroup
           label="Color"
@@ -74,12 +77,12 @@ export default function CategoryForm({
           placeholder="Color"
           register={register}
           error={errors.color?.message}
-          className="category-form-input"
+          className="py-0 px-1"
         />
       </div>
       <Button
         type="submit"
-        className="category-form-btn"
+        className="max-w-[200px] mx-auto mb-2.5"
         isLoading={isLoadingCreation || isLoadingUpdation}
       >
         {category.title ? "Update" : "Save"}

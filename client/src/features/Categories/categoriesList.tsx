@@ -27,6 +27,9 @@ type RowActionsProps = {
   category: Category;
 };
 
+const headerCellStyles =
+  "text-lg py-1 px-2.5 border-r-[1px] border-r-solid border-r-bGrayLight last:border-r-0";
+
 export default function CategoriesList({ categories }: Props) {
   const [confirmationIsOpen, setConfirmationIsOpen] = useState<boolean>(false);
   const [checkList, setCheckList] = useState<string[]>([]);
@@ -57,22 +60,23 @@ export default function CategoriesList({ categories }: Props) {
   };
 
   return (
-    <div className="categories-table">
-      <div className="categories-header">
-        <div className="categories-header-check">
+    <div className="flex flex-col border-[1px] border-solid border-bGrayLight rounded-lg overflow-hidden mb-2.5">
+      <div className="group grid grid-cols-bCategoryGrid border-b-2 border-b-solid border-b-bGray bg-white relative">
+        <div className="flex items-center justify-center p-1 border-r-[1px] border-r-solid border-r-bGrayLight">
           <Checkbox
             checked={checkList.length === categories.length}
             onChange={handleCheckAll}
           />
         </div>
-        <div className="categories-header-cell">Name</div>
-        <div className="categories-header-cell">Color</div>
+        <div className={headerCellStyles}>Name</div>
+        <div className={headerCellStyles}>Color</div>
         {checkList.length === categories.length ? (
-          <div className="categories-header-actions">
+          <div className="hidden absolute top-1/2 right-2.5 -translate-y-1/2 border-[1px] border-solid border-bGrayLight rounded-lg overflow-hidden group-hover:flex">
             <DeleteIcon
               width={24}
               height={24}
               onClick={() => setConfirmationIsOpen(true)}
+              className="py-0.5 px-1 cursor-pointer hover: bg-bGrayLight"
             />
             <Confirmation
               isOpen={confirmationIsOpen}
@@ -85,15 +89,20 @@ export default function CategoriesList({ categories }: Props) {
         ) : null}
       </div>
       {categories.map((category) => (
-        <div key={category.id} className="categories-row">
-          <div className="categories-row-check">
+        <div
+          key={category.id}
+          className="group grid grid-cols-bCategoryGrid bg-white relative border-b-[1px] border-b-solid border-b-bGrayLight last:border-b-0"
+        >
+          <div className="flex items-center justify-center p-1 border-r-[1px] border-r-solid border-r-bGrayLight">
             <Checkbox
               checked={checkList.includes(category.id)}
               onChange={() => handleCheckRow(category.id)}
             />
           </div>
-          <div className="categories-row-cell">{category.title}</div>
-          <div className="categories-row-color">
+          <div className="text-[20px] py-1 px-2.5 border-r-[1px] border-r-solid border-r-bGrayLight">
+            {category.title}
+          </div>
+          <div className="py-1 px-2.5">
             <ColorPill color={category.color} />
           </div>
           <RowActions category={category} />
@@ -137,13 +146,24 @@ const RowActions = ({ category }: RowActionsProps) => {
 
   return (
     <>
-      <div className="categories-row-actions">
-        <PenIcon width={24} height={24} onClick={() => setIsOpen(true)} />
-        <CopyIcon width={24} height={24} onClick={handleDuplicate} />
+      <div className="hidden absolute top-1/2 right-2.5 -translate-y-1/2  border-[1px] border-solid border-bGrayLight rounded-lg overflow-hidden group-hover:flex">
+        <PenIcon
+          width={24}
+          height={24}
+          onClick={() => setIsOpen(true)}
+          className="py-0.5 px-1 border-r-[1px] border-r-solid border-r-bGrayLight cursor-pointer hover:bg-bGrayLight"
+        />
+        <CopyIcon
+          width={24}
+          height={24}
+          onClick={handleDuplicate}
+          className="py-0.5 px-1 border-r-[1px] border-r-solid border-r-bGrayLight cursor-pointer hover:bg-bGrayLight"
+        />
         <DeleteIcon
           width={24}
           height={24}
           onClick={() => setConfirmationIsOpen(true)}
+          className="py-0.5 px-1 cursor-pointer hover:bg-bGrayLight"
         />
         <Confirmation
           isOpen={confirmationIsOpen}

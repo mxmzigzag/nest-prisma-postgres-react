@@ -86,7 +86,7 @@ export default function Post() {
             </div>
             <div className="flex flex-col items-center max-w-[400px] text-white z-10">
               <h1 className="text-[42px] text-center mb-4">{post.title}</h1>
-              <h3 className="text-xl text-center mb-2.5">{post.description}</h3>
+              <h3 className="text-lg text-center mb-2.5">{post.description}</h3>
             </div>
             <div className="flex items-center justify-between max-w-[300px] w-full mt-6 text-white z-10">
               <div className="text-white text-lg">{post.author.username}</div>
@@ -100,7 +100,7 @@ export default function Post() {
                 post={post}
                 text="Edit"
                 iconSize={18}
-                className="absolute bottom-5 right-5 bg-bBrown border-0 cursor-pointer flex items-center py-1 px-2.5 rounded"
+                className="absolute bottom-5 right-5 bg-bBrown border-0 cursor-pointer flex items-center py-1 px-2.5 rounded hover:bg-bBrownHover"
               />
             ) : null}
           </div>

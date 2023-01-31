@@ -94,27 +94,27 @@ const BecomeCreatorNotification = ({ userId }: { userId: string }) => {
   };
 
   return (
-    <div className="bcn-wrapper">
+    <div className="flex flex-col items-center w-full max-w-[500px] mx-auto">
       {isSentLoading ? (
         <Loader />
       ) : (
         <>
-          <h3 className="bcn-title">No posts here yet!</h3>
+          <h3 className="text-[42px] mb-6">No posts here yet!</h3>
           {isRequestSent ? (
-            <p className="bcn-content">
+            <p className={contentStyles}>
               Your request for becoming a{" "}
-              <span className="bcn-highlight">creator</span> is in work.
+              <span className="text-bBrownHover">creator</span> is in work.
               <br />
               Wait till administration procces it!
             </p>
           ) : (
             <>
-              <p className="bcn-content">
+              <p className={contentStyles}>
                 To start writing your own articles you need to become a{" "}
-                <span className="bcn-highlight">creator</span>
+                <span className="text-bBrownHover">creator</span>
               </p>
               <Button
-                className="bcn-btn"
+                className="rounded-full w-full max-w-[200px]"
                 onClick={handleSendCreatorRequest}
                 isLoading={isLoading}
               >
@@ -127,3 +127,5 @@ const BecomeCreatorNotification = ({ userId }: { userId: string }) => {
     </div>
   );
 };
+
+const contentStyles = "text-lg text-center leading-normal mb-4";

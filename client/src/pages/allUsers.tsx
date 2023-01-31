@@ -33,7 +33,7 @@ const UsersGrid = () => {
   return isLoading ? (
     <Loader />
   ) : users.length ? (
-    <div className="users-wrapper">
+    <div className="grid grid-cols-5 gap-5">
       {users.map((user) => (
         <UserCard key={user.id} user={user} />
       ))}
@@ -66,9 +66,13 @@ const UserCard = ({ user }: { user: User }) => {
   };
 
   return (
-    <div className="user-card">
-      {user.banned ? <div className="banned-badge">Banned</div> : null}
-      <div className="user-actions">
+    <div className="group flex flex-col items-center bg-white rounded-lg py-5 px-3 relative shadow-bShadow transition-all hover:shadow-bShadowHover hover:transition-all">
+      {user.banned ? (
+        <div className="absolute top-2 left-2 bg-bGrayLight rounded-lg px-1.5 text-sm">
+          Banned
+        </div>
+      ) : null}
+      <div className="invisible absolute top-2 right-2 group-hover:visible">
         {user.banned ? (
           <UnlockIcon
             className="cursor-pointer"
@@ -85,14 +89,14 @@ const UserCard = ({ user }: { user: User }) => {
           />
         )}
       </div>
-      <div className="user-img">
+      <div className="flex items-center justify-center mb-2.5">
         <UserIcon width={50} height={50} />
       </div>
-      <h5 className="user-username">{user.username}</h5>
-      <p className="user-namestring">
+      <h5 className="text-lg mb-1">{user.username}</h5>
+      <p className="text-sm text-bGray mb-0">
         {user.name} {user.surname}
       </p>
-      <p className="user-mail">{user.email}</p>
+      <p className="text-sm text-bGray">{user.email}</p>
     </div>
   );
 };

@@ -59,15 +59,15 @@ export default function PostCard({
       <div className="flex flex-col items-baseline mt-auto w-full z-10">
         {category ? (
           <span
-            className="inline-block rounded py-0.5 px-1 text-white"
+            className="inline-block rounded px-1 text-white"
             style={{ backgroundColor: category.color }}
             onClick={() => console.log(categoryId)}
           >
             {category.title}
           </span>
         ) : null}
-        <p className="text-lg mt-2.5 mb-3 text-white">{title}</p>
-        <p className="text-sm text-white">{description}</p>
+        <p className="text-lg mt-2.5 mb-2 text-white">{title}</p>
+        <p className="text-sm text-white mb-1">{description}</p>
       </div>
       <div className="flex items-center justify-between text-white w-full z-10">
         {author ? (

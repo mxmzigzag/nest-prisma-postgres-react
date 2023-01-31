@@ -12,10 +12,7 @@ export default function PostTags({ tags, limit = 3 }: Props) {
   return (
     <div className="flex items-center z-10">
       {tags.slice(0, limit).map(({ tag }) => (
-        <div
-          className="rounded bg-bBrown py-0.5 px-1 mr-1 text-white"
-          key={tag.name}
-        >
+        <div className="rounded bg-bBrown px-1 mr-1 text-white" key={tag.name}>
           {tag.name}
         </div>
       ))}

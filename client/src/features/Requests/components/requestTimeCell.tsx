@@ -8,9 +8,9 @@ type Props = {
 
 export default function RequestTimeCell({ name, time }: Props) {
   return (
-    <div className="requests-time">
-      <span className="requests-head">{name}</span>
-      <span className="requests-text">
+    <div className="flex flex-col py-5 px-4">
+      <span className="text-bGray mb-4">{name}</span>
+      <span className="text-lg">
         {time ? dayjs(time).format("MMMM DD, YYYY") : "-- : --"}
       </span>
     </div>
