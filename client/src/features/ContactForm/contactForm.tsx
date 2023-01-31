@@ -47,7 +47,10 @@ export default function ContactForm() {
   };
 
   return (
-    <form className="contact-form" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col w-full max-w-[400px] mx-auto"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <InputGroup
         label="Name"
         name="name"
