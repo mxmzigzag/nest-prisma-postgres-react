@@ -10,7 +10,7 @@ type Props = {
 
 export default function Comments({ comments }: Props) {
   return (
-    <div className="comments-wrapper">
+    <div className="flex flex-col">
       {comments.map((comment) => (
         <Comment key={comment.id} comment={comment} />
       ))}

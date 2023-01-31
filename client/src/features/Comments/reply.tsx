@@ -38,14 +38,19 @@ export default function Reply({
   };
 
   return (
-    <div className="comment-reply">
+    <div className="flex flex-col items-end w-full max-w-[90%] mb-4">
       <TextareaInput
         name="reply"
         placeholder={"Write a reply"}
         value={reply}
         onChange={handleReplyChange}
+        className="w-full"
       />
-      <Button onClick={handleAddReply} isLoading={isLoading}>
+      <Button
+        onClick={handleAddReply}
+        isLoading={isLoading}
+        className="mt-4 max-w-[200px]"
+      >
         Send
       </Button>
     </div>

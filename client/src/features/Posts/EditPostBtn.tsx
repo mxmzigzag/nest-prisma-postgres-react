@@ -30,7 +30,7 @@ export default function EditPostBtn({
           setEditIsOpen(true);
         }}
       >
-        {text ? <span>{text}</span> : null}
+        {text ? <span className="text-white text-lg mr-1">{text}</span> : null}
         <PenIcon color="#fff" width={iconSize} height={iconSize} />
       </button>
       <Modal title="Edit Post" isOpen={editIsOpen} setIsOpen={setEditIsOpen}>

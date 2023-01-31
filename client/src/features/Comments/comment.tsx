@@ -64,30 +64,33 @@ export default function Comment({ comment }: Props) {
   };
 
   return (
-    <div className="comment-wrapper">
-      <div className="comment-content">
-        <div className="comment-top">
-          <span className="comment-author">{comment.user.username}</span>
-          <span className="comment-date">
+    <div className="flex flex-col items-end">
+      <div className="flex flex-col py-2.5 px-4 mb-4 border-[1px] border-solid border-black rounded-lg w-full bg-white">
+        <div className="flex items-center justify-between">
+          <span className="text-lg text-bBrown">{comment.user.username}</span>
+          <span className="text-base text-bGrayLight">
             {dayjs(comment.createdAt).format("MMMM DD, YYYY, h:m A")}
           </span>
         </div>
-        <div className="comment-message">{comment.message}</div>
-        <div className="comment-bottom">
-          <button className="comment-like-btn" onClick={handleLike}>
+        <div className="text-lg my-2.5">{comment.message}</div>
+        <div className="flex items-center justify-end">
+          <button
+            className="flex flex-col items-center cursor-pointer bg-transparent border-0 ml-1"
+            onClick={handleLike}
+          >
             {isLikedByMe ? (
               <HeartFilledIcon color="#f64848" />
             ) : (
               <HeartOutlinedIcon color="#f64848" />
             )}
             {comment.like.length ? (
-              <span className="comment-like-count">{comment.like.length}</span>
+              <span className="text-xxs">{comment.like.length}</span>
             ) : null}
           </button>
           {isAuth ? (
             <>
               <button
-                className="comment-reply-btn"
+                className="text-base text-bBrown ml-1 bg-transparent border-0 cursor-pointer hover:text-bBrownHover"
                 onClick={() => setIsReplyOpen(!isReplyOpen)}
               >
                 {isReplyOpen ? (
@@ -98,7 +101,7 @@ export default function Comment({ comment }: Props) {
               </button>
               {isCommentOwner || isAdmin ? (
                 <button
-                  className="comment-btn"
+                  className="bg-transparent border-0 ml-1 cursor-pointer"
                   onClick={() => setConfirmationIsOpen(true)}
                 >
                   <DeleteIcon color="#ff0000" />
@@ -125,7 +128,7 @@ export default function Comment({ comment }: Props) {
         />
       ) : null}
       {childComments.length && !isLoading ? (
-        <div className="comment-child">
+        <div className="flex flex-col w-full max-w-[90%]">
           {childComments.map((comment) => (
             <Comment key={comment.id} comment={comment} />
           ))}

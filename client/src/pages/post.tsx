@@ -64,37 +64,35 @@ export default function Post() {
   }, []);
 
   return (
-    <div className="post-page-wrapper">
+    <div className="flex flex-col flex-1">
       {isLoading || !post ? (
         <Loader />
       ) : (
         <>
           <div
-            className="post-page-top"
+            className="w-full min-h-[40vh] bg-cover flex flex-col items-center justify-between p-5 relative before:absolute before:inset-0 before:bg-black before:opacity-30"
             style={{
               backgroundImage: `url(http://localhost:5000/${post.image})`,
             }}
           >
-            <div className="post-page-top-pills">
+            <div className="flex items-center justify-between w-full mb-6 z-10">
               <div
-                className="post-category"
+                className="inline-block rounded py-0.5 px-1 text-white"
                 style={{ backgroundColor: post.category.color }}
               >
                 {post.category.title}
               </div>
               <PostTags tags={post.tags} limit={post.tags.length} />
             </div>
-            <div className="post-page-top-content">
-              <h1>{post.title}</h1>
-              <h3>{post.description}</h3>
+            <div className="flex flex-col items-center max-w-[400px] text-white z-10">
+              <h1 className="text-[42px] text-center mb-4">{post.title}</h1>
+              <h3 className="text-xl text-center mb-2.5">{post.description}</h3>
             </div>
-            <div className="post-page-top-info">
-              <div className="post-page-top-info-user">
-                {post.author.username}
-              </div>
-              <div className="post-page-top-info-views">
+            <div className="flex items-center justify-between max-w-[300px] w-full mt-6 text-white z-10">
+              <div className="text-white text-lg">{post.author.username}</div>
+              <div className="flex items-center">
                 <ViewsIcon />
-                <span>{post.viewsCount}</span>
+                <span className="ml-1">{post.viewsCount}</span>
               </div>
             </div>
             {isAuthor || isAdmin ? (
@@ -102,22 +100,24 @@ export default function Post() {
                 post={post}
                 text="Edit"
                 iconSize={18}
-                className="post-page-edit-btn"
+                className="absolute bottom-5 right-5 bg-bBrown border-0 cursor-pointer flex items-center py-1 px-2.5 rounded"
               />
             ) : null}
           </div>
-          <div className="post-page-content">{post.body}</div>
-          <div className="post-page-bottom">
+          <div className="flex flex-col flex-1 w-full max-w-[830px] mx-auto py-6 px-4">
+            {post.body}
+          </div>
+          <div className="flex items-center justify-end w-full max-w-[830px] mx-auto mb-6 px-4">
             <CalendarIcon />
-            <span className="post-page-bottom-date">
+            <span className="text-base ml-1">
               {dayjs(post.createdAt).format("MMM DD, YYYY")}
             </span>
           </div>
-          <div className="post-page-comments">
-            <div className="post-page-comments-heading">
-              <h4 className="post-page-comments-title">Comments</h4>
+          <div className="flex flex-col w-full max-w-[830px] mx-auto mb-4 px-4">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="text-xl">Comments</h4>
               {!isLoadingComments && commentsData ? (
-                <span className="post-page-comments-count">
+                <span className="text-lg">
                   {commentsData.totalCount}{" "}
                   {pluralize({
                     text: "comment",
@@ -133,7 +133,7 @@ export default function Post() {
                 <Comments comments={commentsData.comments} />
                 {isAuth ? (
                   <form
-                    className="post-page-comments-form"
+                    className="flex flex-col"
                     onSubmit={handleCreateComment}
                   >
                     <TextareaInput
@@ -141,8 +141,13 @@ export default function Post() {
                       placeholder={"Write a comment"}
                       value={comment}
                       onChange={handleChangeComment}
+                      className="w-full"
                     />
-                    <Button type="submit" isLoading={isSending}>
+                    <Button
+                      type="submit"
+                      isLoading={isSending}
+                      className="max-w-[200px] ml-auto mt-4"
+                    >
                       Send
                     </Button>
                   </form>

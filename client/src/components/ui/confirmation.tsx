@@ -24,13 +24,19 @@ export default function Confirmation({
 }: Props) {
   if (!isOpen) return null;
   return ReactDOM.createPortal(
-    <div className="confirmation">
-      <div className="confirmation-wrapper">
-        <h3 className="confirmation-title">{title}</h3>
-        <p className="confirmation-description">{description}</p>
-        <div className="confirmation-actions">
-          <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-          <Button onClick={() => okCallback()} isLoading={okIsLoading}>
+    <div className="flex items-center justify-center fixed inset-0 z-[12345] bg-bModalBack">
+      <div className="flex flex-col items-center w-full max-w-[450px] mx-auto p-5 bg-white rounded-lg">
+        <h3 className="text-xl text-center mb-6">{title}</h3>
+        <p className="text-lg text-center mb-6">{description}</p>
+        <div className="flex items-center justify-between w-full">
+          <Button onClick={() => setIsOpen(false)} className="mx-2.5">
+            Cancel
+          </Button>
+          <Button
+            onClick={() => okCallback()}
+            isLoading={okIsLoading}
+            className="mx-2.5"
+          >
             {okText}
           </Button>
         </div>

@@ -15,6 +15,9 @@ module.exports = {
         bGreen: "#49a930",
         bRed: "#ff3333",
       },
+      fontSize: {
+        xxs: "10px",
+      },
       backgroundImage: {
         bBgGradient: "linear-gradient(to bottom, transparent 0%, black 150%)",
       },

@@ -7,6 +7,7 @@ type Props = {
   value?: string;
   onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   register?: any;
+  className?: string;
 };
 
 export default function TextareaInput({
@@ -15,6 +16,7 @@ export default function TextareaInput({
   value,
   onChange,
   register,
+  className,
 }: Props) {
   return register ? (
     <textarea
@@ -23,7 +25,7 @@ export default function TextareaInput({
       name={name}
       rows={5}
       placeholder={placeholder}
-      className={baseInputStyles}
+      className={`${baseInputStyles} ${className}`}
     />
   ) : (
     <textarea
@@ -33,7 +35,7 @@ export default function TextareaInput({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      className={baseInputStyles}
+      className={`${baseInputStyles} ${className}`}
     />
   );
 }
