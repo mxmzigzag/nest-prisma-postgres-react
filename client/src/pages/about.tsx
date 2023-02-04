@@ -5,8 +5,8 @@ import PageLayout from "../layouts/page.layout";
 export default function About() {
   return (
     <PageLayout title="About">
-      <div className="flex items-center mb-4">
-        <p className="text-xl leading-tight mr-4">
+      <div className="flex flex-col lg:flex-row items-center mb-4">
+        <p className="text-xl leading-tight mb-4 lg:mb-0 lg:mr-4">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
