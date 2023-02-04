@@ -47,7 +47,7 @@ export default function RequestActions({ reqId, isPendingStatus }: Props) {
 
   return (
     <div
-      className={`flex flex-row lg:flex-col items-center justify-center p-2.5 lg:w-[38px] ${
+      className={`flex flex-row lg:flex-col items-center justify-center px-2 py-1 lg:p-2.5 lg:w-[38px] ${
         isPendingStatus &&
         "border-t-[1px] border-t-black lg:border-t-0 lg:border-l-[1px] lg:border-l-black"
       }`}

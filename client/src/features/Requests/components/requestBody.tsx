@@ -10,7 +10,7 @@ type Props = {
 
 export default function RequestBody({ type, user }: Props) {
   return (
-    <div className="flex flex-col flex-1 py-1.5 px-1 lg:py-5 lg:px-4">
+    <div className="flex flex-col flex-1 py-1.5 px-2 lg:py-5 lg:px-4">
       <span className="text-xs lg:text-base text-bGray mb-0.5 lg:mb-4">
         Request:
       </span>
