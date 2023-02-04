@@ -18,6 +18,7 @@ const config: Configuration = {
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "dist"),
+    publicPath: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
   },
   module: {
