@@ -33,7 +33,7 @@ const UsersGrid = () => {
   return isLoading ? (
     <Loader />
   ) : users.length ? (
-    <div className="grid grid-cols-5 gap-5">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
       {users.map((user) => (
         <UserCard key={user.id} user={user} />
       ))}
@@ -72,7 +72,7 @@ const UserCard = ({ user }: { user: User }) => {
           Banned
         </div>
       ) : null}
-      <div className="invisible absolute top-2 right-2 group-hover:visible">
+      <div className="lg:invisible absolute top-2 right-2 group-hover:visible">
         {user.banned ? (
           <UnlockIcon
             className="cursor-pointer"

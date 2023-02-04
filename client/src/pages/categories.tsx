@@ -52,7 +52,7 @@ export default function Categories() {
         title="Create Category"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        customWrapperClass="w-full max-w-[660px] h-[25vh] mx-auto bg-white rounded-lg"
+        customWrapperClass="w-full max-w-[660px] h-[90vh] lg:h-[25vh] overflow-y-auto mx-auto bg-white rounded-lg"
       >
         <CategoryForm setIsOpen={setIsOpen} />
       </Modal>

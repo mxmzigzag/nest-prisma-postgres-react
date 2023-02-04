@@ -88,11 +88,7 @@ export default function ProfileLayout({
             <li key={item.id} className="py-2.5 pr-2.5 last:pr-0 relative">
               <NavLink
                 to={item.link}
-                className={({ isActive }) =>
-                  `"text-black text-lg whitespace-nowrap relative" ${
-                    isActive && "!underline"
-                  }`
-                }
+                className={"text-black text-lg whitespace-nowrap relative"}
               >
                 {item.name}{" "}
                 {item.notifications ? (
@@ -104,7 +100,7 @@ export default function ProfileLayout({
             </li>
           ))}
         {!isMob && (
-          <li className="mt-auto">
+          <li className="w-full max-w-[180px] mt-auto ml-auto">
             <Button onClick={handleLogout}>Logout</Button>
           </li>
         )}
@@ -115,7 +111,7 @@ export default function ProfileLayout({
           {btnTitle ? (
             <Button
               onClick={btnOnClick}
-              className="max-w-[150px] lg:max-w-[200px]"
+              className="max-w-[150px] lg:max-w-[200px] !py-1.5 !lg:py-3"
             >
               {btnTitle}
             </Button>

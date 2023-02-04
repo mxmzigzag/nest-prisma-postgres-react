@@ -59,10 +59,10 @@ export default function CategoryForm({
 
   return (
     <form
-      className="flex flex-col bg-white rounded-lg"
+      className="flex flex-col bg-white rounded-lg p-2.5"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex items-center p-2.5">
+      <div className="flex flex-col lg:flex-row items-center">
         <InputGroup
           label="Title"
           name="title"
@@ -82,7 +82,7 @@ export default function CategoryForm({
       </div>
       <Button
         type="submit"
-        className="max-w-[200px] mx-auto mb-2.5"
+        className="lg:max-w-[200px] mx-auto mb-2.5"
         isLoading={isLoadingCreation || isLoadingUpdation}
       >
         {category.title ? "Update" : "Save"}
