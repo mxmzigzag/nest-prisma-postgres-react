@@ -101,6 +101,7 @@ const postCardStyles = `
   bg-center 
   relative 
   shadow-bShadow 
+  overflow-hidden
   transition-all 
   before:absolute 
   before:top-0 
