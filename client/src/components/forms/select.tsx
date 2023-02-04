@@ -38,14 +38,14 @@ export default function Select({
   return (
     <div className="flex flex-col relative w-fit">
       <div
-        className="flex items-center justify-between border-[1px]  border-black rounded py-1 px-1.5 cursor-pointer"
+        className="flex items-center justify-between border-1 border-black rounded py-1 px-1.5 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span>{activeItem?.title || defaultText}</span>
         <ChevronDownIcon className={` ${isOpen && "rotate-180"}`} />
       </div>
       {isOpen && itemsWithoutActive.length ? (
-        <div className="flex flex-col absolute top-full left-0 w-full bg-white border-[1px]  border-black rounded z-10 max-h-[110px] overflow-y-scroll">
+        <div className="flex flex-col absolute top-full left-0 w-full bg-white border-1 border-black rounded z-10 max-h-[110px] overflow-y-scroll">
           {itemsWithoutActive.map((item) => (
             <div
               key={item.id}

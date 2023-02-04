@@ -60,7 +60,7 @@ export default function CategoriesList({ categories }: Props) {
   };
 
   return (
-    <div className="flex flex-col border-[1px]  border-bGrayLight rounded-lg overflow-hidden mb-2.5">
+    <div className="flex flex-col border-1 border-bGrayLight rounded-lg overflow-hidden mb-2.5">
       <div className="group grid grid-cols-bCategoryGrid border-b-2 border-b-solid border-b-bGray bg-white relative">
         <div className="flex items-center justify-center p-1 border-r-[1px] border-r-solid border-r-bGrayLight">
           <Checkbox
@@ -71,7 +71,7 @@ export default function CategoriesList({ categories }: Props) {
         <div className={headerCellStyles}>Name</div>
         <div className={headerCellStyles}>Color</div>
         {checkList.length === categories.length ? (
-          <div className="hidden absolute top-1/2 right-2.5 -translate-y-1/2 border-[1px]  border-bGrayLight rounded-lg overflow-hidden group-hover:flex">
+          <div className="hidden absolute top-1/2 right-2.5 -translate-y-1/2 border-1 border-bGrayLight rounded-lg overflow-hidden group-hover:flex">
             <DeleteIcon
               width={24}
               height={24}
@@ -146,7 +146,7 @@ const RowActions = ({ category }: RowActionsProps) => {
 
   return (
     <>
-      <div className="hidden absolute top-1/2 right-2.5 -translate-y-1/2  border-[1px]  border-bGrayLight rounded-lg overflow-hidden group-hover:flex">
+      <div className="hidden absolute top-1/2 right-2.5 -translate-y-1/2 border-1 border-bGrayLight rounded-lg overflow-hidden group-hover:flex">
         <PenIcon
           width={24}
           height={24}

@@ -47,7 +47,7 @@ export default function Requests() {
             ))}
           </ul>
           <Button
-            className="text-lg py-1.5 px-2.5 max-w-[150px] rounded-lg border-[1px]  border-bBrown bg-bBrown cursor-pointer mx-auto"
+            className="text-lg py-1.5 px-2.5 max-w-[150px] rounded-lg border-1 border-bBrown bg-bBrown cursor-pointer mx-auto"
             onClick={handleIncreaseLimit}
             isLoading={isFetching}
           >

@@ -53,7 +53,7 @@ export default function Posts({
           </div>
           {showLoadMore ? (
             <Button
-              className="text-lg !py-1 !sm:py-2.5 px-5 max-w-[150px] rounded-lg border-[1px]  border-bBrown bg-bBrown cursor-pointer"
+              className="text-lg !py-1 !sm:py-2.5 px-5 max-w-[150px] rounded-lg border-1 border-bBrown bg-bBrown cursor-pointer"
               onClick={handleIncreaseLimit}
               isLoading={isLoadMoreLoading}
             >

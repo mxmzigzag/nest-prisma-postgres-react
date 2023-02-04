@@ -39,17 +39,6 @@ const config: Configuration = {
         test: /\.css$/i,
         use: ["style-loader", "css-loader", "postcss-loader"],
       },
-      // {
-      //   test: /\.s[ac]ss$/i,
-      //   use: [
-      //     // Creates `style` nodes from JS strings
-      //     "style-loader",
-      //     // Translates CSS into CommonJS
-      //     "css-loader",
-      //     // Compiles Sass to CSS
-      //     "sass-loader",
-      //   ],
-      // },
       {
         test: /\.(png|jpg|jpeg|webp|gif)$/,
         use: [
@@ -66,7 +55,7 @@ const config: Configuration = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, "dist", "index.html"),
+      template: path.join(__dirname, "public", "index.html"),
     }),
     new HotModuleReplacementPlugin(),
     new ForkTsCheckerWebpackPlugin({

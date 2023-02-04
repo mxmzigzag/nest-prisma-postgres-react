@@ -65,7 +65,7 @@ export default function Comment({ comment }: Props) {
 
   return (
     <div className="flex flex-col items-end">
-      <div className="flex flex-col py-2.5 px-4 mb-4 border-[1px]  border-black rounded-lg w-full bg-white">
+      <div className="flex flex-col py-2.5 px-4 mb-4 border-1 border-black rounded-lg w-full bg-white">
         <div className="flex items-center justify-between">
           <span className="text-lg text-bBrown">{comment.user.username}</span>
           <span className="text-base text-bGrayLight">

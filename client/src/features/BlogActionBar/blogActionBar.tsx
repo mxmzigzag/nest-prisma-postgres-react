@@ -69,7 +69,7 @@ export default function BlogActionBar() {
   };
 
   return (
-    <div className="flex items-center justify-between border-[1px]  border-black rounded-full bg-bGrayLight w-full max-w-[700px] mx-auto mb-5">
+    <div className="flex items-center justify-between border-1 border-black rounded-full bg-bGrayLight w-full max-w-[700px] mx-auto mb-5">
       {!isOpen && (
         <>
           <div className={actionBarItemStyles}>

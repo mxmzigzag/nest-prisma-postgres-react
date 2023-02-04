@@ -31,6 +31,9 @@ module.exports = {
         bRequestGrid: "0.1fr 1fr 0.4fr 0.4fr 0.05fr",
         bCategoryGrid: "0.1fr 1fr 1fr",
       },
+      borderWidth: {
+        1: "1px",
+      },
     },
   },
   plugins: [],

@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const baseInputStyles =
-  "text-lg border-[1px]  border-bInputBorder rounded-lg outline-0 py-1 px-4";
+  "text-lg border-1 border-bInputBorder rounded-lg outline-0 py-1 px-4";
 
 export default function TextInput({
   name,
