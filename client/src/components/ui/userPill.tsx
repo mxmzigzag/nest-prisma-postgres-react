@@ -20,7 +20,7 @@ export default function UserPill({ handleCloseMobMenu }: Props) {
     >
       <div className="flex items-center rounded-[50px] bg-bBrown">
         {isAuth && user ? (
-          <div className="flex flex-col items-center py-1.5 pl-3 pr-1">
+          <div className="flex flex-col items-center py-1.5 pl-5 pr-2.5">
             <span className="text-sm leading-none">{user.username}</span>
             <div className="w-full h-[1px] bg-black my-1"></div>
             <span className="text-xs leading-none">{user.role}</span>
