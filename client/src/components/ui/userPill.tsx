@@ -29,7 +29,7 @@ export default function UserPill({ handleCloseMobMenu }: Props) {
         <div className="rounded-full overflow-hidden border-1 border-black leading-[0px] p-2">
           {user?.avatar ? (
             <img
-              src={`http://localhost:5000/${user.avatar}`}
+              src={`${process.env.APP_URL}/${user.avatar}`}
               alt="avatar"
               className="max-w-[30px]"
             />

@@ -53,7 +53,7 @@ const Slide = ({ id, title, image, description, categoryId }: Slide) => {
     <NavLink to={`post/${id}`} className="w-1/5">
       <div
         className={slideStyles}
-        style={{ backgroundImage: `url(http://localhost:5000/${image})` }}
+        style={{ backgroundImage: `url(${process.env.APP_URL}/${image})` }}
       >
         <div className="mt-auto z-10">
           {isLoading || !category ? null : (

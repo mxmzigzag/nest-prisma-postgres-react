@@ -35,7 +35,7 @@ export default function PostCard({
           : ""
       }`}
       style={{
-        backgroundImage: `url(http://localhost:5000/${image})`,
+        backgroundImage: `url(${process.env.APP_URL}/${image})`,
       }}
     >
       {tags ? <PostTags tags={tags} /> : null}

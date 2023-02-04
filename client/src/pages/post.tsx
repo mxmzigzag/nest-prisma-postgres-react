@@ -72,7 +72,7 @@ export default function Post() {
           <div
             className="w-full min-h-[40vh] bg-cover flex flex-col items-center justify-between p-5 relative before:absolute before:inset-0 before:bg-black before:opacity-30"
             style={{
-              backgroundImage: `url(http://localhost:5000/${post.image})`,
+              backgroundImage: `url(${process.env.APP_URL}/${post.image})`,
             }}
           >
             <div className="flex items-center justify-between w-full mb-6 z-10">

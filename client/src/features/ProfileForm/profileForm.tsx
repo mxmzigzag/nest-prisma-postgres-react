@@ -92,7 +92,7 @@ export default function ProfileForm({ userData }: Props) {
         >
           {formState.avatar ? (
             <img
-              src={`http://localhost:5000/${formState.avatar}`}
+              src={`${process.env.APP_URL}/${formState.avatar}`}
               alt="avatar"
             />
           ) : (
