@@ -17,7 +17,7 @@ export default function SearchInput() {
       <input
         type="text"
         placeholder="Search for some post..."
-        className="border-[1px] border-solid border-bGray rounded py-1 pr-11 pl-2.5 outline-0"
+        className="border-[1px] border-bGray rounded py-1 pr-11 pl-2.5 outline-0"
         value={value}
         onChange={handleChange}
       />

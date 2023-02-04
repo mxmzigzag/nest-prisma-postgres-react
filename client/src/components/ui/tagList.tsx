@@ -39,7 +39,7 @@ export default function TagList() {
   return (
     <div className="relative w-full" ref={listRef}>
       <button
-        className="font-serif color-black text-medium px-4 text-xl bg-none border-0 w-full cursor-pointer"
+        className="font-serif color-black text-medium px-0 sm:px-4 text-sm sm:text-xl bg-none border-0 w-full cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         Tags
@@ -55,13 +55,13 @@ export default function TagList() {
             <input
               value={searchInput}
               onChange={handleChangeSearchInput}
-              className="border-0 border-b-[1px] border-b-solid border-b-black py-1 pr-5 pl-1 outline-0 w-full"
+              className="border-0 border-b-[1px] border-b-solid border-b-black py-0 sm:py-1 pr-5 pl-1 outline-0 w-full"
             />
           </div>
           {filteredTags.slice(0, TAGS_LIMIT).map((tag) => (
             <button
               key={tag.id}
-              className={`text-base py-1 px-2 border-0 bg-none cursor-pointer hover:bg-bGrayLight ${
+              className={`text-xxs sm:text-base py-0.5 sm:py-1 px-2 border-0 bg-none cursor-pointer hover:bg-bGrayLight ${
                 tags.includes(tag.id) ? "bg-bBrown" : ""
               }`}
               onClick={() => handleSelect(tag.id)}

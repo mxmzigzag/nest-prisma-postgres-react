@@ -37,7 +37,7 @@ const PostsGrid = () => {
   ) : (
     <Posts
       posts={postsData.posts}
-      gridColNum={3}
+      gridStyles={`grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 w-full mb-6`}
       handleIncreaseLimit={handleIncreaseLimit}
       isLoadMoreLoading={isFetching}
       showLoadMore={postsData.posts.length < postsData.totalCount}

@@ -9,7 +9,7 @@ import { useGetAllCategoriesQuery } from "../../store/api/category.api";
 import { getBlogCategory, setCategory } from "../../store/slice/blog.slice";
 
 const listItem =
-  "text-base py-1 px-2 border-0 bg-none cursor-pointer hover:bg-bGrayLight";
+  "text-xxs sm:text-base py-0.5 sm:py-1 px-2 border-0 bg-none cursor-pointer hover:bg-bGrayLight";
 
 export default function CategoryList() {
   const { pathname } = useLocation();
@@ -32,7 +32,7 @@ export default function CategoryList() {
   return (
     <div className="relative" ref={listRef}>
       <button
-        className="font-serif	color-black font-medium px-4 text-xl bg-none border-0 cursor-pointer"
+        className="font-serif	color-black font-medium px-0 sm:px-4 text-sm sm:text-xl bg-none border-0 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         Category

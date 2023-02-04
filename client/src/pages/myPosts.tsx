@@ -54,7 +54,7 @@ const MyPostsGrid = ({ userId }: MyPostsGrid) => {
   ) : (
     <Posts
       posts={postsData.posts}
-      gridColNum={3}
+      gridStyles={`grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 w-full mb-6`}
       handleIncreaseLimit={handleIncreaseLimit}
       isLoadMoreLoading={limit > postsData.posts.length}
       isUserPosts={true}

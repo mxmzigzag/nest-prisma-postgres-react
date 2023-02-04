@@ -27,7 +27,7 @@ export default function Upload({ label, name, value, setValue, error }: Props) {
           </p>
           <label
             htmlFor={name}
-            className={`flex border-2 border-solid border-black rounded-xl p-1 cursor-pointer ${
+            className={`flex border-2  border-black rounded-xl p-1 cursor-pointer ${
               value && "border-bGreen"
             }`}
           >

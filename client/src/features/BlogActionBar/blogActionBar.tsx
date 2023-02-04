@@ -16,15 +16,17 @@ import TagList from "../../components/ui/tagList";
 
 import SearchIcon from "../../assets/svg/search";
 import ChevronDownIcon from "../../assets/svg/chevronDown";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const actionBarItemStyles =
-  "flex items-center justify-center py-1 px-2.5 border-r-[1px] border-r-solid border-r-black w-full";
+  "flex items-center justify-center py-1 px-1 sm:px-2.5 border-r-[1px] border-r-solid border-r-black w-full";
 const actionBarItemBtnStyles =
-  "flex items-center font-serif color-black text-xl text-medium px-4 bg-none border-0 cursor-pointer";
+  "flex items-center font-serif color-black text-sm sm:text-xl text-medium px-0 sm:px-4 bg-none border-0 cursor-pointer";
 const actionBarSearchStyles =
-  "flex items-center py-0.5 pr-2.5 pl-1 cursor-pointer";
+  "flex items-center py-0 sm:py-0.5 pr-2.5 pl-1 cursor-pointer";
 
 export default function BlogActionBar() {
+  const { width } = useWindowSize();
   const dispatch = useDispatch();
   const popularSort = useSelector(getPopularSort);
   const dateSort = useSelector(getDateSort);
@@ -67,7 +69,7 @@ export default function BlogActionBar() {
   };
 
   return (
-    <div className="flex items-center justify-between border-[1px] border-solid border-black rounded-full bg-bGrayLight w-full max-w-[700px] mx-auto mb-5">
+    <div className="flex items-center justify-between border-[1px]  border-black rounded-full bg-bGrayLight w-full max-w-[700px] mx-auto mb-5">
       {!isOpen && (
         <>
           <div className={actionBarItemStyles}>
@@ -119,7 +121,11 @@ export default function BlogActionBar() {
             className="text-base w-full my-[3px] mx-2.5 pt-[1px] px-1 bg-transparent border-0 border-b-[1px] border-b-solid border-b-black outline-0"
           />
         )}
-        <SearchIcon width={26} height={26} onClick={handleClickOnSearch} />
+        <SearchIcon
+          width={width <= 550 ? 20 : 26}
+          height={width <= 550 ? 20 : 26}
+          onClick={handleClickOnSearch}
+        />
       </div>
     </div>
   );

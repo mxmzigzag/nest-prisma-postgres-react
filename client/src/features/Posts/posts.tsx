@@ -12,7 +12,7 @@ import Button from "../../components/ui/button";
 
 type Props = {
   posts: Partial<Post>[];
-  gridColNum?: number;
+  gridStyles?: string;
   showLoadMore?: boolean;
   isLoadMoreLoading?: boolean;
   isUserPosts?: boolean;
@@ -21,7 +21,7 @@ type Props = {
 
 export default function Posts({
   posts,
-  gridColNum = 4,
+  gridStyles = "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 w-full mb-6",
   showLoadMore = true,
   isLoadMoreLoading = false,
   isUserPosts = false,
@@ -34,10 +34,7 @@ export default function Posts({
     <div className="flex flex-col items-center">
       {posts.length ? (
         <>
-          <div
-            className={`grid grid-cols-4 gap-5 w-full mb-6`}
-            style={{ gridTemplateColumns: `repeat(${gridColNum}, 1fr)` }}
-          >
+          <div className={gridStyles}>
             {posts.map((post) => (
               <PostCard
                 key={post.id}
@@ -56,7 +53,7 @@ export default function Posts({
           </div>
           {showLoadMore ? (
             <Button
-              className="text-lg py-2.5 px-5 max-w-[150px] rounded-lg border-[1px] border-solid border-bBrown bg-bBrown cursor-pointer"
+              className="text-lg !py-1 !sm:py-2.5 px-5 max-w-[150px] rounded-lg border-[1px]  border-bBrown bg-bBrown cursor-pointer"
               onClick={handleIncreaseLimit}
               isLoading={isLoadMoreLoading}
             >

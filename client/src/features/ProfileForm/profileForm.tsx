@@ -88,7 +88,7 @@ export default function ProfileForm({ userData }: Props) {
       <div className="flex justify-center w-full mb-4">
         <label
           htmlFor="avatar"
-          className="flex rounded-full overflow-hidden bg-white border-2 border-solid border-black p-2.5 cursor-pointer"
+          className="flex rounded-full overflow-hidden bg-white border-2  border-black p-2.5 cursor-pointer"
         >
           {formState.avatar ? (
             <img
