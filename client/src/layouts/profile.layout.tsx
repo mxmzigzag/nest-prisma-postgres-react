@@ -8,6 +8,7 @@ import { useGetNumberOfUnansweredQuery } from "../store/api/request.api";
 
 import { errorToast } from "../components/ui/toast";
 import Button from "../components/ui/button";
+import useWindowSize from "../hooks/useWindowSize";
 
 type Props = {
   title: string;
@@ -24,6 +25,7 @@ export default function ProfileLayout({
 }: Props) {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const { isMob } = useWindowSize();
 
   const { data: requestNotifications } = useGetNumberOfUnansweredQuery();
 
@@ -78,16 +80,18 @@ export default function ProfileLayout({
 
   if (!user) return null;
   return (
-    <div className="flex flex-1 w-full max-w-[1200px] mx-auto px-6">
-      <ul className="flex flex-col w-[200px] border-r-[1px] border-r-solid border-r-black py-6 pr-4 list-none">
+    <div className="flex flex-1 flex-col lg:flex-row w-full max-w-[1200px] mx-auto px-4 lg:px-6">
+      <ul className="flex flex-row lg:flex-col lg:w-[200px] lg:border-r-[1px] lg:border-r-black py-2.5 lg:py-6 lg:pr-4 list-none overflow-x-auto">
         {navItems
           .filter((item) => item.allowedRoles.includes(user.role))
           .map((item) => (
-            <li key={item.id} className="py-2.5 pr-2.5">
+            <li key={item.id} className="py-2.5 pr-2.5 last:pr-0 relative">
               <NavLink
                 to={item.link}
                 className={({ isActive }) =>
-                  `"text-black text-lg relative" ${isActive && "!underline"}`
+                  `"text-black text-lg whitespace-nowrap relative" ${
+                    isActive && "!underline"
+                  }`
                 }
               >
                 {item.name}{" "}
@@ -99,15 +103,20 @@ export default function ProfileLayout({
               </NavLink>
             </li>
           ))}
-        <li className="mt-auto">
-          <Button onClick={handleLogout}>Logout</Button>
-        </li>
+        {!isMob && (
+          <li className="mt-auto">
+            <Button onClick={handleLogout}>Logout</Button>
+          </li>
+        )}
       </ul>
-      <div className="flex flex-col w-full p-6">
+      <div className="flex flex-col w-full lg:p-6">
         <div className="flex item-center justify-between mb-6">
           <h2 className="text-3xl">{title}</h2>
           {btnTitle ? (
-            <Button onClick={btnOnClick} className="max-w-[200px]">
+            <Button
+              onClick={btnOnClick}
+              className="max-w-[150px] lg:max-w-[200px]"
+            >
               {btnTitle}
             </Button>
           ) : null}

@@ -1,16 +1,22 @@
 import React, { useCallback, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import Hamburger from "hamburger-react";
 
+import { useAuth } from "../../hooks/useAuth";
+import useWindowSize from "../../hooks/useWindowSize";
+
+import { errorToast } from "./toast";
 import UserPill from "./userPill";
 import CategoryList from "./categoryList";
+import Button from "./button";
 
 import Logo from "../../assets/svg/logo";
-import useWindowSize from "../../hooks/useWindowSize";
-import Hamburger from "hamburger-react";
 
 export const headerLink = "no-underline color-black px-4 text-xl";
 
 export default function Header() {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
   const { isMob } = useWindowSize();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -22,6 +28,15 @@ export default function Header() {
   const handleCloseMobMenu = useCallback(() => {
     if (isMob) setIsOpen(false);
   }, [isMob]);
+
+  const handleLogout = async () => {
+    try {
+      const data = await logout();
+      if (data) navigate("/");
+    } catch (err: any) {
+      errorToast(err.message);
+    }
+  };
 
   return (
     <div
@@ -53,6 +68,7 @@ export default function Header() {
             >
               <UserPill handleCloseMobMenu={handleCloseMobMenu} />
               <NavList isMob={isMob} handleCloseMobMenu={handleCloseMobMenu} />
+              <Button onClick={handleLogout}>Logout</Button>
             </div>
           </div>
         ) : (

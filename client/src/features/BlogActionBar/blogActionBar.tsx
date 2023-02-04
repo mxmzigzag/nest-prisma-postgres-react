@@ -26,7 +26,7 @@ const actionBarSearchStyles =
   "flex items-center py-0 sm:py-0.5 pr-2.5 pl-1 cursor-pointer";
 
 export default function BlogActionBar() {
-  const { width } = useWindowSize();
+  const { isMob } = useWindowSize();
   const dispatch = useDispatch();
   const popularSort = useSelector(getPopularSort);
   const dateSort = useSelector(getDateSort);
@@ -122,8 +122,8 @@ export default function BlogActionBar() {
           />
         )}
         <SearchIcon
-          width={width <= 550 ? 20 : 26}
-          height={width <= 550 ? 20 : 26}
+          width={isMob ? 20 : 26}
+          height={isMob ? 20 : 26}
           onClick={handleClickOnSearch}
         />
       </div>
