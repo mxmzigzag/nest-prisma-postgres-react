@@ -88,9 +88,11 @@ export default function Post() {
               <h1 className="text-[42px] text-center mb-4">{post.title}</h1>
               <h3 className="text-lg text-center mb-2.5">{post.description}</h3>
             </div>
-            <div className="flex items-center justify-between max-w-[300px] w-full mt-6 text-white z-10">
-              <div className="text-white text-lg">{post.author.username}</div>
-              <div className="flex items-center">
+            <div className="flex items-center justify-center sm:justify-between max-w-[300px] w-full mt-6 text-white z-10">
+              <div className="text-white text-lg mx-1.5">
+                {post.author.username}
+              </div>
+              <div className="flex items-center mx-1.5">
                 <ViewsIcon />
                 <span className="ml-1">{post.viewsCount}</span>
               </div>
