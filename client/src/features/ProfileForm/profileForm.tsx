@@ -142,7 +142,7 @@ export default function ProfileForm({ userData }: Props) {
       />
       <Button
         type="submit"
-        className="w-full max-w-[150px] ml-auto"
+        className="w-full lg:max-w-[150px] lg:ml-auto"
         isLoading={isLoading}
       >
         Save

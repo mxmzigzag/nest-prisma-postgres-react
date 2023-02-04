@@ -36,7 +36,7 @@ export default function InputGroup({
     <div
       className={`${inputGroupStyles} ${
         !fullWidth
-          ? "w-1/2 [&:nth-child(2n)]:pr-4 [&:nth-child(2n-1)]:pl-4"
+          ? "w-full lg:w-1/2 lg:[&:nth-child(2n)]:pr-4 lg:[&:nth-child(2n-1)]:pl-4"
           : ""
       } ${className}`}
     >

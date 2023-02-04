@@ -80,7 +80,7 @@ export default function ProfileLayout({
 
   if (!user) return null;
   return (
-    <div className="flex flex-1 flex-col lg:flex-row w-full max-w-[1200px] mx-auto px-4 lg:px-6">
+    <div className="flex flex-1 flex-col lg:flex-row w-full max-w-[1200px] mx-auto px-4 pb-4 lg:px-6">
       <ul className="flex flex-row lg:flex-col lg:w-[200px] lg:border-r-[1px] lg:border-r-black py-2.5 lg:py-6 lg:pr-4 list-none overflow-x-auto">
         {navItems
           .filter((item) => item.allowedRoles.includes(user.role))
