@@ -9,7 +9,7 @@ import Loader from "../components/ui/loader";
 import Request from "../features/Requests/components/request";
 import Button from "../components/ui/button";
 
-export default function Requests() {
+function RequestsPage() {
   const [limit, setLimit] = useState<number>(5);
   const {
     data: requestsData = [],
@@ -60,3 +60,5 @@ export default function Requests() {
     </ProfileLayout>
   );
 }
+
+export default RequestsPage;

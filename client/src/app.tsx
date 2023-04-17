@@ -19,14 +19,14 @@ import Category from "./pages/category";
 import Footer from "./components/ui/footer";
 import AllPosts from "./pages/allPosts";
 import AllUsers from "./pages/allUsers";
-import Requests from "./pages/requests";
 import Categories from "./pages/categories";
 import Post from "./pages/post";
+import About from "./pages/about";
+import Contact from "./pages/contact";
+import RequestsPage from "./pages/requestsPage";
 
 import AddPostBtn from "./components/ui/addPostBtn";
 import BannedNotification from "./features/BannedNotification/bannedNotification";
-import About from "./pages/about";
-import Contact from "./pages/contact";
 
 export default function App() {
   const { user } = useAuth();
@@ -76,7 +76,7 @@ export default function App() {
               path="/admin/requests"
               element={
                 <ProtectedRoute isAllowed={Boolean(user) && isAdmin}>
-                  <Requests />
+                  <RequestsPage />
                 </ProtectedRoute>
               }
             />
