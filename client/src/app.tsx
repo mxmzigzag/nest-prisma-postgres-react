@@ -19,9 +19,9 @@ import Category from "./pages/category";
 import Footer from "./components/ui/footer";
 import AllPosts from "./pages/allPosts";
 import AllUsers from "./pages/allUsers";
+import Requests from "./pages/requests";
 import Categories from "./pages/categories";
 import Post from "./pages/post";
-import Requests from "./pages/requests";
 
 import AddPostBtn from "./components/ui/addPostBtn";
 import BannedNotification from "./features/BannedNotification/bannedNotification";
